@@ -9,5 +9,7 @@ class ApiList{
   static const activeUser="/api/delivery-person/active_inactive";
   static const acceptedOrder="/api/delivery-person/accept-assigned-order";
   static const orders="/api/delivery-person/accept-assigned-order";
+  static const updateLocation="/api/delivery-person/update-current-location";
+  static const assignOrderToDiver="/api/delivery-person/assign-order-to-delivery-person";
 
 }
