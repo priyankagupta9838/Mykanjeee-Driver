@@ -128,26 +128,22 @@ class _AccountDetails2State extends State<AccountDetails2> {
                           panController.text = uppercaseValuePan;
                           String panRegex = r"^[A-Z]{5}[0-9]{4}[A-Z]$";
                           final regExp = RegExp(panRegex);
-                          if (regExp.hasMatch(uppercaseValuePan.toString())) {
-                            panValidation=true;
-                           // panValidation = false;
+                          if (!regExp.hasMatch(uppercaseValuePan.toString())) {
+                            panValidation = false;
                             setState(() {});
                           } else {
-                            panValidation = false;
-                            setState(() {
-
+                            ValidationApi()
+                                .validatePanNumber(value.toString(), userRegisterData["firstName"].toString(), userRegisterData["lastName"].toString(), userRegisterData["dob"].toString())
+                                .then((value) {
+                              if (value == true) {
+                                panValidation = true;
+                                setState(() {});
+                              } else {
+                                UtilityFunctions().errorToast("Please check your Name and DOB it should be as per pan card*");
+                                panValidation = false;
+                                setState(() {});
+                              }
                             });
-                            // ValidationApi()
-                            //     .validatePanNumber(value.toString())
-                            //     .then((value) {
-                            //   if (value == true) {
-                            //     panValidation = true;
-                            //     setState(() {});
-                            //   } else {
-                            //     panValidation = false;
-                            //     setState(() {});
-                            //   }
-                            // });
                           }
                         },
                         decoration: InputDecoration(
@@ -256,9 +252,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                         controller: adharController,
                         obscureText: false,
                         onChanged: (value) {
-                          String panRegex =
-                              r'^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$';
-                          //r'^[2-9]{1}[0-9]{3}\s[0-9]{4}\s[0-9]{4}$';
+                          String panRegex = r'^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$';
                           final regExp = RegExp(panRegex);
                           if (!regExp.hasMatch(value.toString())) {
                             adharValidation = false;
@@ -389,36 +383,6 @@ class _AccountDetails2State extends State<AccountDetails2> {
                       child: TextField(
                         controller: drivingLicenceController,
                         obscureText: false,
-                        // onChanged: (value) {
-                        //   String uppercaseValueGst = value.toUpperCase();
-                        //   gstinController.text = uppercaseValueGst;
-                        //   setState(() {
-                        //
-                        //   });
-                        //   String panRegex =
-                        //       r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9A-Za-z]{1}$';
-                        //   final regExp = RegExp(panRegex);
-                        //   if (!regExp.hasMatch(uppercaseValueGst.toString())) {
-                        //     if(gstinController.text.trim().isNotEmpty){
-                        //       gstinValidation = false;
-                        //       setState(() {});
-                        //     }
-                        //     else{
-                        //       gstinValidation = true;
-                        //       setState(() {});
-                        //     }
-                        //
-                        //   }
-                        //   else {
-                        //     ValidationApi()
-                        //         .validateGstNumber(value.toString())
-                        //         .then((isValid) {
-                        //       setState(() {
-                        //         gstinValidation = isValid;
-                        //       });
-                        //     });
-                        //   }
-                        // },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: size.height*0.0001,left:size.width*0.035),
                           error: AutoSizeText(
@@ -567,6 +531,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                                   if (value == "success") {
                                     buttonClicked = false;
                                     userRegisterData.clear();
+                                    UtilityFunctions().successToast("Account Created Successfully.");
                                     Navigator.pushReplacementNamed(context, RoutesName.detailSaved);
                                   }
                                   else {

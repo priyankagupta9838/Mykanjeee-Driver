@@ -14,14 +14,12 @@ class Authentication{
   Future<String> postDriverDetails() async {
     String result="";
     final box = GetStorage();
-    String userId=box.read("user_id").toString();
     String url=ApiList.baseUrl +ApiList.registerDriver;
     var request = http.MultipartRequest('POST', Uri.parse(url),);
 
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
     request.headers["Accept"]="*/*";
     // Add text fields to the request
-    //request.fields['user_id'] = userId;
     request.fields['name'] =  userRegisterData["name"];
     request.fields['email'] = userRegisterData["email"];
     request.fields['password'] =  userRegisterData["password"];
@@ -60,10 +58,14 @@ class Authentication{
       print("responce data is $responseData");
       if (responseData["status"]=="success") {
         result="success";
+        print("Successs.......");
       } else {
+
         result=responseData["message"];
+        print("fail.......$result");
       }
     } catch (error) {
+      print("error......$error");
       result="something went wrong";
     }
 
@@ -102,14 +104,14 @@ class Authentication{
 
       var result = jsonDecode(response.body);
       print('Login response: $result');
-
+         print("${(result["status"])}");
       if (result["status"] == "success") {
         final box = GetStorage();
-        box.remove("UserToken");
-        box.write("UserToken", result["token"]);
-        box.write("refreshToken", result["refreshToken"]);
+        box.write("UserToken", result["data"]["access_token"]);
+        box.write("refreshToken", result["data"]["refresh_token"]);
+        userToken= box.read("UserToken");
+        print("Usertoken is $userToken");
         loginValue = "success";
-        userToken=result["token"];
       } else {
         loginValue = result["message"];
       }

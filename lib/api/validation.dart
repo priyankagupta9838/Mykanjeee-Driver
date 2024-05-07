@@ -4,13 +4,22 @@ import 'package:mykanjeedriver/api/apilist.dart';
 import 'package:http/http.dart'as http;
 
 class ValidationApi{
-  Future<bool> validatePanNumber(String panNumber) async {
+
+
+
+  Future<bool> validatePanNumber(String panNumber,String firstname,String lastname,String dob) async {
     var apiUrl = '${ApiList.baseUrl}/api/auth/verify-pan-number';
 
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
-        body: {'pan': panNumber},
+        body: {
+          'pan': panNumber,
+          "name": firstname.toString()+lastname.toString(),
+          "dob": dob.toString()
+
+
+        },
       );
 
       if (response.statusCode == 200) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:intl/intl.dart';
 
 import '../constrant.dart';
 import '../routes/routesname.dart';
@@ -20,6 +21,7 @@ class UserRegistrationProfile extends StatefulWidget {
 class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
   TextEditingController firstNameController=TextEditingController();
   TextEditingController lastNameController=TextEditingController();
+  TextEditingController dobController=TextEditingController();
   TextEditingController mobileNumberController=TextEditingController();
   TextEditingController alternativeMobileNumberController=TextEditingController();
   TextEditingController emailController=TextEditingController();
@@ -262,8 +264,106 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
                 ),
               ),
               SizedBox(
-                height: size.height*0.022,
+                height: size.height*0.01,
               ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText("Date of Birth*",
+                    style:GoogleFonts.openSans(
+                        color: Colors.black,
+                        fontSize:  size.height*0.018,
+                        fontWeight: FontWeight.w600
+                    ) ,
+                  ),
+                  SizedBox(
+                    height: size.height*0.01,
+                  ),
+                  SizedBox(
+                    height: size.height*0.083,
+                    width: size.width*0.9,
+                    child:  GestureDetector(
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(3000));
+                        if (pickedDate != null) {
+                          String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                          setState(() {
+                            dobController.text=formattedDate;
+                          });
+
+
+                        } else {}
+                      },
+                      child: TextField(
+                        controller: dobController,
+                        enableSuggestions: true,
+                        readOnly: true,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: size.height*0.02,
+                        ),
+                        enabled: false,
+                        decoration: InputDecoration(
+                            error: AutoSizeText(""
+                                "Name and DOB should be as per pan card*",
+                              maxLines: 1,
+                              style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black87,
+                                fontSize: size.height*0.013,
+                              ),
+                            ),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(size.width*0.02)),
+                                borderSide:   const BorderSide(
+                                    color:
+                                    Colors.black54,
+                                    width: 1
+                                )
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(size.width*0.02)),
+                                borderSide:   const BorderSide(
+                                    color:
+                                    Colors.black54,
+                                    width: 1
+                                )
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(size.width*0.02)),
+                                borderSide:   const BorderSide(
+                                    color:
+                                    Colors.black54,
+                                    width: 1
+                                )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(size.width*0.02)),
+                                borderSide:   const BorderSide(
+                                    color:
+                                    Colors.black54,
+                                    width: 1
+                                )
+                            ),
+                            hintText: "YY/MM/DD",
+                            contentPadding: EdgeInsets.all(size.height*0.01)
+                        ),
+                        textAlign: TextAlign.start,
+
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height*0.01,
+                  ),
+                ],
+              ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -740,12 +840,13 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
 
 
                     if(
-                    firstNameController.text.trim().toString().isNotEmpty && mobileNumberController.text.trim().toString().isNotEmpty &&
+                    firstNameController.text.trim().toString().isNotEmpty && dobController.text.isNotEmpty && mobileNumberController.text.trim().toString().isNotEmpty &&
                         emailController.text.trim().toString().isNotEmpty && address1Controller.text.trim().toString().isNotEmpty &&
                         cityController.text.trim().toString().isNotEmpty && pinCode1Controller.text.trim().toString().isNotEmpty && emailValidation && validMobile && (alternativeMobileNumberController.text.trim().toString().isEmpty || (alternativeMobileNumberController.text.trim().toString().isNotEmpty && validAltMobile)) && pinValidation
                     ){
                       userRegisterData["firstName"]=firstNameController.text;
                       userRegisterData["lastName"]=lastNameController.text;
+                      userRegisterData["dob"]=dobController.text;
                       userRegisterData["mobileNumber"]=mobileNumberController.text;
                       userRegisterData["alternativeMobile"]=alternativeMobileNumberController.text;
                       userRegisterData["email"]=emailController.text;
