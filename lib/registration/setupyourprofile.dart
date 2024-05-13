@@ -42,18 +42,19 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
   void initState() {
     // TODO: implement initState
 
-    // if(userRegisterData.isNotEmpty){
-    //   firstNameController.text=userRegisterData['firstName']??"" ;
-    //   lastNameController.text=userRegisterData['lastName']??"";
-    //   mobileNumberController.text=userRegisterData['mobileNumber']??"";
-    //   alternativeMobileNumberController.text=userRegisterData['alternativeMobile']??"";
-    //   emailController.text= userRegisterData['email']??"";
-    //   address1Controller.text=userRegisterData['address1']??"";
-    //   city1Controller.text=userRegisterData['city1']??"";
-    //   pinCode1Controller.text= userRegisterData['pincode1']??"";
-    //
-    //
-    // }
+    if(userRegisterData.isNotEmpty){
+      firstNameController.text=userRegisterData['firstName']??"" ;
+      lastNameController.text=userRegisterData['lastName']??"";
+      dobController.text=userRegisterData["dob"]??"";
+      mobileNumberController.text=userRegisterData['mobileNumber']??"";
+      alternativeMobileNumberController.text=userRegisterData['alternativeMobile']??"";
+      emailController.text= userRegisterData['email']??"";
+      address1Controller.text=userRegisterData['address1']??"";
+      cityController.text=userRegisterData['city1']??"";
+      pinCode1Controller.text= userRegisterData['pincode1']??"";
+
+
+    }
 
     super.initState();
   }

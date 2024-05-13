@@ -1,12 +1,13 @@
 import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
-
 import '../api/checkout.dart';
+import '../routes/routesname.dart';
+
+
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({super.key});
@@ -47,61 +48,66 @@ class OrdersPage extends StatelessWidget {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 1,
+                        itemCount:data["data"].length,
                         itemBuilder:(context, index) {
 
-                          return  Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: size.height*0.11,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.all(Radius.circular(size.height*0.02))
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
+                          return  InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, RoutesName.orderDetail,arguments:data["data"][index]);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: size.height*0.11,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius: BorderRadius.all(Radius.circular(size.height*0.02))
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(width: size.width*0.03,),
-                                      const Icon(CupertinoIcons.gift,color: Colors.black87,),
-                                      SizedBox(width: size.width*0.03,),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          AutoSizeText(
-                                            "Order_ID-VEN001",
-                                            style: GoogleFonts.cabin(
-                                                color: Colors.black87
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(width: size.width*0.03,),
+                                        const Icon(CupertinoIcons.gift,color: Colors.black87,),
+                                        SizedBox(width: size.width*0.03,),
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AutoSizeText(
+                                              "Order_ID-${data['data'][index]["order_id"]}",
+                                              style: GoogleFonts.cabin(
+                                                  color: Colors.black87
+                                              ),
+
                                             ),
+                                            AutoSizeText(
+                                              "Order date and time",
+                                              style: GoogleFonts.cabin(
+                                                  color: Colors.black87
+                                              ),
 
-                                          ),
-                                          AutoSizeText(
-                                            "Order date and time",
-                                            style: GoogleFonts.cabin(
-                                                color: Colors.black87
-                                            ),
-
-                                          ),                ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      AutoSizeText(
-                                        "Status",
-                                        style: GoogleFonts.cabin(
-                                            color: Colors.black87
+                                            ),                ],
                                         ),
-                                      ),
-                                      SizedBox(width: size.width*0.03,),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        AutoSizeText(
+                                          "Status",
+                                          style: GoogleFonts.cabin(
+                                              color: Colors.black87
+                                          ),
+                                        ),
+                                        SizedBox(width: size.width*0.03,),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

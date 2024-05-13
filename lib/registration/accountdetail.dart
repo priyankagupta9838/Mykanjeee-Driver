@@ -1212,7 +1212,7 @@ class _AcountDetailState extends State<AccountDetail> {
 
                         ),
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                          //Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
 
                           // if(nameController.text.isNotEmpty && accountNumController.text.isNotEmpty && bankController.text.isNotEmpty && cityController.text.isNotEmpty && branchController.text.isNotEmpty && ifscController.text.isNotEmpty  && ifscValidation){
                           //   Map<String,dynamic>accountData={

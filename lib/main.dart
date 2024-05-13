@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mykanjeedriver/routes/routes.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,8 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-     // home: const LogInPage(),
-      initialRoute: RoutesName.login,
+      initialRoute: RoutesName.splashScreen,
       onGenerateRoute: Routes.generateRoutes,
     );
   }

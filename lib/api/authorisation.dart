@@ -13,13 +13,11 @@ class Authentication{
 
   Future<String> postDriverDetails() async {
     String result="";
-    final box = GetStorage();
     String url=ApiList.baseUrl +ApiList.registerDriver;
     var request = http.MultipartRequest('POST', Uri.parse(url),);
 
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
     request.headers["Accept"]="*/*";
-    // Add text fields to the request
     request.fields['name'] =  userRegisterData["name"];
     request.fields['email'] = userRegisterData["email"];
     request.fields['password'] =  userRegisterData["password"];
@@ -103,8 +101,7 @@ class Authentication{
       );
 
       var result = jsonDecode(response.body);
-      print('Login response: $result');
-         print("${(result["status"])}");
+
       if (result["status"] == "success") {
         final box = GetStorage();
         box.write("UserToken", result["data"]["access_token"]);
@@ -123,6 +120,33 @@ class Authentication{
       loginValue = "An error occurred.";
     }
 
+    return loginValue;
+  }
+
+
+  Future<String> getUser() async {
+    String loginValue = "";
+    await http.get(
+      Uri.parse(ApiList.getUser),
+      headers: {
+        "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    ).then((value) {
+      var response=json.decode(value.body);
+      if(response["message"]=="Session expired"){
+        loginValue="Session expired";
+      }
+      else if(response["status"]=="success"){
+        loginValue="success";
+        userModel=response["data"];
+      }
+
+    }).onError((error, stackTrace) {
+      print("Server Error..... ${error.toString()}");
+    });
     return loginValue;
   }
 

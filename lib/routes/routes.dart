@@ -12,14 +12,19 @@ import '../Authentication/otpVerification.dart';
 import '../Authentication/resetPassword.dart';
 import '../Authentication/resetPasswordWithEmail.dart';
 import '../navigationbar.dart';
+import '../orders/orderdetail.dart';
 import '../registration/accountdetail.dart';
 import '../registration/detailsavedpage.dart';
 import '../registration/docqumentverification.dart';
 import '../registration/setupyourprofile.dart';
+import '../screens/splashScreen.dart';
+import '../storagestreame.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     switch (settings.name) {
+      case RoutesName.splashScreen:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case RoutesName.login:
         return MaterialPageRoute(builder: (context) => const LogInPage());
       case RoutesName.loginWithPhoneNumber:
@@ -38,6 +43,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>  ProvideResetPassword(otp: '', username: '',));
       case RoutesName.resetOtpVerification:
         return MaterialPageRoute(builder: (context) => LoginWithOtpVerification(userName: ""));
+      case RoutesName.storageStream:
+        return MaterialPageRoute(builder: (context) =>const StorageStream());
       case RoutesName.navigationBar:
         return MaterialPageRoute(builder: (context) =>const Navigation());
       case RoutesName.userProfile:
@@ -50,6 +57,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>const DetailsSaved());
       case RoutesName.setUpAccountDetail:
         return MaterialPageRoute(builder: (context) =>const AccountDetail());
+      case RoutesName.orderDetail:
+        return MaterialPageRoute(builder: (context) => OrderDetail(data: settings.arguments as Map,));
 
 
       default:

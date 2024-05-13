@@ -226,40 +226,7 @@ class CheckOut{
   }
 
 
-  Future<String> activeUser(bool status, String lat, String long) async {
-    String responcValue = "";
-    Map data = {
-      "is_active": status,
-      "current_lat": lat,
-      "current_lng": long,
-    };
-    print(data);
 
-    String body = json.encode(data);
-    await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.activeUser),
-      body: body,
-      headers: {
-        "authorization":userToken,
-      },
-    ).then((value) {
-      print(value.body);
-      if (value.body != null) {
-        var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
-        } else {
-          responcValue=result["message"];
-        }
-      } else {
-        responcValue="null";
-        print("Error Occurred : Response body is null.");
-      }
-    }).onError((error, stackTrace) {
-      print("Server Error..... ${error.toString()}");
-    });
-    return responcValue;
-  }
 
 
 

@@ -14,7 +14,7 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   PageController pageController = PageController();
-  Color activeColor = Color.fromRGBO(174, 144, 194, 1);
+  Color activeColor = const Color.fromRGBO(174, 144, 194, 1);
   Color inactiveColor = Colors.black54;
   int currIndex = 0;
 
