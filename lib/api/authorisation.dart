@@ -75,6 +75,48 @@ class Authentication{
     return value;
   }
 
+  Future<String> verifyNewUser(String userId,String otp) async {
+    String loginValue = "";
+    Map data = {
+      "userId":userId,
+      "otp": otp,
+    };
+
+    String body = json.encode(data);
+    var url = ApiList.baseUrl+ApiList.loginWithOtpVerification;
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+      print("Result is ...$result");
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue = result["message"];
+      }
+    } on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue = "Please check your internet.";
+    } catch (e) {
+      print('Error: $e');
+      loginValue = "An error occurred.";
+    }
+
+    return loginValue;
+  }
+
+
+
+
   Future<String> postDriverDetails() async {
     String result="";
     final box = GetStorage();
@@ -86,7 +128,6 @@ class Authentication{
     request.headers["Accept"]="*/*";
     request.fields['userId'] = userId;
     request.fields['name'] =  userRegisterData["name"];
-   // request.fields['email'] = userRegisterData["email"];
     request.fields['password'] =  userRegisterData["password"];
     request.fields['phone'] = userRegisterData["mobileNumber"];
     request.fields['alt_phone'] = userRegisterData["alternativeMobile"];
@@ -219,7 +260,6 @@ class Authentication{
 
   Future<String> loginWithOtp(String email) async {
     String loginValue = "";
-       print("Callsed............");
     bool isPhoneNumber = false;
     if (email == null) {
       isPhoneNumber = false;
@@ -263,6 +303,52 @@ class Authentication{
   }
 
 
+  Future<String> loginWithOtpVerification(String email,String otp) async {
+    String loginValue = "";
+    bool isPhoneNumber = false;
+    if (email == null) {
+      isPhoneNumber = false;
+    } else {
+      isPhoneNumber = double.tryParse(email) != null;
+    }
+    Map data = {
+      "username": isPhoneNumber ? "91$email" : email,
+      "otp": otp,
+    };
+
+    String body = json.encode(data);
+    var url = ApiList.baseUrl+ApiList.loginWithOtpVerification;
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+      print("Result is ...$result");
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue = result["message"];
+      }
+    } on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue = "Please check your internet.";
+    } catch (e) {
+      print('Error: $e');
+      loginValue = "An error occurred.";
+    }
+
+    return loginValue;
+  }
+
+
   Future<String> forgotPassword(String email) async {
     String loginValue = "";
     print("forgotPassword............");
@@ -278,6 +364,54 @@ class Authentication{
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.loginWithOtp;
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+      print("Result is ...$result");
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue = result["message"];
+      }
+    } on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue = "Please check your internet.";
+    } catch (e) {
+      print('Error: $e');
+      loginValue = "An error occurred.";
+    }
+
+    return loginValue;
+  }
+
+  Future<String> forgotPasswordVerification(String email,String otp,String newPassword,String confirmPassword) async {
+    String loginValue = "";
+    print("Callsed............");
+    bool isPhoneNumber = false;
+    if (email == null) {
+      isPhoneNumber = false;
+    } else {
+      isPhoneNumber = double.tryParse(email) != null;
+    }
+    Map data = {
+      "username": isPhoneNumber ? "91$email" : email,
+      "otp": otp,
+      "new_password": newPassword,
+      "confirm_password": confirmPassword
+    };
+
+    String body = json.encode(data);
+    var url = ApiList.baseUrl+ApiList.newPassword;
 
     try {
       var response = await http.post(

@@ -5,9 +5,10 @@ class ApiList{
   static const registerDriver="/api/delivery-person/register-as-delivery-person";
   static const login="/api/delivery-person/login";
   static const loginWithOtp="/api/delivery-person/login-send-otp";
+  static const loginWithOtpVerification="/api/delivery-person/login-otp-verify";
   static const forgotPassword="/api/delivery-person/forgot-password";
   static const newPassword="/api/delivery-person/new-password";
-  static const loginWithOtpVerification="/api/delivery-person/login-otp-verify";
+
   static const getUser="/api/auth/get-user";
   static const rejectOrder="/api/delivery-person/reject-assigned-order";
   static const acceptOrder="/api/delivery-person/accept-assigned-order";

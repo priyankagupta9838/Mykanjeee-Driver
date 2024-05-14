@@ -3,11 +3,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import '../constrant.dart';
 import '../routes/routesname.dart';
-import 'SignUP-1.dart';
 import 'constraints.dart';
+
+
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
