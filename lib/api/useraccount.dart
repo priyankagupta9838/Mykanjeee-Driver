@@ -30,9 +30,10 @@ class UserAccount{
 
       if (value.body != null) {
         var result = jsonDecode(value.body);
+        print(result);
         if (result["status"].toString()== "success" ) {
-          print("active disactiv Occurred : Response body is null.${result["message"]}");
-          return result["status"].toString();
+
+          activeUser= result["message"].toString();
 
         } else {
            activeUser=result["status"].toString();

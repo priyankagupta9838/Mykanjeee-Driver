@@ -8,6 +8,7 @@ import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 
 import '../api/checkout.dart';
+import '../constrant.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,7 +35,12 @@ class HomePage extends StatelessWidget {
               ))
         ],
       ),
-      body: StreamBuilder(
+      body:
+
+      userModel["is_active"]==1
+          ?
+
+      StreamBuilder(
         stream: CheckOut().getOngoingOrders(),
         builder: (context, snapshot) {
           if(snapshot.hasData){
@@ -294,7 +300,19 @@ class HomePage extends StatelessWidget {
             );
           }
         },
-      ),
+      )
+
+          :
+      SizedBox(
+        height: size.height*1,
+        child: Center(
+          child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
+              fontWeight: FontWeight.w600,
+              fontSize: size.height*0.03
+          ),),
+        ),
+      )
+      ,
     );
   }
 }

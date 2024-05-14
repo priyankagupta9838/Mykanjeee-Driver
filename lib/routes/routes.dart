@@ -6,11 +6,11 @@ import 'package:mykanjeedriver/routes/routesname.dart';
 
 import '../Authentication/OtpResetScreen.dart';
 import '../Authentication/SignUp-2.dart';
-import '../Authentication/login with phone number.dart';
+import '../Authentication/loginwithotp.dart';
 import '../Authentication/loginOtpVerification.dart';
 import '../Authentication/otpVerification.dart';
 import '../Authentication/resetPassword.dart';
-import '../Authentication/resetPasswordWithEmail.dart';
+import '../Authentication/forgotPassword.dart';
 import '../navigationbar.dart';
 import '../orders/orderdetail.dart';
 import '../registration/accountdetail.dart';
@@ -27,22 +27,23 @@ class Routes {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case RoutesName.login:
         return MaterialPageRoute(builder: (context) => const LogInPage());
-      case RoutesName.loginWithPhoneNumber:
-        return MaterialPageRoute(builder: (context) => const LogInPhoneNumber());
+      case RoutesName.loginWithOtp:
+        return MaterialPageRoute(builder: (context) => const LogInWithOtp());
+      case RoutesName.loginWithOtpVerification:
+        return MaterialPageRoute(builder: (context) => LoginWithOtpVerification(userName: settings.arguments as String,));
       case RoutesName.signUp1:
         return MaterialPageRoute(builder: (context) => const SignUpPage1());
       case RoutesName.signUp2:
         return MaterialPageRoute(builder: (context) => const SignUpPage2(email: '', name: '',));
       case RoutesName.signUpOtp:
         return MaterialPageRoute(builder: (context) =>  OtpVerification(name: '', userName: '', password: '', confirmPassword: '',));
-      case RoutesName.resetPasswordWithEmail:
-        return MaterialPageRoute(builder: (context) =>  const ResetPasswordWithEmail());
-      case RoutesName.resetPasswordWithEmailOtpVerification:
-        return MaterialPageRoute(builder: (context) =>   ResetOtpScreen(userName: '',));
       case RoutesName.forgotPassword:
+        return MaterialPageRoute(builder: (context) =>  const ForgotPassword());
+      case RoutesName.forgotPasswordOtp:
+        return MaterialPageRoute(builder: (context) =>   ResetOtpScreen(userName: '',));
+      case RoutesName.forgotPasswordOtpVerification:
         return MaterialPageRoute(builder: (context) =>  ProvideResetPassword(otp: '', username: '',));
-      case RoutesName.resetOtpVerification:
-        return MaterialPageRoute(builder: (context) => LoginWithOtpVerification(userName: ""));
+
       case RoutesName.storageStream:
         return MaterialPageRoute(builder: (context) =>const StorageStream());
       case RoutesName.navigationBar:

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
+import '../api/useraccount.dart';
 import '../routes/routesname.dart';
 
 
@@ -213,7 +216,8 @@ class _AcountDetailState extends State<AccountDetail> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         // border: Border.all(color: Colors.black)
                       ),
-                       child: SearchField(
+                       child:
+                      /* SearchField(
                          controller: bankController,
                          suggestionItemDecoration: SuggestionDecoration(
 
@@ -271,231 +275,231 @@ class _AcountDetailState extends State<AccountDetail> {
                          enabled: true,
                          itemHeight: 50,
                          maxSuggestionsInViewPort: 3,
-                       ),
-                      // StreamBuilder(
-                      //   stream: UserAccount().fetchBankName(),
-                      //   builder: (context, snapshot) {
-                      //     if( snapshot.hasData ){
-                      //       var data=jsonDecode(snapshot.data!.body);
-                      //       List<dynamic>bankIdList=[];
-                      //       bankName.clear();
-                      //       for(var id in data["message"]){
-                      //         bankName.add(id["bank_name"]);
-                      //         bankIdList.add(id["id"]);
-                      //       }
-                      //       return snapshot.data?.statusCode==200
-                      //           ?
-                      //       SearchField(
-                      //         controller: bankController,
-                      //         enabled: bankNameEnable,
-                      //         suggestionItemDecoration: SuggestionDecoration(
-                      //
-                      //         ),
-                      //         key: const Key("Search key"),
-                      //         suggestions:
-                      //         bankName.map((e) => SearchFieldListItem(e)).toList(),
-                      //         searchStyle: GoogleFonts.openSans(
-                      //             color: Colors.black87,
-                      //             fontSize: size.height*0.018,
-                      //             fontWeight: FontWeight.w500),
-                      //         suggestionStyle: GoogleFonts.openSans(
-                      //           color: Colors.black,
-                      //           fontSize: size.height*0.016,
-                      //           fontWeight: FontWeight.w600,
-                      //         ),
-                      //         marginColor: Colors.white,
-                      //         suggestionsDecoration: SuggestionDecoration(
-                      //           padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
-                      //           //shape: BoxShape.rectangle,
-                      //
-                      //         ),
-                      //         searchInputDecoration: InputDecoration(
-                      //             hintText: "Select Bank",
-                      //             contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
-                      //             fillColor: Colors.transparent,
-                      //             filled: true,
-                      //             suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
-                      //             hintStyle: GoogleFonts.openSans(
-                      //                 color: Colors.grey,
-                      //                 fontSize: size.height*0.02,
-                      //                 fontWeight: FontWeight.w500),
-                      //             focusedBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             disabledBorder:  OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             focusColor: Colors.black,
-                      //             enabledBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             )
-                      //
-                      //         ),
-                      //         onSuggestionTap: (value) {
-                      //           int position=bankName.indexOf(value.searchKey);
-                      //           bankController.text=value.searchKey;
-                      //           selectedBankId=bankIdList[position].toString();
-                      //           print("Selected Bank id is :$selectedBankId");
-                      //         },
-                      //         itemHeight: 50,
-                      //         maxSuggestionsInViewPort: 3,
-                      //       )
-                      //           :
-                      //       SearchField(
-                      //         controller: bankController,
-                      //         enabled: bankNameEnable,
-                      //         suggestionItemDecoration: SuggestionDecoration(
-                      //
-                      //         ),
-                      //         key: const Key("Search key"),
-                      //         suggestions:
-                      //         bankName.map((e) => SearchFieldListItem(e)).toList(),
-                      //         searchStyle: GoogleFonts.openSans(
-                      //             color: Colors.black87,
-                      //             fontSize: size.height*0.018,
-                      //             fontWeight: FontWeight.w500),
-                      //         suggestionStyle: GoogleFonts.openSans(
-                      //           color: Colors.black,
-                      //           fontSize: size.height*0.016,
-                      //           fontWeight: FontWeight.w600,
-                      //         ),
-                      //         marginColor: Colors.white,
-                      //         suggestionsDecoration: SuggestionDecoration(
-                      //           padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
-                      //           //shape: BoxShape.rectangle,
-                      //
-                      //         ),
-                      //         searchInputDecoration: InputDecoration(
-                      //             hintText: "Select Bank",
-                      //             contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
-                      //             fillColor: Colors.transparent,
-                      //             filled: true,
-                      //             suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
-                      //             hintStyle: GoogleFonts.openSans(
-                      //                 color: Colors.grey,
-                      //                 fontSize: size.height*0.02,
-                      //                 fontWeight: FontWeight.w500),
-                      //             disabledBorder:  OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             focusedBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             focusColor: Colors.black,
-                      //             enabledBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             )
-                      //
-                      //         ),
-                      //         onSuggestionTap: (value) {
-                      //
-                      //         },
-                      //         itemHeight: 50,
-                      //         maxSuggestionsInViewPort: 3,
-                      //       );
-                      //     }
-                      //     else{
-                      //       return SearchField(
-                      //         controller: bankController,
-                      //         enabled: bankNameEnable,
-                      //         suggestionItemDecoration: SuggestionDecoration(
-                      //
-                      //         ),
-                      //         key: const Key("Search key"),
-                      //         suggestions:
-                      //         bankName.map((e) => SearchFieldListItem(e)).toList(),
-                      //         searchStyle: GoogleFonts.openSans(
-                      //             color: Colors.black87,
-                      //             fontSize: size.height*0.018,
-                      //             fontWeight: FontWeight.w500),
-                      //         suggestionStyle: GoogleFonts.openSans(
-                      //           color: Colors.black,
-                      //           fontSize: size.height*0.016,
-                      //           fontWeight: FontWeight.w600,
-                      //         ),
-                      //         marginColor: Colors.white,
-                      //         suggestionsDecoration: SuggestionDecoration(
-                      //           padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
-                      //           //shape: BoxShape.rectangle,
-                      //
-                      //         ),
-                      //         searchInputDecoration: InputDecoration(
-                      //             hintText: "Select Bank",
-                      //             contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
-                      //             fillColor: Colors.transparent,
-                      //             filled: true,
-                      //             suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
-                      //             hintStyle: GoogleFonts.openSans(
-                      //                 color: Colors.grey,
-                      //                 fontSize: size.height*0.02,
-                      //                 fontWeight: FontWeight.w500),
-                      //             disabledBorder:  OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black87,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             focusedBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             ),
-                      //             focusColor: Colors.black,
-                      //             enabledBorder: OutlineInputBorder(
-                      //               borderSide: const BorderSide(
-                      //                 color: Colors.black,
-                      //                 width: 1,
-                      //                 //style: BorderStyle.none
-                      //               ),
-                      //               borderRadius: BorderRadius.circular(size.height*0.006),
-                      //             )
-                      //
-                      //         ),
-                      //         onSuggestionTap: (value) {
-                      //
-                      //         },
-                      //         itemHeight: 50,
-                      //         maxSuggestionsInViewPort: 3,
-                      //       );
-                      //     }
-                      //   },
-                      // ),
+                       ),*/
+                      StreamBuilder(
+                        stream: UserAccount().fetchBankName(),
+                        builder: (context, snapshot) {
+                          if( snapshot.hasData ){
+                            var data=jsonDecode(snapshot.data!.body);
+                            List<dynamic>bankIdList=[];
+                            bankName.clear();
+                            for(var id in data["message"]){
+                              bankName.add(id["bank_name"]);
+                              bankIdList.add(id["id"]);
+                            }
+                            return snapshot.data?.statusCode==200
+                                ?
+                            SearchField(
+                              controller: bankController,
+                              enabled: bankNameEnable,
+                              suggestionItemDecoration: SuggestionDecoration(
+
+                              ),
+                              key: const Key("Search key"),
+                              suggestions:
+                              bankName.map((e) => SearchFieldListItem(e)).toList(),
+                              searchStyle: GoogleFonts.openSans(
+                                  color: Colors.black87,
+                                  fontSize: size.height*0.018,
+                                  fontWeight: FontWeight.w500),
+                              suggestionStyle: GoogleFonts.openSans(
+                                color: Colors.black,
+                                fontSize: size.height*0.016,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              marginColor: Colors.white,
+                              suggestionsDecoration: SuggestionDecoration(
+                                padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
+                                //shape: BoxShape.rectangle,
+
+                              ),
+                              searchInputDecoration: InputDecoration(
+                                  hintText: "Select Bank",
+                                  contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
+                                  fillColor: Colors.transparent,
+                                  filled: true,
+                                  suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
+                                  hintStyle: GoogleFonts.openSans(
+                                      color: Colors.grey,
+                                      fontSize: size.height*0.02,
+                                      fontWeight: FontWeight.w500),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  disabledBorder:  OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  focusColor: Colors.black,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  )
+
+                              ),
+                              onSuggestionTap: (value) {
+                                int position=bankName.indexOf(value.searchKey);
+                                bankController.text=value.searchKey;
+                                selectedBankId=bankIdList[position].toString();
+                                print("Selected Bank id is :$selectedBankId");
+                              },
+                              itemHeight: 50,
+                              maxSuggestionsInViewPort: 3,
+                            )
+                                :
+                            SearchField(
+                              controller: bankController,
+                              enabled: bankNameEnable,
+                              suggestionItemDecoration: SuggestionDecoration(
+
+                              ),
+                              key: const Key("Search key"),
+                              suggestions:
+                              bankName.map((e) => SearchFieldListItem(e)).toList(),
+                              searchStyle: GoogleFonts.openSans(
+                                  color: Colors.black87,
+                                  fontSize: size.height*0.018,
+                                  fontWeight: FontWeight.w500),
+                              suggestionStyle: GoogleFonts.openSans(
+                                color: Colors.black,
+                                fontSize: size.height*0.016,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              marginColor: Colors.white,
+                              suggestionsDecoration: SuggestionDecoration(
+                                padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
+                                //shape: BoxShape.rectangle,
+
+                              ),
+                              searchInputDecoration: InputDecoration(
+                                  hintText: "Select Bank",
+                                  contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
+                                  fillColor: Colors.transparent,
+                                  filled: true,
+                                  suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
+                                  hintStyle: GoogleFonts.openSans(
+                                      color: Colors.grey,
+                                      fontSize: size.height*0.02,
+                                      fontWeight: FontWeight.w500),
+                                  disabledBorder:  OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  focusColor: Colors.black,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  )
+
+                              ),
+                              onSuggestionTap: (value) {
+
+                              },
+                              itemHeight: 50,
+                              maxSuggestionsInViewPort: 3,
+                            );
+                          }
+                          else{
+                            return SearchField(
+                              controller: bankController,
+                              enabled: bankNameEnable,
+                              suggestionItemDecoration: SuggestionDecoration(
+
+                              ),
+                              key: const Key("Search key"),
+                              suggestions:
+                              bankName.map((e) => SearchFieldListItem(e)).toList(),
+                              searchStyle: GoogleFonts.openSans(
+                                  color: Colors.black87,
+                                  fontSize: size.height*0.018,
+                                  fontWeight: FontWeight.w500),
+                              suggestionStyle: GoogleFonts.openSans(
+                                color: Colors.black,
+                                fontSize: size.height*0.016,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              marginColor: Colors.white,
+                              suggestionsDecoration: SuggestionDecoration(
+                                padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
+                                //shape: BoxShape.rectangle,
+
+                              ),
+                              searchInputDecoration: InputDecoration(
+                                  hintText: "Select Bank",
+                                  contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
+                                  fillColor: Colors.transparent,
+                                  filled: true,
+                                  suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
+                                  hintStyle: GoogleFonts.openSans(
+                                      color: Colors.grey,
+                                      fontSize: size.height*0.02,
+                                      fontWeight: FontWeight.w500),
+                                  disabledBorder:  OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black87,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  ),
+                                  focusColor: Colors.black,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.black,
+                                      width: 1,
+                                      //style: BorderStyle.none
+                                    ),
+                                    borderRadius: BorderRadius.circular(size.height*0.006),
+                                  )
+
+                              ),
+                              onSuggestionTap: (value) {
+
+                              },
+                              itemHeight: 50,
+                              maxSuggestionsInViewPort: 3,
+                            );
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: size.height*0.02,

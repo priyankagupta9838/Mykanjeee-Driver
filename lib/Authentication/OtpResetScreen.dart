@@ -213,7 +213,7 @@ class _ResetOtpScreenState extends State<ResetOtpScreen> {
                         onTap: () async {
 
                           if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4 ){
-                            Navigator.pushReplacementNamed(context, RoutesName.forgotPassword);
+                            Navigator.pushReplacementNamed(context, RoutesName.forgotPasswordOtpVerification);
 
 
                           }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mykanjeedriver/api/checkout.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:io';
@@ -16,6 +17,7 @@ class OrderDetail extends StatefulWidget {
 class _OrderDetailState extends State<OrderDetail> {
   List<String>services=['Accept','Reject','Delivered'];
   String establishmentLicenseImage="";
+  bool buttonClick=false;
 
   SearchController searchController=SearchController();
   @override
@@ -208,7 +210,9 @@ class _OrderDetailState extends State<OrderDetail> {
                   SizedBox(
                     height: size.height*0.06,
                     child: SearchField(
-                      suggestionItemDecoration: SuggestionDecoration(),
+                      suggestionItemDecoration: SuggestionDecoration(
+
+                      ),
                       key: const Key('searchfield'),
 
                       controller: searchController,
@@ -224,6 +228,15 @@ class _OrderDetailState extends State<OrderDetail> {
                           color: Colors.black,
                           fontSize: size.height * 0.018,
                           fontWeight: FontWeight.w500),
+                      suggestionsDecoration: SuggestionDecoration(
+
+
+                          color: Colors.purple.shade50,
+                          //shape: BoxShape.rectangle,
+
+                          padding: EdgeInsets.all(size.height * 0.015),
+                          // border: Border.all(width: 2, color: Colors.black),
+                          borderRadius: BorderRadius.circular(0)),
                       searchInputDecoration: InputDecoration(
 
                           filled: true,
@@ -269,7 +282,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       },
                       enabled: true,
                       itemHeight: 50,
-                      maxSuggestionsInViewPort: 3,
+                      maxSuggestionsInViewPort: 2,
                       suggestions:
                       services.map((e) => SearchFieldListItem(e))
                           .toList(),
@@ -349,7 +362,7 @@ class _OrderDetailState extends State<OrderDetail> {
                             const AutoSizeText("or drag and drop ")
                           ],
                         ),
-                        const AutoSizeText("PDF or JPG (max 7 MB)")
+                        const AutoSizeText("PNG or JPG (max 7 MB)")
                       ],
                     ),
                   ),
@@ -371,8 +384,100 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   onPressed: () {
 
+                   if(!buttonClick){
+                     if(searchController.text.trim().toString().isNotEmpty){
+                       buttonClick=true;
+                       setState(() {
+
+                       });
+                       if(searchController.text=="Accept"){
+                         CheckOut().acceptOrder(widget.data["order_id"]).then((value) {
+                           if(value=="success"){
+                             UtilityFunctions().successToast("Order Accepted Successfully");
+                             Navigator.pop(context);
+
+                           }else{
+                             UtilityFunctions().successToast(value.toString());
+
+                             buttonClick=false;
+                             setState(() {
+
+                             });
+
+                           }
+
+                         });
+                       }else if(searchController.text=="Reject"){
+                         CheckOut().rejectOrder(widget.data["order_id"],"").then((value) {
+                           if(value=="success"){
+                             UtilityFunctions().successToast("Order Rejected Successfully");
+                             Navigator.pop(context);
+
+                           }else{
+                             UtilityFunctions().successToast(value.toString());
+
+                             buttonClick=false;
+                             setState(() {
+
+                             });
+
+                           }
+
+                         });
+                       }
+                       else{
+                         CheckOut().deliveredOrder(widget.data["order_id"]).then((value) {
+                           if(value=="success"){
+                             UtilityFunctions().successToast("Order Delivered Successfully");
+                             Navigator.pop(context);
+
+                           }else{
+                             UtilityFunctions().successToast(value.toString());
+
+                             buttonClick=false;
+                             setState(() {
+
+                             });
+
+                           }
+
+                         });
+                       }
+
+                     }
+                     else{
+                       UtilityFunctions().errorToast("Please Select the Order Status");
+                     }
+
+
+
+                   }else{
+                     UtilityFunctions().errorToast("Please Wait...");
+                   }
+
+
                   },
-                  child: Row(
+                  child:
+
+                  buttonClick
+                  ?
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      Center(
+                        child: SizedBox(
+                          height: size.height*0.03,
+                          width: size.height*0.03,
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                      :
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 

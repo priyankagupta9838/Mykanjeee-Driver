@@ -187,10 +187,10 @@ class _LogInPageState extends State<LogInPage> {
                     padding:  EdgeInsets.only(left: size.width*0.035),
                     child: InkWell(
                       onTap: (){
-                       Navigator.pushNamed(context, RoutesName.loginWithPhoneNumber);
+                       Navigator.pushNamed(context, RoutesName.loginWithOtp,);
                       },
                       child: SizedBox(
-                        child: Text("Sign in with OTP",
+                        child: Text("Login in with OTP",
                           style: TextStyle(
                               fontSize: size.height*0.017,
                               color: Colors.blue,
@@ -264,7 +264,7 @@ class _LogInPageState extends State<LogInPage> {
                     children: [
                       InkWell(
                         onTap: (){
-                          Navigator.pushReplacementNamed(context, RoutesName.resetPasswordWithEmail);
+                          Navigator.pushReplacementNamed(context, RoutesName.forgotPassword);
 
                         },
                         child: AutoSizeText("Forgot Your Password ?",

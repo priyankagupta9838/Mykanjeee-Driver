@@ -51,21 +51,59 @@ class CheckOut{
   }
 
 
-
-  Future<String> rejectOrder(String driverId, String reason) async {
+  // Future<String> deliveredOrder(int orderId) async {
+  //   String result="";
+  //   String url=ApiList.baseUrl+ApiList.deliveredOrder;
+  //   var request = http.MultipartRequest('POST', Uri.parse(url),);
+  //
+  //   request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
+  //   request.headers["Accept"]="*/*";
+  //   request.fields['order_id'] =  orderId.toString();
+  //
+  //
+  //
+  //
+  //   // request.files.add(await http.MultipartFile.fromPath(
+  //   //   'driving_license_image',
+  //   //   userRegisterData["drivingLicenceImage"].toString(),
+  //   // ));
+  //
+  //
+  //   try {
+  //     var response = await request.send().timeout(const Duration( seconds: 60));
+  //     var responseMessage = await response.stream.bytesToString();
+  //     var responseData = jsonDecode(responseMessage);
+  //     print("responce data is $responseData");
+  //     if (responseData["status"]=="success") {
+  //       result="success";
+  //       print("Successs.......");
+  //     } else {
+  //
+  //       result=responseData["message"];
+  //       print("fail.......$result");
+  //     }
+  //   } catch (error) {
+  //     print("error......$error");
+  //     result="something went wrong";
+  //   }
+  //
+  //   return result;
+  // }
+  Future<String> rejectOrder(int driverId, String reason) async {
     String responcValue = "";
     Map data = {
       "delivery_person_id": driverId,
-      "rejection_reason": reason,
+      "rejection_reason": "reason",
     };
-    print(data);
-
     String body = json.encode(data);
     await http.post(
       Uri.parse(ApiList.baseUrl+ApiList.rejectOrder),
       body: body,
       headers: {
         "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
       print(value.body);
@@ -87,26 +125,30 @@ class CheckOut{
   }
 
 
-  Future<String> acceptOrder(String driverId) async {
+  Future<String> acceptOrder(int orderId) async {
     String responcValue = "";
     Map data = {
-      "delivery_person_id": driverId,
+      "order_id": orderId,
     };
     print(data);
 
     String body = json.encode(data);
     await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.rejectOrder),
+      Uri.parse(ApiList.baseUrl+ApiList.acceptOrder),
       body: body,
       headers: {
         "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
       print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
+        print(result);
+        if (result["status"] == "success") {
+          responcValue=result["status"];
         } else {
           responcValue=result["message"];
         }
@@ -121,7 +163,7 @@ class CheckOut{
   }
 
 
-  Future<String> deliveredOrder(String orderId, ) async {
+  Future<String> deliveredOrder(int orderId, ) async {
     String responcValue = "";
     Map data = {
       "order_id":orderId,
@@ -135,13 +177,16 @@ class CheckOut{
       body: body,
       headers: {
         "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
       print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
+        if (result["status"] =="success") {
+          responcValue=result["status"];
         } else {
           responcValue=result["message"];
         }

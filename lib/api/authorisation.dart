@@ -11,15 +11,82 @@ import '../constrant.dart';
 
 class Authentication{
 
+  Future<String> signUpNewUser(String name, String email,
+      String password, String confirmPassword,) async {
+    String value="";
+    bool isPhoneNumber=false;
+    try{
+
+      if (email == null) {
+        isPhoneNumber = false;
+      }
+      else {
+        isPhoneNumber = double.tryParse(email) != null;
+      }
+      Map data = {
+        "fullname": name,
+        "username":
+        isPhoneNumber
+            ?
+        "91$email"
+            :
+        email,
+        "password": password,
+        "role": {
+          "role_id": 3,
+          "role_name": "VENDOR"
+        },
+        "confirm_password": confirmPassword
+      };
+
+      String body = json.encode(data);
+      var url = '${ApiList.baseUrl}/api/auth/register';
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+      print("......${response.body}");
+      print(response.statusCode);
+      var result=jsonDecode(response.body);
+      if(result["status"]=="success"){
+        value="success";
+        final box = GetStorage();
+        box.write("user_id", result["created_user"]["id"]);
+      }
+      else {
+        if(result["message"]=="Username already registered. Try logging in."){
+          value="Username already registered. Try logging in.";
+        }
+        else{
+          value="error";
+        }
+      }
+    }
+    catch(error){
+      value="null";
+    }
+
+
+    return value;
+  }
+
   Future<String> postDriverDetails() async {
     String result="";
+    final box = GetStorage();
+    String userId=box.read("user_id").toString();
     String url=ApiList.baseUrl +ApiList.registerDriver;
     var request = http.MultipartRequest('POST', Uri.parse(url),);
 
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
     request.headers["Accept"]="*/*";
+    request.fields['userId'] = userId;
     request.fields['name'] =  userRegisterData["name"];
-    request.fields['email'] = userRegisterData["email"];
+   // request.fields['email'] = userRegisterData["email"];
     request.fields['password'] =  userRegisterData["password"];
     request.fields['phone'] = userRegisterData["mobileNumber"];
     request.fields['alt_phone'] = userRegisterData["alternativeMobile"];
@@ -127,11 +194,9 @@ class Authentication{
   Future<String> getUser() async {
     String loginValue = "";
     await http.get(
-      Uri.parse(ApiList.getUser),
+      Uri.parse(ApiList.baseUrl+ApiList.getUser),
       headers: {
         "authorization":userToken,
-        "Content-Type": "application/json",
-        "accept": "application/json",
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
@@ -149,5 +214,100 @@ class Authentication{
     });
     return loginValue;
   }
+
+
+
+  Future<String> loginWithOtp(String email) async {
+    String loginValue = "";
+       print("Callsed............");
+    bool isPhoneNumber = false;
+    if (email == null) {
+      isPhoneNumber = false;
+    } else {
+      isPhoneNumber = double.tryParse(email) != null;
+    }
+    Map data = {
+      "username": isPhoneNumber ? "91$email" : email,
+    };
+
+    String body = json.encode(data);
+    var url = ApiList.baseUrl+ApiList.loginWithOtp;
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+        print("Result is ...$result");
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue = result["message"];
+      }
+    } on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue = "Please check your internet.";
+    } catch (e) {
+      print('Error: $e');
+      loginValue = "An error occurred.";
+    }
+
+    return loginValue;
+  }
+
+
+  Future<String> forgotPassword(String email) async {
+    String loginValue = "";
+    print("forgotPassword............");
+    bool isPhoneNumber = false;
+    if (email == null) {
+      isPhoneNumber = false;
+    } else {
+      isPhoneNumber = double.tryParse(email) != null;
+    }
+    Map data = {
+      "username": isPhoneNumber ? "91$email" : email,
+    };
+
+    String body = json.encode(data);
+    var url = ApiList.baseUrl+ApiList.loginWithOtp;
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+      print("Result is ...$result");
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue = result["message"];
+      }
+    } on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue = "Please check your internet.";
+    } catch (e) {
+      print('Error: $e');
+      loginValue = "An error occurred.";
+    }
+
+    return loginValue;
+  }
+
+
 
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import '../api/checkout.dart';
+import '../constrant.dart';
 import '../routes/routesname.dart';
 
 
@@ -29,7 +30,11 @@ class OrdersPage extends StatelessWidget {
         ),
 
       ),
-      body:StreamBuilder(
+      body: userModel["is_active"]==1
+          ?
+
+
+      StreamBuilder(
         stream: CheckOut().getOngoingOrders(),
         builder: (context, snapshot) {
           if(snapshot.hasData){
@@ -98,7 +103,8 @@ class OrdersPage extends StatelessWidget {
                                     Row(
                                       children: [
                                         AutoSizeText(
-                                          "Status",
+                                   "Status"
+                                          ,
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87
                                           ),
@@ -141,7 +147,19 @@ class OrdersPage extends StatelessWidget {
             );
           }
         },
-      ),
+      )
+
+      :
+      SizedBox(
+        height: size.height*1,
+        child: Center(
+          child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
+            fontWeight: FontWeight.w600,
+            fontSize: size.height*0.03
+          ),),
+        ),
+      )
+      ,
     );
   }
 }
