@@ -307,7 +307,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                            });
                            await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
                              if(value=="success"){
-                               Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: widget.data["email"]);
+                               Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: {"name":widget.data["name"],"email":widget.data["email"],"password":password.text});
                              }else{
                                buttonClicked=false;
                                setState(() {

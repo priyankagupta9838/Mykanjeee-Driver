@@ -118,11 +118,8 @@ class Authentication{
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
     request.headers["Accept"]="*/*";
     request.fields['userId'] = userId;
-    request.fields['name'] =  userRegisterData["name"];
-    request.fields['password'] =  userRegisterData["password"];
-    request.fields['phone'] = userRegisterData["mobileNumber"];
+   // request.fields['phone'] = userRegisterData["mobileNumber"];
     request.fields['alt_phone'] = userRegisterData["alternativeMobile"];
-    request.fields['email'] = userRegisterData["email"];
     request.fields['city'] = userRegisterData["city1"];
     request.fields['state'] = "up";
     request.fields['country'] = "India";

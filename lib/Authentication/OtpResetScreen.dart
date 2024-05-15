@@ -1,10 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/Authentication/timerCountdown.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../Statemanagement/PageBlok.dart';
+import '../Statemanagement/PageEvents.dart';
+import '../Statemanagement/PageState.dart';
 import '../api/authorisation.dart';
+import '../constrant.dart';
 import '../utilityfunction.dart';
 import 'constraints.dart';
 
@@ -161,31 +166,53 @@ class _ResetOtpScreenState extends State<ResetOtpScreen> {
                     SizedBox(
                       height: size.height*0.015,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't receive ?",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                              fontSize: size.height*0.014
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                             },
-                          child: AutoSizeText(
-                            "Send Again",
-                            style: GoogleFonts.openSans(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w800,
+                    BlocBuilder<AddTimerBlo,AddTimerState>(builder: (context, state) {
+
+                      return    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't receive ?",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
                                 fontSize: size.height*0.014
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                          TextButton(
+                            onPressed: () async {
+                              userOtp.text="";
+                              setState(() {
+
+                              });
+                              await Authentication().forgotPassword(widget.userName).then((value) {
+                                if(value=="success"){
+
+                                  totalSeconds=80;
+                                  BlocProvider.of<AddTimerBlo>(context).add(UpdateTimerEvent());
+                                  UtilityFunctions().successToast("Otp Send Successfully please check.");
+
+                                }
+                                else{
+
+                                  UtilityFunctions().errorToast(value.toString());
+                                }
+                              });
+
+
+                            },
+                            child: AutoSizeText(
+                              "Send Again",
+                              style: GoogleFonts.openSans(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: size.height*0.014
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },),
                     SizedBox(
                       height: size.height*0.038,
                     ),

@@ -36,7 +36,7 @@ class Routes {
       case RoutesName.signUp2:
         return MaterialPageRoute(builder: (context) =>  SignUpPage2(data: settings.arguments as Map,));
       case RoutesName.signUpOtp:
-        return MaterialPageRoute(builder: (context) =>  SignUpOtpVerification(userName:settings.arguments as String,));
+        return MaterialPageRoute(builder: (context) =>  SignUpOtpVerification(data:settings.arguments as Map,));
       case RoutesName.forgotPassword:
         return MaterialPageRoute(builder: (context) =>  const ForgotPassword());
       case RoutesName.forgotPasswordOtp:
