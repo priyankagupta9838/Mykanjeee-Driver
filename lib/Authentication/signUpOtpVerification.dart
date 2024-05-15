@@ -1,28 +1,28 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mykanjeedriver/Authentication/timerCountdown.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
+import 'package:mykanjeedriver/utilityfunction.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../api/authorisation.dart';
 import 'constraints.dart';
 
-class OtpVerification extends StatefulWidget {
-  OtpVerification(
+class SignUpOtpVerification extends StatefulWidget {
+  SignUpOtpVerification(
       {Key? key,
-      required this.name,
       required this.userName,
-      required this.password,
-      required this.confirmPassword})
+     })
       : super(key: key);
-  String name;
+
   String userName;
-  String password;
-  String confirmPassword;
+
 
   @override
-  State<OtpVerification> createState() => _OtpVerificationState();
+  State<SignUpOtpVerification> createState() => _SignUpOtpVerificationState();
 }
 
-class _OtpVerificationState extends State<OtpVerification> {
+class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
 
   TextEditingController userOtp = TextEditingController();
 
@@ -90,6 +90,18 @@ class _OtpVerificationState extends State<OtpVerification> {
                   ),
                 ),
               ),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  height: size.height*0.03,
+                  width: size.width*1,
+                  child:  const Center(
+                      child:
+                      CountDownTimer()
+                  ),
+                ),
+              ),
+
               SizedBox(
                 width: size.width * 1,
                 child: Column(
@@ -192,7 +204,19 @@ class _OtpVerificationState extends State<OtpVerification> {
                           left: size.width * 0.035, right: size.width * 0.035),
                       child: InkWell(
                         onTap: () async {
-                            Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+                            if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
+                              Authentication().verifyNewUser(userOtp.text).then((value) {
+                               if(value=="success"){
+                                 Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+
+                               }
+
+                              });
+
+
+                            }else{
+                              UtilityFunctions().errorToast("All fields are required");
+                            }
 
                         },
                         child: Container(

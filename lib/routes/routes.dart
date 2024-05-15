@@ -8,7 +8,7 @@ import '../Authentication/OtpResetScreen.dart';
 import '../Authentication/SignUp-2.dart';
 import '../Authentication/loginwithotp.dart';
 import '../Authentication/loginOtpVerification.dart';
-import '../Authentication/otpVerification.dart';
+import '../Authentication/signUpOtpVerification.dart';
 import '../Authentication/resetPassword.dart';
 import '../Authentication/forgotPassword.dart';
 import '../navigationbar.dart';
@@ -34,15 +34,15 @@ class Routes {
       case RoutesName.signUp1:
         return MaterialPageRoute(builder: (context) => const SignUpPage1());
       case RoutesName.signUp2:
-        return MaterialPageRoute(builder: (context) => const SignUpPage2(email: '', name: '',));
+        return MaterialPageRoute(builder: (context) =>  SignUpPage2(data: settings.arguments as Map,));
       case RoutesName.signUpOtp:
-        return MaterialPageRoute(builder: (context) =>  OtpVerification(name: '', userName: '', password: '', confirmPassword: '',));
+        return MaterialPageRoute(builder: (context) =>  SignUpOtpVerification(userName:settings.arguments as String,));
       case RoutesName.forgotPassword:
         return MaterialPageRoute(builder: (context) =>  const ForgotPassword());
       case RoutesName.forgotPasswordOtp:
-        return MaterialPageRoute(builder: (context) =>   ResetOtpScreen(userName: '',));
+        return MaterialPageRoute(builder: (context) =>   ResetOtpScreen(userName:settings.arguments as String,));
       case RoutesName.forgotPasswordOtpVerification:
-        return MaterialPageRoute(builder: (context) =>  ProvideResetPassword(otp: '', username: '',));
+        return MaterialPageRoute(builder: (context) =>  ProvideResetPassword(data:  settings.arguments as Map,));
 
       case RoutesName.storageStream:
         return MaterialPageRoute(builder: (context) =>const StorageStream());

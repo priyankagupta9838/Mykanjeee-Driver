@@ -12,7 +12,8 @@ import '../constrant.dart';
 class Authentication{
 
   Future<String> signUpNewUser(String name, String email,
-      String password, String confirmPassword,) async {
+      String password,) async {
+    print("called...$name");
     String value="";
     bool isPhoneNumber=false;
     try{
@@ -24,23 +25,14 @@ class Authentication{
         isPhoneNumber = double.tryParse(email) != null;
       }
       Map data = {
-        "fullname": name,
-        "username":
-        isPhoneNumber
-            ?
-        "91$email"
-            :
-        email,
+        "name": name,
+        "value": email,
         "password": password,
-        "role": {
-          "role_id": 3,
-          "role_name": "VENDOR"
-        },
-        "confirm_password": confirmPassword
+        "type": isPhoneNumber?"Phone":"Email"
       };
 
       String body = json.encode(data);
-      var url = '${ApiList.baseUrl}/api/auth/register';
+      var url = ApiList.baseUrl+ApiList.registerNewDriver;
       var response = await http.post(
         Uri.parse(url),
         body: body,
@@ -53,18 +45,17 @@ class Authentication{
       print("......${response.body}");
       print(response.statusCode);
       var result=jsonDecode(response.body);
+      print("...resulte iss s     ...$result");
       if(result["status"]=="success"){
         value="success";
         final box = GetStorage();
-        box.write("user_id", result["created_user"]["id"]);
+        box.write("user_id", result["data"]["id"]);
+
       }
       else {
-        if(result["message"]=="Username already registered. Try logging in."){
-          value="Username already registered. Try logging in.";
-        }
-        else{
-          value="error";
-        }
+
+          value=result["message"];
+
       }
     }
     catch(error){
@@ -75,15 +66,18 @@ class Authentication{
     return value;
   }
 
-  Future<String> verifyNewUser(String userId,String otp) async {
+
+  Future<String> verifyNewUser(String otp) async {
     String loginValue = "";
+    final box = GetStorage();
+    String userId=box.read("user_id").toString();
     Map data = {
       "userId":userId,
       "otp": otp,
     };
 
     String body = json.encode(data);
-    var url = ApiList.baseUrl+ApiList.loginWithOtpVerification;
+    var url = ApiList.baseUrl+ApiList.registerNewDriverVerifyOtp;
 
     try {
       var response = await http.post(
@@ -97,7 +91,7 @@ class Authentication{
       );
 
       var result = jsonDecode(response.body);
-      print("Result is ...$result");
+      print("Result is ...////////$result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {
@@ -121,7 +115,7 @@ class Authentication{
     String result="";
     final box = GetStorage();
     String userId=box.read("user_id").toString();
-    String url=ApiList.baseUrl +ApiList.registerDriver;
+    String url=ApiList.baseUrl +ApiList.updateDriverDetails;
     var request = http.MultipartRequest('POST', Uri.parse(url),);
 
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
@@ -305,14 +299,9 @@ class Authentication{
 
   Future<String> loginWithOtpVerification(String email,String otp) async {
     String loginValue = "";
-    bool isPhoneNumber = false;
-    if (email == null) {
-      isPhoneNumber = false;
-    } else {
-      isPhoneNumber = double.tryParse(email) != null;
-    }
+
     Map data = {
-      "username": isPhoneNumber ? "91$email" : email,
+      "username": email,
       "otp": otp,
     };
 
@@ -333,6 +322,11 @@ class Authentication{
       var result = jsonDecode(response.body);
       print("Result is ...$result");
       if (result["status"] == "success") {
+        final box = GetStorage();
+        box.write("UserToken", result["data"]["access_token"]);
+        box.write("refreshToken", result["data"]["refresh_token"]);
+        userToken= box.read("UserToken");
+        print("Usertoken is/// $userToken");
         loginValue = "success";
       } else {
         loginValue = result["message"];
@@ -397,14 +391,9 @@ class Authentication{
   Future<String> forgotPasswordVerification(String email,String otp,String newPassword,String confirmPassword) async {
     String loginValue = "";
     print("Callsed............");
-    bool isPhoneNumber = false;
-    if (email == null) {
-      isPhoneNumber = false;
-    } else {
-      isPhoneNumber = double.tryParse(email) != null;
-    }
+
     Map data = {
-      "username": isPhoneNumber ? "91$email" : email,
+      "username": email,
       "otp": otp,
       "new_password": newPassword,
       "confirm_password": confirmPassword

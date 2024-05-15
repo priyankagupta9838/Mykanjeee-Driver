@@ -3,6 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mykanjeedriver/utilityfunction.dart';
+import '../api/authorisation.dart';
 import '../constrant.dart';
 import '../routes/routesname.dart';
 import 'constraints.dart';
@@ -162,7 +164,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     child: InkWell(
                       onTap: () async {
 
-                        Navigator.pushNamed(context, RoutesName.forgotPasswordOtp);
+                       if(phoneNumber.text.isNotEmpty){
+                        await Authentication().forgotPassword(phoneNumber.text).then((value) {
+                          if(value=="success"){
+                            Navigator.pushNamed(context, RoutesName.forgotPasswordOtp,arguments:phoneNumber.text );
+                          }
+                          else{
+                            UtilityFunctions().errorToast(value.toString());
+                          }
+                        });
+
+                       }
+                       else{
+                         UtilityFunctions().errorToast("Please provide the username");
+
+                       }
 
                       },
                       child: Container(

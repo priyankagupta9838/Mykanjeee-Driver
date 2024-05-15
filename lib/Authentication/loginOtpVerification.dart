@@ -2,7 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/Authentication/timerCountdown.dart';
+import 'package:mykanjeedriver/routes/routesname.dart';
+import 'package:mykanjeedriver/utilityfunction.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../api/authorisation.dart';
 import 'constraints.dart';
 
 
@@ -210,6 +213,19 @@ class _LoginWithOtpVerificationState extends State<LoginWithOtpVerification> {
                       padding: EdgeInsets.only(left:size.width*0.035,right:size.width*0.035),
                       child: InkWell(
                         onTap: () async {
+                          if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
+                           await Authentication().loginWithOtpVerification(widget.userName,userOtp.text).then((value) {
+                              if(value=="success"){
+                                Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+
+                              }else{
+                                UtilityFunctions().errorToast(value.toString());
+                              }
+                           });
+                          }
+                          else{
+                            UtilityFunctions().errorToast("Please Provide the otp");
+                          }
 
 
                         },

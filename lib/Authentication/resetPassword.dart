@@ -1,14 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import '../api/authorisation.dart';
 import '../routes/routesname.dart';
+import '../utilityfunction.dart';
 import 'constraints.dart';
 
 
 class ProvideResetPassword extends StatefulWidget {
-  ProvideResetPassword({Key? key, required this.otp, required this.username})
+  ProvideResetPassword({Key? key, required this.data,})
       : super(key: key);
-  String otp;
-  String username;
+ Map<dynamic,dynamic>data;
 
   @override
   State<ProvideResetPassword> createState() => _ProvideResetPasswordState();
@@ -193,7 +194,20 @@ class _ProvideResetPasswordState extends State<ProvideResetPassword> {
                         left: size.width * 0.035, right: size.width * 0.035),
                     child: InkWell(
                       onTap: () async {
-                        Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
+                         if(password.text.toString().isNotEmpty && confirmPassword.text.toString().isNotEmpty){
+                           await Authentication().forgotPasswordVerification(widget.data["username"],widget.data["otp"],password.text,confirmPassword.text).then((value) {
+                             if(value=="success"){
+                               Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
+                             }
+                             else{
+                               UtilityFunctions().errorToast(value.toString());
+                             }
+                           });
+
+                         }
+                         else{
+                           UtilityFunctions().errorToast("Please Provide hte password");
+                         }
 
                       },
                       child: Container(

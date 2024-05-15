@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mykanjeedriver/constrant.dart';
 import 'package:mykanjeedriver/utilityfunction.dart';
+import '../api/authorisation.dart';
 import '../routes/routesname.dart';
 import 'constraints.dart';
 
 class SignUpPage2 extends StatefulWidget {
 
-   const SignUpPage2({Key? key, required this.email,required this.name});
-   final String email;
-   final String name;
+    SignUpPage2({Key? key, required this.data,});
+  Map<dynamic,dynamic>data;
 
   @override
   State<SignUpPage2> createState() => _SignUpPage2State();
@@ -296,14 +295,22 @@ class _SignUpPage2State extends State<SignUpPage2> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left:size.width*0.035,right:size.width*0.035),
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () async {
                         if(password.text.trim().toString().isNotEmpty && confirmPassword.text.trim().toString().isNotEmpty && termsAndConditions)
                          {
-                          // Navigator.pushNamed(context, RoutesName.signUpOtp);
-                           userRegisterData["password"]=password.text.toString();
-                           Navigator.pushNamed(context, RoutesName.setupProfile);
-                           print("User 2  ...$userRegisterData");
+
+                                print("dfhfh");
+                               await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
+                                  print(value);
+                                  if(value=="success"){
+                                    Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: widget.data["email"]);
+                                  }else{
+                                    UtilityFunctions().errorToast(value.toString());
+                                  }
+                                });
+
+
                          }
                         else{
                           UtilityFunctions().errorToast("All fields are required");

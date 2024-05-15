@@ -178,7 +178,7 @@ class _SignUpPage1State extends State<SignUpPage1> {
                         {
                           userRegisterData["name"]=name.text.toString();
                           userRegisterData["email"]=email.text.toString();
-                          Navigator.pushReplacementNamed(context, RoutesName.signUp2);
+                          Navigator.pushReplacementNamed(context, RoutesName.signUp2,arguments:{"email":email.text,"name":name.text}, );
                           print("User ...$userRegisterData");
                         }
                         else{

@@ -2,7 +2,9 @@ class ApiList{
 
   static const baseUrl="http://103.174.102.241:3030";
   //static const baseUrl="http://103.174.103.122:3838";
-  static const registerDriver="/api/delivery-person/register-as-delivery-person";
+  static const registerNewDriver="/api/delivery-person/register-as-delivery-person-with-otp";
+  static const registerNewDriverVerifyOtp="/api/delivery-person/register-as-delivery-person-verify-otp";
+  static const updateDriverDetails="/api/delivery-person/register-as-delivery-person";
   static const login="/api/delivery-person/login";
   static const loginWithOtp="/api/delivery-person/login-send-otp";
   static const loginWithOtpVerification="/api/delivery-person/login-otp-verify";

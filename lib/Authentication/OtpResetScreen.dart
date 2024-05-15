@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/Authentication/timerCountdown.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../api/authorisation.dart';
 import '../utilityfunction.dart';
 import 'constraints.dart';
 
@@ -211,7 +212,9 @@ class _ResetOtpScreenState extends State<ResetOtpScreen> {
                         onTap: () async {
 
                           if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4 ){
-                            Navigator.pushReplacementNamed(context, RoutesName.forgotPasswordOtpVerification);
+
+                                Navigator.pushReplacementNamed(context, RoutesName.forgotPasswordOtpVerification,arguments:{"username":widget.userName,"otp":userOtp.text} );
+
 
 
                           }
