@@ -19,6 +19,7 @@ class _LogInPageState extends State<LogInPage> {
   TextEditingController email=TextEditingController();
   TextEditingController password=TextEditingController();
   bool hide=true;
+  bool buttonClicked=false;
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
@@ -208,32 +209,47 @@ class _LogInPageState extends State<LogInPage> {
                     child: InkWell(
                       onTap: () async {
 
-                        if(email.text.trim().toString().isNotEmpty && password.text.trim().isNotEmpty){
+                            if(!buttonClicked){
 
-                          await Authentication().loginUser(email.text,password.text).then((value) async {
-                            if(value=="success")
-                            {
+                              if(email.text.trim().toString().isNotEmpty && password.text.trim().isNotEmpty){
+                                buttonClicked=true;
+                                setState(() {
 
-                              Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                                });
+                                await Authentication().loginUser(email.text,password.text).then((value) async {
+                                  if(value=="success")
+                                  {
+
+                                    Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
 
 
+                                  }
+                                  else if(value=="Server Error.")
+                                  {
+                                    buttonClicked=false;
+                                    setState(() {
+
+                                    });
+                                    UtilityFunctions().errorToast( "Some server error occurred");
+                                  }
+
+                                  else{
+                                    buttonClicked=false;
+                                    setState(() {
+
+                                    });
+                                    UtilityFunctions().errorToast( value.toString());
+                                  }
+
+                                });
+
+                              }
+                              else{
+                                UtilityFunctions().errorToast("All fields are required");
+                              }
+                            }else{
+                              UtilityFunctions().errorToast("Please wait...");
                             }
-                            else if(value=="Server Error.")
-                            {
-                              UtilityFunctions().errorToast( "Some server error occurred");
-                            }
-
-                            else{
-                              UtilityFunctions().errorToast( value.toString());
-                            }
-
-                          });
-
-                        }
-                        else{
-                          UtilityFunctions().errorToast("All fields are required");
-                        }
-
 
                    },
                       child: Container(
@@ -243,7 +259,20 @@ class _LogInPageState extends State<LogInPage> {
                         ),
                         height: size.height*0.051,
                         width: size.width*0.93,
-                        child: Center(
+                        child:
+                        buttonClicked
+                            ?
+                        Center(
+                          child: SizedBox(
+                            height: size.height*0.03,
+                            width: size.height*0.03,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                            :
+                        Center(
                           child: Text(
                             "Log In",
                             style: TextStyle(

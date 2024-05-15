@@ -19,6 +19,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
   TextEditingController password=TextEditingController();
   TextEditingController confirmPassword=TextEditingController();
   bool termsAndConditions=false;
+  bool buttonClicked=false;
   bool hide1=true;
   bool hide2=true;
   @override
@@ -297,24 +298,33 @@ class _SignUpPage2State extends State<SignUpPage2> {
                     padding: EdgeInsets.only(left:size.width*0.035,right:size.width*0.035),
                     child: GestureDetector(
                       onTap: () async {
-                        if(password.text.trim().toString().isNotEmpty && confirmPassword.text.trim().toString().isNotEmpty && termsAndConditions)
+                       if(!buttonClicked){
+                         if(password.text.trim().toString().isNotEmpty && confirmPassword.text.trim().toString().isNotEmpty && termsAndConditions)
                          {
+                           buttonClicked=true;
+                           setState(() {
 
-                                print("dfhfh");
-                               await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
-                                  print(value);
-                                  if(value=="success"){
-                                    Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: widget.data["email"]);
-                                  }else{
-                                    UtilityFunctions().errorToast(value.toString());
-                                  }
-                                });
+                           });
+                           await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
+                             if(value=="success"){
+                               Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: widget.data["email"]);
+                             }else{
+                               buttonClicked=false;
+                               setState(() {
+
+                               });
+                               UtilityFunctions().errorToast(value.toString());
+                             }
+                           });
 
 
                          }
-                        else{
-                          UtilityFunctions().errorToast("All fields are required");
-                        }
+                         else{
+                           UtilityFunctions().errorToast("All fields are required");
+                         }
+                       }else{
+                         UtilityFunctions().errorToast("Please wait...");
+                       }
 
 
                       },
@@ -325,7 +335,21 @@ class _SignUpPage2State extends State<SignUpPage2> {
                         ),
                         height: size.height*0.051,
                         width: size.width*0.93,
-                        child: Center(
+                        child:
+                        buttonClicked
+                            ?
+                        Center(
+                          child: SizedBox(
+                            height: size.height*0.03,
+                            width: size.height*0.03,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                            :
+
+                        Center(
                           child: Text(
                             "Continue",
                             style: TextStyle(

@@ -25,6 +25,7 @@ class SignUpOtpVerification extends StatefulWidget {
 class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
 
   TextEditingController userOtp = TextEditingController();
+  bool buttonClicked=false;
 
   @override
   Widget build(BuildContext context) {
@@ -204,19 +205,35 @@ class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
                           left: size.width * 0.035, right: size.width * 0.035),
                       child: InkWell(
                         onTap: () async {
-                            if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
-                              Authentication().verifyNewUser(userOtp.text).then((value) {
-                               if(value=="success"){
-                                 Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+                           if(!buttonClicked){
+                             if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
+                               buttonClicked=true;
+                               setState(() {
 
-                               }
+                               });
+                              await Authentication().verifyNewUser(userOtp.text).then((value) {
 
-                              });
+                                 if(value=="success"){
+                                   Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+
+                                 }else{
+                                   buttonClicked=false;
+                                   setState(() {
+
+                                   });
+                                   UtilityFunctions().errorToast(value.toString());
+                                 }
+
+                               });
 
 
-                            }else{
-                              UtilityFunctions().errorToast("All fields are required");
-                            }
+                             }else{
+                               UtilityFunctions().errorToast("All fields are required");
+                             }
+                           }
+                           else{
+                             UtilityFunctions().errorToast("Please wait...");
+                           }
 
                         },
                         child: Container(
@@ -226,7 +243,21 @@ class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
                               color: buttonColor),
                           height: size.height * 0.051,
                           width: size.width * 0.93,
-                          child: Center(
+                          child:
+                          buttonClicked
+                              ?
+                          Center(
+                            child: SizedBox(
+                              height: size.height*0.03,
+                              width: size.height*0.03,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                              :
+
+                          Center(
                             child: Text(
                               "Continue",
                               style: TextStyle(

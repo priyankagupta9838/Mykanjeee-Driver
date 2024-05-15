@@ -17,6 +17,7 @@ class LogInWithOtp extends StatefulWidget {
 
 class _LogInWithOtpState extends State<LogInWithOtp> {
   TextEditingController phoneNumber=TextEditingController();
+  bool buttonClicked=false;
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
@@ -115,24 +116,37 @@ class _LogInWithOtpState extends State<LogInWithOtp> {
                     child: InkWell(
                       onTap: () async {
 
-                        if(phoneNumber.text.trim().toString().isNotEmpty){
-                          await Authentication().loginWithOtp(phoneNumber.text).then((value) {
-                            if(value=="success"){
-                              Navigator.pushReplacementNamed(context, RoutesName.loginWithOtpVerification,arguments:phoneNumber.text.toString() );
+                    if(!buttonClicked){
 
-                            }
-                            else{
-                              UtilityFunctions().errorToast(value.toString());
-                            }
-                          });
+                      if(phoneNumber.text.trim().toString().isNotEmpty){
+                        buttonClicked=true;
+                        setState(() {
+
+                        });
+                        await Authentication().loginWithOtp(phoneNumber.text).then((value) {
+                          if(value=="success"){
+                            Navigator.pushReplacementNamed(context, RoutesName.loginWithOtpVerification,arguments:phoneNumber.text.toString() );
+
+                          }
+                          else{
+                            buttonClicked=false;
+                            setState(() {
+
+                            });
+                            UtilityFunctions().errorToast(value.toString());
+                          }
+                        });
 
 
 
-                        }
-                        else{
-                          UtilityFunctions().errorToast("Please provide the phone/Email");
-                        }
-
+                      }
+                      else{
+                        UtilityFunctions().errorToast("Please provide the phone/Email");
+                      }
+                    }
+                    else{
+                      UtilityFunctions().errorToast("Please wait...");
+                    }
                           },
                       child: Container(
                         decoration: BoxDecoration(
@@ -141,7 +155,22 @@ class _LogInWithOtpState extends State<LogInWithOtp> {
                         ),
                         height: size.height*0.051,
                         width: size.width*0.93,
-                        child: Center(
+                        child:
+
+                        buttonClicked
+                            ?
+                        Center(
+                          child: SizedBox(
+                            height: size.height*0.03,
+                            width: size.height*0.03,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                            :
+
+                        Center(
                           child: Text(
                             "Send OTP",
                             style: TextStyle(

@@ -28,7 +28,7 @@ class Authentication{
         "name": name,
         "value": email,
         "password": password,
-        "type": isPhoneNumber?"Phone":"Email"
+        "type": isPhoneNumber?"Phone":"email"
       };
 
       String body = json.encode(data);
@@ -42,10 +42,7 @@ class Authentication{
           "Access-Control-Allow-Origin": "*"
         },
       );
-      print("......${response.body}");
-      print(response.statusCode);
       var result=jsonDecode(response.body);
-      print("...resulte iss s     ...$result");
       if(result["status"]=="success"){
         value="success";
         final box = GetStorage();
@@ -345,7 +342,6 @@ class Authentication{
 
   Future<String> forgotPassword(String email) async {
     String loginValue = "";
-    print("forgotPassword............");
     bool isPhoneNumber = false;
     if (email == null) {
       isPhoneNumber = false;
@@ -390,7 +386,6 @@ class Authentication{
 
   Future<String> forgotPasswordVerification(String email,String otp,String newPassword,String confirmPassword) async {
     String loginValue = "";
-    print("Callsed............");
 
     Map data = {
       "username": email,

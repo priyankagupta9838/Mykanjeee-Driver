@@ -194,19 +194,33 @@ class _ProvideResetPasswordState extends State<ProvideResetPassword> {
                         left: size.width * 0.035, right: size.width * 0.035),
                     child: InkWell(
                       onTap: () async {
-                         if(password.text.toString().isNotEmpty && confirmPassword.text.toString().isNotEmpty){
-                           await Authentication().forgotPasswordVerification(widget.data["username"],widget.data["otp"],password.text,confirmPassword.text).then((value) {
-                             if(value=="success"){
-                               Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
-                             }
-                             else{
-                               UtilityFunctions().errorToast(value.toString());
-                             }
-                           });
+                         if(!buttonClicked){
+                           if(password.text.toString().isNotEmpty && confirmPassword.text.toString().isNotEmpty){
+                             buttonClicked=true;
+                             setState(() {
 
-                         }
-                         else{
-                           UtilityFunctions().errorToast("Please Provide hte password");
+                             });
+                             await Authentication().forgotPasswordVerification(widget.data["username"],widget.data["otp"],password.text,confirmPassword.text).then((value) {
+                               if(value=="success"){
+                                 UtilityFunctions().errorToast("Password Updated Successfully");
+                                 Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
+
+                               }
+                               else{
+                                 buttonClicked=false;
+                                 setState(() {
+
+                                 });
+                                 UtilityFunctions().errorToast(value.toString());
+                               }
+                             });
+
+                           }
+                           else{
+                             UtilityFunctions().errorToast("Please Provide hte password");
+                           }
+                         }else{
+                           UtilityFunctions().errorToast("Please wait...");
                          }
 
                       },

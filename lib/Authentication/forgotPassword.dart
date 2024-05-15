@@ -164,20 +164,33 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     child: InkWell(
                       onTap: () async {
 
-                       if(phoneNumber.text.isNotEmpty){
-                        await Authentication().forgotPassword(phoneNumber.text).then((value) {
-                          if(value=="success"){
-                            Navigator.pushNamed(context, RoutesName.forgotPasswordOtp,arguments:phoneNumber.text );
-                          }
-                          else{
-                            UtilityFunctions().errorToast(value.toString());
-                          }
-                        });
+                       if(!buttonClicked){
+                         if(phoneNumber.text.isNotEmpty){
+                           buttonClicked=true;
+                           setState(() {
 
+                           });
+                           await Authentication().forgotPassword(phoneNumber.text).then((value) {
+                             if(value=="success"){
+                               Navigator.pushNamed(context, RoutesName.forgotPasswordOtp,arguments:phoneNumber.text );
+                             }
+                             else{
+                               buttonClicked=false;
+                               setState(() {
+
+                               });
+                               UtilityFunctions().errorToast(value.toString());
+                             }
+                           });
+
+                         }
+                         else{
+                           UtilityFunctions().errorToast("Please provide the username");
+
+                         }
                        }
                        else{
-                         UtilityFunctions().errorToast("Please provide the username");
-
+                         UtilityFunctions().errorToast("Please wait...");
                        }
 
                       },

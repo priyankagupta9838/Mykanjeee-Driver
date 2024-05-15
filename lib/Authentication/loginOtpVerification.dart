@@ -20,6 +20,7 @@ class LoginWithOtpVerification extends StatefulWidget {
 
 class _LoginWithOtpVerificationState extends State<LoginWithOtpVerification> {
   TextEditingController userOtp=TextEditingController();
+  bool buttonClicked=false;
 
   @override
   Widget build(BuildContext context) {
@@ -213,20 +214,33 @@ class _LoginWithOtpVerificationState extends State<LoginWithOtpVerification> {
                       padding: EdgeInsets.only(left:size.width*0.035,right:size.width*0.035),
                       child: InkWell(
                         onTap: () async {
-                          if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
-                           await Authentication().loginWithOtpVerification(widget.userName,userOtp.text).then((value) {
-                              if(value=="success"){
-                                Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                         if(!buttonClicked){
+                           if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4){
+                             buttonClicked=true;
+                             setState(() {
 
-                              }else{
-                                UtilityFunctions().errorToast(value.toString());
-                              }
-                           });
-                          }
-                          else{
-                            UtilityFunctions().errorToast("Please Provide the otp");
-                          }
+                             });
+                             await Authentication().loginWithOtpVerification(widget.userName,userOtp.text).then((value) {
+                               if(value=="success"){
+                                 Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
 
+                               }else{
+                                 buttonClicked=false;
+                                 setState(() {
+
+                                 });
+                                 UtilityFunctions().errorToast(value.toString());
+                               }
+                             });
+                           }
+                           else{
+                             UtilityFunctions().errorToast("Please Provide the otp");
+                           }
+
+                         }
+                         else{
+                           UtilityFunctions().errorToast("Please wait...");
+                         }
 
                         },
                         child: Container(
@@ -236,7 +250,20 @@ class _LoginWithOtpVerificationState extends State<LoginWithOtpVerification> {
                           ),
                           height: size.height*0.051,
                           width: size.width*0.93,
-                          child: Center(
+                          child:
+                          buttonClicked
+                              ?
+                          Center(
+                            child: SizedBox(
+                              height: size.height*0.03,
+                              width: size.height*0.03,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                              :
+                          Center(
                             child: Text(
                               "Continue",
                               style: TextStyle(
