@@ -239,7 +239,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                               const AutoSizeText("or drag and drop ")
                             ],
                           ),
-                          const AutoSizeText("PDF or JPG (max 7 MB)")
+                          const AutoSizeText("PNG or JPG (max 7 MB)")
                         ],
                       ),
                     ),
@@ -371,7 +371,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                               const AutoSizeText("or drag and drop ")
                             ],
                           ),
-                          const Text("PDF or JPG (max 7 MB)")
+                          const Text("PNG or JPG (max 7 MB)")
                         ],
                       ),
                     ),
@@ -474,7 +474,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                               const AutoSizeText("or drag and drop ")
                             ],
                           ),
-                          const Text("PDF or JPG (max 7 MB)")
+                          const Text("PNG or JPG (max 7 MB)")
                         ],
                       ),
                     ),
@@ -530,9 +530,7 @@ class _AccountDetails2State extends State<AccountDetails2> {
                                     .then((value) {
                                   if (value == "success") {
                                     buttonClicked = false;
-                                    userRegisterData.clear();
-                                    UtilityFunctions().successToast("Account Created Successfully.");
-                                    Navigator.pushReplacementNamed(context, RoutesName.detailSaved);
+                                   Navigator.pushNamed(context, RoutesName.setUpAccountDetail);
                                   }
                                   else {
                                     buttonClicked = false;

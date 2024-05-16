@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import '../api/useraccount.dart';
+import '../constrant.dart';
 import '../routes/routesname.dart';
+import '../utilityfunction.dart';
 
 
 
@@ -648,8 +650,7 @@ class _AcountDetailState extends State<AccountDetail> {
 
                         ),
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
-                          // if(edit){
+                        // if(edit){
                           //   if(nameController.text.isNotEmpty && accountNumController.text.isNotEmpty && bankController.text.isNotEmpty && cityController.text.isNotEmpty && branchController.text.isNotEmpty && ifscController.text.isNotEmpty && ifscValidation ){
                           //     Map<String,dynamic>accountData={
                           //       "account_holder_name": nameController.text.toString(),
@@ -831,81 +832,84 @@ class _AcountDetailState extends State<AccountDetail> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         // border: Border.all(color: Colors.black)
                       ),
-                      child:SearchField(
-                        controller: bankController,
-                        suggestionItemDecoration: SuggestionDecoration(
+                      child:
+                       SearchField(
+                         controller: bankController,
+                         suggestionItemDecoration: SuggestionDecoration(
 
-                        ),
-                        key: const Key("Search key"),
-                        suggestions:
-                        bankName.map((e) => SearchFieldListItem(e)).toList(),
-                        searchStyle: GoogleFonts.openSans(
-                            color: Colors.black87,
-                            fontSize: size.height*0.018,
-                            fontWeight: FontWeight.w500),
-                        suggestionStyle: GoogleFonts.openSans(
-                          color: Colors.black,
-                          fontSize: size.height*0.016,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        marginColor: Colors.white,
-                        suggestionsDecoration: SuggestionDecoration(
-                          padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
-                          //shape: BoxShape.rectangle,
+                         ),
+                         key: const Key("Search key"),
+                         suggestions:
+                         bankName.map((e) => SearchFieldListItem(e)).toList(),
+                         searchStyle: GoogleFonts.openSans(
+                             color: Colors.black87,
+                             fontSize: size.height*0.018,
+                             fontWeight: FontWeight.w500),
+                         suggestionStyle: GoogleFonts.openSans(
+                           color: Colors.black,
+                           fontSize: size.height*0.016,
+                           fontWeight: FontWeight.w600,
+                         ),
+                         marginColor: Colors.white,
+                         suggestionsDecoration: SuggestionDecoration(
+                           padding:  EdgeInsets.only(left: size.height*0.01,right: size.height*0.01),
+                           //shape: BoxShape.rectangle,
 
-                        ),
-                        searchInputDecoration: InputDecoration(
-                            hintText: "Select Bank",
-                            contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
-                            fillColor: Colors.transparent,
-                            filled: true,
-                            suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
-                            hintStyle: GoogleFonts.openSans(
-                                color: Colors.grey,
-                                fontSize: size.height*0.02,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                //style: BorderStyle.none
-                              ),
-                              borderRadius: BorderRadius.circular(size.height*0.006),
-                            ),
-                            focusColor: Colors.black,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                                //style: BorderStyle.none
-                              ),
-                              borderRadius: BorderRadius.circular(size.height*0.006),
-                            )
+                         ),
+                         searchInputDecoration: InputDecoration(
+                             hintText: "Select Bank",
+                             contentPadding: EdgeInsets.only(top: size.height*0.02,left: size.width*0.022),
+                             fillColor: Colors.transparent,
+                             filled: true,
+                             suffixIcon: Icon(Icons.arrow_drop_down,size: size.width*0.055,color: Colors.black87,),
+                             hintStyle: GoogleFonts.openSans(
+                                 color: Colors.grey,
+                                 fontSize: size.height*0.02,
+                                 fontWeight: FontWeight.w500),
+                             focusedBorder: OutlineInputBorder(
+                               borderSide: const BorderSide(
+                                 color: Colors.black,
+                                 width: 1,
+                                 //style: BorderStyle.none
+                               ),
+                               borderRadius: BorderRadius.circular(size.height*0.006),
+                             ),
+                             focusColor: Colors.black,
+                             enabledBorder: OutlineInputBorder(
+                               borderSide: const BorderSide(
+                                 color: Colors.black,
+                                 width: 1,
+                                 //style: BorderStyle.none
+                               ),
+                               borderRadius: BorderRadius.circular(size.height*0.006),
+                             )
 
-                        ),
-                        onSuggestionTap: (value) {
+                         ),
+                         onSuggestionTap: (value) {
 
-                        },
-                        enabled: true,
-                        itemHeight: 50,
-                        maxSuggestionsInViewPort: 3,
-                      ),
+                         },
+                         enabled: true,
+                         itemHeight: 50,
+                         maxSuggestionsInViewPort: 3,
+                       ),
 
                       // StreamBuilder(
                       //   stream: UserAccount().fetchBankName(),
                       //   builder: (context, snapshot) {
                       //     if( snapshot.hasData ){
                       //       var data=jsonDecode(snapshot.data!.body);
+                      //       print("data is $data");
                       //       List<dynamic>bankIdList=[];
                       //       bankName.clear();
-                      //       for(var id in data["message"]){
-                      //         bankName.add(id["bank_name"]);
-                      //         bankIdList.add(id["id"]);
-                      //       }
+                      //       // for(var id in data["message"]){
+                      //       //   bankName.add(id["bank_name"]);
+                      //       //   bankIdList.add(id["id"]);
+                      //       // }
                       //       return snapshot.data?.statusCode==200
                       //           ?
                       //       SearchField(
                       //         controller: bankController,
+                      //         enabled: bankNameEnable,
                       //         suggestionItemDecoration: SuggestionDecoration(
                       //
                       //         ),
@@ -938,6 +942,14 @@ class _AcountDetailState extends State<AccountDetail> {
                       //                 fontSize: size.height*0.02,
                       //                 fontWeight: FontWeight.w500),
                       //             focusedBorder: OutlineInputBorder(
+                      //               borderSide: const BorderSide(
+                      //                 color: Colors.black87,
+                      //                 width: 1,
+                      //                 //style: BorderStyle.none
+                      //               ),
+                      //               borderRadius: BorderRadius.circular(size.height*0.006),
+                      //             ),
+                      //             disabledBorder:  OutlineInputBorder(
                       //               borderSide: const BorderSide(
                       //                 color: Colors.black87,
                       //                 width: 1,
@@ -962,13 +974,13 @@ class _AcountDetailState extends State<AccountDetail> {
                       //           selectedBankId=bankIdList[position].toString();
                       //           print("Selected Bank id is :$selectedBankId");
                       //         },
-                      //         enabled: true,
                       //         itemHeight: 50,
                       //         maxSuggestionsInViewPort: 3,
                       //       )
                       //           :
                       //       SearchField(
                       //         controller: bankController,
+                      //         enabled: bankNameEnable,
                       //         suggestionItemDecoration: SuggestionDecoration(
                       //
                       //         ),
@@ -1000,12 +1012,21 @@ class _AcountDetailState extends State<AccountDetail> {
                       //                 color: Colors.grey,
                       //                 fontSize: size.height*0.02,
                       //                 fontWeight: FontWeight.w500),
+                      //             disabledBorder:  OutlineInputBorder(
+                      //               borderSide: const BorderSide(
+                      //                 color: Colors.black87,
+                      //                 width: 1,
+                      //                 //style: BorderStyle.none
+                      //               ),
+                      //               borderRadius: BorderRadius.circular(size.height*0.006),
+                      //             ),
                       //             focusedBorder: OutlineInputBorder(
                       //               borderSide: const BorderSide(
                       //                 color: Colors.black87,
                       //                 width: 1,
                       //                 //style: BorderStyle.none
                       //               ),
+                      //
                       //               borderRadius: BorderRadius.circular(size.height*0.006),
                       //             ),
                       //             focusColor: Colors.black,
@@ -1022,15 +1043,14 @@ class _AcountDetailState extends State<AccountDetail> {
                       //         onSuggestionTap: (value) {
                       //
                       //         },
-                      //         enabled: true,
                       //         itemHeight: 50,
                       //         maxSuggestionsInViewPort: 3,
                       //       );
                       //     }
-                      //
                       //     else{
                       //       return SearchField(
                       //         controller: bankController,
+                      //         enabled: bankNameEnable,
                       //         suggestionItemDecoration: SuggestionDecoration(
                       //
                       //         ),
@@ -1062,6 +1082,14 @@ class _AcountDetailState extends State<AccountDetail> {
                       //                 color: Colors.grey,
                       //                 fontSize: size.height*0.02,
                       //                 fontWeight: FontWeight.w500),
+                      //             disabledBorder:  OutlineInputBorder(
+                      //               borderSide: const BorderSide(
+                      //                 color: Colors.black87,
+                      //                 width: 1,
+                      //                 //style: BorderStyle.none
+                      //               ),
+                      //               borderRadius: BorderRadius.circular(size.height*0.006),
+                      //             ),
                       //             focusedBorder: OutlineInputBorder(
                       //               borderSide: const BorderSide(
                       //                 color: Colors.black,
@@ -1084,7 +1112,6 @@ class _AcountDetailState extends State<AccountDetail> {
                       //         onSuggestionTap: (value) {
                       //
                       //         },
-                      //         enabled: true,
                       //         itemHeight: 50,
                       //         maxSuggestionsInViewPort: 3,
                       //       );
@@ -1116,10 +1143,7 @@ class _AcountDetailState extends State<AccountDetail> {
                         child:  TextField(
                           controller: cityController,
                           decoration: const InputDecoration(
-
                             border: InputBorder.none,
-
-
                             hintText: "Enter here",
                           ),
                         ),
@@ -1149,10 +1173,7 @@ class _AcountDetailState extends State<AccountDetail> {
                         child: TextField(
                           controller: branchController,
                           decoration: const InputDecoration(
-
                             border: InputBorder.none,
-
-
                             hintText: "Enter here",
                           ),
                         ),
@@ -1216,42 +1237,44 @@ class _AcountDetailState extends State<AccountDetail> {
 
                         ),
                         onPressed: () {
-                          //Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                          if(nameController.text.isNotEmpty && accountNumController.text.isNotEmpty && bankController.text.isNotEmpty && cityController.text.isNotEmpty && branchController.text.isNotEmpty && ifscController.text.isNotEmpty  && ifscValidation){
+                            Map<String,dynamic>accountData={
+                              "account_holder_name": nameController.text.toString(),
+                              "account_number": accountNumController.text.toString(),
+                              "bank_id": 2,
+                              //selectedBankId.toString(),
+                              "city": cityController.text.toString(),
+                              "branch": branchController.text.toString(),
+                              "ifsc_code": ifscController.text.toString()
+                            };
+                            buttonClicked=true;
+                            setState(() {
 
-                          // if(nameController.text.isNotEmpty && accountNumController.text.isNotEmpty && bankController.text.isNotEmpty && cityController.text.isNotEmpty && branchController.text.isNotEmpty && ifscController.text.isNotEmpty  && ifscValidation){
-                          //   Map<String,dynamic>accountData={
-                          //     "account_holder_name": nameController.text.toString(),
-                          //     "account_number": accountNumController.text.toString(),
-                          //     "bank_id": selectedBankId.toString(),
-                          //     "city": cityController.text.toString(),
-                          //     "branch": branchController.text.toString(),
-                          //     "ifsc_code": ifscController.text.toString()
-                          //   };
-                          //   buttonClicked=true;
-                          //   setState(() {
-                          //
-                          //   });
-                          //   UserAccount().addAccountDetails(accountData).then((value) {
-                          //     if(value=="success"){
-                          //       buttonClicked=false;
-                          //       setState(() {
-                          //
-                          //       });
-                          //       UtilityFunctions().successToast("Details saved successfully");
-                          //     }
-                          //     else{
-                          //       buttonClicked=false;
-                          //       setState(() {
-                          //
-                          //       });
-                          //       UtilityFunctions().errorToast(value.toString());
-                          //     }
-                          //
-                          //   });
-                          // }
-                          // else{
-                          //   UtilityFunctions().errorToast( "All fields are required.");
-                          // }
+                            });
+                            UserAccount().addAccountDetails(accountData).then((value) {
+                              if(value=="success"){
+                                buttonClicked=false;
+                                setState(() {
+
+                                });
+                                userRegisterData.clear();
+                                accountData.clear();
+                                UtilityFunctions().successToast("Account Created Successfully.");
+                                Navigator.pushReplacementNamed(context, RoutesName.detailSaved);
+                              }
+                              else{
+                                buttonClicked=false;
+                                setState(() {
+
+                                });
+                                UtilityFunctions().errorToast(value.toString());
+                              }
+
+                            });
+                          }
+                          else{
+                            UtilityFunctions().errorToast( "All fields are required.");
+                          }
 
 
                         },

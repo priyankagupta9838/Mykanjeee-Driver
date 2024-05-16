@@ -310,7 +310,7 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
                         ),
                         enabled: false,
                         decoration: InputDecoration(
-                            error: AutoSizeText(""
+                            error: AutoSizeText(
                                 "Name and DOB should be as per pan card*",
                               maxLines: 1,
                               style: GoogleFonts.openSans(

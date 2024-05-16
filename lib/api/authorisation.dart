@@ -28,7 +28,7 @@ class Authentication{
         "name": name,
         "value": email,
         "password": password,
-        "type": isPhoneNumber?"Phone":"email"
+        "type": isPhoneNumber?"phone":"email"
       };
 
       String body = json.encode(data);
@@ -90,6 +90,11 @@ class Authentication{
       var result = jsonDecode(response.body);
       print("Result is ...////////$result");
       if (result["status"] == "success") {
+        final box = GetStorage();
+        box.write("UserToken", result["token"]);
+        box.write("refreshToken", result["refreshToken"]);
+        userToken=box.read("UserToken");
+        print("Usertoken is...$userToken");
         loginValue = "success";
       } else {
         loginValue = result["message"];
@@ -118,7 +123,7 @@ class Authentication{
     request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
     request.headers["Accept"]="*/*";
     request.fields['userId'] = userId;
-   // request.fields['phone'] = userRegisterData["mobileNumber"];
+    request.fields['phone'] = userRegisterData["mobileNumber"];
     request.fields['alt_phone'] = userRegisterData["alternativeMobile"];
     request.fields['city'] = userRegisterData["city1"];
     request.fields['state'] = "up";
