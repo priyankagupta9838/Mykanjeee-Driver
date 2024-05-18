@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utilityfunction.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../api/authorisation.dart';
 import '../routes/routesname.dart';
 import 'constraints.dart';
@@ -249,18 +250,20 @@ class _SignUpPage2State extends State<SignUpPage2> {
                             children: [
                               AutoSizeText("I agree to the ",
                               style: GoogleFonts.openSans(
-                                fontSize: size.height*0.018,
+                                fontSize: size.height*0.015,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black87
                               ),
                               ),
                               GestureDetector(
-                                onTap: () {
-
+                                onTap: () async {
+                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/terms-and-conditions/"))) {
+                                  throw Exception('Could not launch');
+                                  }
                                 },
-                                child: AutoSizeText(" T&C",
+                                child: AutoSizeText("Terms & Condition",
                                   style: GoogleFonts.openSans(
-                                      fontSize: size.height*0.018,
+                                      fontSize: size.height*0.015,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.blue
                                   ),
@@ -268,18 +271,20 @@ class _SignUpPage2State extends State<SignUpPage2> {
                               ),
                               AutoSizeText(" and ",
                                 style: GoogleFonts.openSans(
-                                    fontSize: size.height*0.018,
+                                    fontSize: size.height*0.015,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black87
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-
+                                onTap: () async {
+                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/privacy-policy/"))) {
+                                  throw Exception('Could not launch');
+                                  }
                                 },
-                                child: AutoSizeText(" privacy & policy",
+                                child: AutoSizeText("Privacy Policy",
                                   style: GoogleFonts.openSans(
-                                      fontSize: size.height*0.018,
+                                      fontSize: size.height*0.015,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.blue
                                   ),

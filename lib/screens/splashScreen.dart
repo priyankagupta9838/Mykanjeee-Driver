@@ -132,10 +132,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 opacity: _isVisible ? 1.0 : 0.0,
                 duration: const Duration(seconds: 3),
                 child: SizedBox(
-                  width: size.width * 0.75,
+
                   height: size.height * 0.03,
                   child: AutoSizeText(
-                    "  Join our thriving  community to buy,sell",
+                    "Join our thriving  community to buy,sell",
                     style: GoogleFonts.cabin(
                       color: Colors.black87,
                       fontSize: size.height * 0.022,
@@ -148,7 +148,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 opacity: _isVisible ? 1.0 : 0.0,
                 duration: const Duration(seconds: 3),
                 child: SizedBox(
-                  width: size.width * 0.73,
+
                   height: size.height * 0.03,
                   child: AutoSizeText(
                     "and upcycle your clothes",
