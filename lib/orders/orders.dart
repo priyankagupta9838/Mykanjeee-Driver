@@ -38,6 +38,7 @@ class OrdersPage extends StatelessWidget {
         stream: CheckOut().getOngoingOrders(),
         builder: (context, snapshot) {
           if(snapshot.hasData){
+            print("user model is ${userModel["name"]}");
             var data=jsonDecode(snapshot.data!.body);
             return snapshot.data?.statusCode==200 && data["data"].length>0
                 ?
@@ -128,12 +129,31 @@ class OrdersPage extends StatelessWidget {
                  height: size.height,
                  width: size.width,
                  child: Center(
-                   child: AutoSizeText(
-                     "No Order found",
-                     style: GoogleFonts.cabin(
-                       fontSize: size.height*0.03,
-                       fontWeight: FontWeight.w600
-                     ),
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Container(
+                         height: size.height*0.2,
+                         width: size.width*0.4,
+                         decoration: const BoxDecoration(
+                           image: DecorationImage(
+                             image: AssetImage("assets/images/no_order_found.jpg"),
+                             fit: BoxFit.fill
+                           ),
+
+                         ),
+                       ),
+                       SizedBox(
+                         height: size.height*0.02,
+                       ),
+                       AutoSizeText(
+                         "No Order found",
+                         style: GoogleFonts.cabin(
+                           fontSize: size.height*0.03,
+                           fontWeight: FontWeight.w600
+                         ),
+                       ),
+                     ],
                    ),
                  ),
                );

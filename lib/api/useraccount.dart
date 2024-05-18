@@ -112,4 +112,33 @@ class UserAccount{
       "authorization":userToken
     }).asStream();
   }
+
+
+
+
+
+  Future<String> removeDeviceToken() async {
+    String loginValue = "";
+
+    var url = '${ApiList.baseUrl}/api/notification/remove-firebase-device-token';
+    await http.post(
+      Uri.parse(url),
+      headers: {
+        "authorization":userToken
+      },
+    ).then((value) {
+      var result = jsonDecode(value.body);
+      print(result);
+      if (result["status"]=="success") {
+        loginValue="success";
+      } else{
+        loginValue="Something went wrong.";
+      }
+
+    }).onError((error, stackTrace) {
+      print("Server Error..... ${error.toString()}");
+      loginValue="Bad request.";
+    });
+    return loginValue;
+  }
 }

@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/Authentication/constraints.dart';
 import 'package:mykanjeedriver/api/useraccount.dart';
 import 'package:mykanjeedriver/constrant.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../api/authorisation.dart';
+import '../storagestreame.dart';
+import '../utilityfunction.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -18,14 +22,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool switchValue = false;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   Authentication().getUser().then((value) {
-  //
-  //   });
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +66,11 @@ class _ProfileState extends State<Profile> {
                       Column(
                         children: [
                           AutoSizeText(
-                            "email_id",
+                            userModel["email"]!=null
+                            ?
+                            userModel["email"].toString()
+                                :
+                            userModel["phone"].toString(),
                             style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.02,
@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile> {
                             height: size.height * 0.01,
                           ),
                           AutoSizeText(
-                            "User_name",
+                            userModel["name"].toString(),
                             style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w600,
                               fontSize: size.height * 0.02,
@@ -231,7 +231,7 @@ class _ProfileState extends State<Profile> {
                                 ),),
                                 actions: <Widget>[
                                   SizedBox(
-                                    width: size.width*0.2,
+                                    width: size.width*0.24,
                                     child: ElevatedButton(
                                       style:ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -241,21 +241,51 @@ class _ProfileState extends State<Profile> {
                                       Navigator.of(context).pop();
                                     }, child:  const Text(
                                       'No',
-                                      style: TextStyle(color: Colors.black87),
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                          color: Colors.black87),
                                     ),),
                                   ),
                                   SizedBox(
-                                    width: size.width*0.2,
+                                    width: size.width*0.24,
                                     child: ElevatedButton(
 
                                       style:ElevatedButton.styleFrom(
                                         elevation: 0,
                                           backgroundColor: buttonColor
                                       ) ,
-                                      onPressed: (){
-                                      Navigator.of(context).pop();
+                                      onPressed: () async {
+                                      bool userResponse=true;
+                                        if(userResponse){
+                                          var box=GetStorage();
+                                          box.remove("UserToken");
+                                          box.remove("refreshToken");
+                                          userModel.clear();
+                                          userRegisterData.clear();
+                                          Navigator.pushAndRemoveUntil(context, PageTransition(
+                                              type: PageTransitionType.bottomToTop,
+                                              duration: const Duration(milliseconds: 0),
+                                              childCurrent: const Profile(),
+                                              child: const StorageStream()),(route) => false,);
+                                          // await UserAccount().removeDeviceToken().then((value) {
+                                          //
+                                          //   if(value.toString()=="success"){
+                                          //     print("device token clear.......................................");
+                                          //
+                                          //
+                                          //   }
+                                          //   else{
+                                          //     UtilityFunctions().errorToast("Please try again");
+                                          //   }
+                                          //
+                                          //
+                                          // });
+
+                                        }
+
                                     }, child:  const Text(
                                       'Yes',
+                                      maxLines: 1,
                                       style: TextStyle(color: Colors.white),
                                     ),),
                                   ),

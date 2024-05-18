@@ -21,8 +21,12 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ThemColors.buttonColor,
         title: AutoSizeText(
-          "Hi User",
-          style: GoogleFonts.cabin(color: Colors.white),
+          "Hi ${userModel["name"].toString()}",
+          style: GoogleFonts.cabin(
+            color: Colors.white,
+            fontSize: size.height * 0.03,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         actions: [
           IconButton(
