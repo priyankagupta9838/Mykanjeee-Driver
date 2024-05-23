@@ -5,7 +5,7 @@ class ApiList{
   static const registerNewDriver="/api/delivery-person/register-as-delivery-person-with-otp";
   static const registerNewDriverVerifyOtp="/api/delivery-person/register-as-delivery-person-verify-otp";
   static const updateDriverDetails="/api/delivery-person/register-as-delivery-person";
-  static const updateAccountDetails="/api/account/add-account-details";
+  static const updateAccountDetails="/api/delivery-person/add-account-details";
   static const login="/api/delivery-person/login";
   static const loginWithOtp="/api/delivery-person/login-send-otp";
   static const loginWithOtpVerification="/api/delivery-person/login-otp-verify";
@@ -14,6 +14,7 @@ class ApiList{
 
   static const getUser="/api/auth/get-user";
   static const rejectOrder="/api/delivery-person/reject-assigned-order";
+  static const rejectOrderByCustomer="/api/delivery-person/order-rejected-by-customer";
   static const acceptOrder="/api/delivery-person/accept-assigned-order";
   static const deliveredOrder="/api/delivery-person/delivered-order";
   static const collectOrder="/api/delivery-person/collected-order";

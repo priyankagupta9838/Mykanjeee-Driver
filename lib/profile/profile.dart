@@ -8,10 +8,7 @@ import 'package:mykanjeedriver/api/useraccount.dart';
 import 'package:mykanjeedriver/constrant.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../api/authorisation.dart';
 import '../storagestreame.dart';
-import '../utilityfunction.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -66,6 +63,7 @@ class _ProfileState extends State<Profile> {
                       Column(
                         children: [
                           AutoSizeText(
+
                             userModel["email"]!=null
                             ?
                             userModel["email"].toString()
@@ -155,7 +153,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       InkWell(
                            onTap: (){
-                             Navigator.pushNamed(context, RoutesName.setUpAccountDetail);
+                             Navigator.pushNamed(context, RoutesName.updateUserProfile);
                            },
                         child: Card(
                           elevation: 0,

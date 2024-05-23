@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 
+import '../NotificationSetup/helper_Notification.dart';
 import '../api/checkout.dart';
 import '../constrant.dart';
 
@@ -21,6 +22,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ThemColors.buttonColor,
         title: AutoSizeText(
+
           "Hi ${userModel["name"].toString()}",
           style: GoogleFonts.cabin(
             color: Colors.white,
@@ -29,6 +31,17 @@ class HomePage extends StatelessWidget {
           ),
         ),
         actions: [
+          // IconButton(
+          //   onPressed: () async {
+          //     await NotificationServices().getToken().then((value) {
+          //       print(value.toString());
+          //       NotificationServices().sendPushMessage( value.toString(),"Hello World","testing");
+          //
+          //     });
+          //
+          //   },
+          //   icon: const Icon(Icons.notifications_none, color: Colors.white),
+          // ),
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, RoutesName.userProfile);

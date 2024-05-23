@@ -13,6 +13,7 @@ import '../Authentication/resetPassword.dart';
 import '../Authentication/forgotPassword.dart';
 import '../navigationbar.dart';
 import '../orders/orderdetail.dart';
+import '../profile/editprofile.dart';
 import '../registration/accountdetail.dart';
 import '../registration/detailsavedpage.dart';
 import '../registration/docqumentverification.dart';
@@ -50,6 +51,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>const Navigation());
       case RoutesName.userProfile:
         return MaterialPageRoute(builder: (context) =>const Profile());
+      case RoutesName.updateUserProfile:
+        return MaterialPageRoute(builder: (context) =>const UerProfile());
       case RoutesName.setupProfile:
         return MaterialPageRoute(builder: (context) => UserRegistrationProfile(selectedService: '',));
       case RoutesName.documentVerification:

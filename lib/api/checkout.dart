@@ -89,15 +89,16 @@ class CheckOut{
   //
   //   return result;
   // }
-  Future<String> rejectOrder(int driverId, String reason) async {
+  Future<String> rejectOrderByCustomer(int orderId, String imageKey,String reason) async {
     String responcValue = "";
     Map data = {
-      "delivery_person_id": driverId,
-      "rejection_reason": "reason",
+      "order_id": orderId,
+      "order_status_image": imageKey,
+      "rejection_reason": reason
     };
     String body = json.encode(data);
     await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.rejectOrder),
+      Uri.parse(ApiList.baseUrl+ApiList.rejectOrderByCustomer),
       body: body,
       headers: {
         "authorization":userToken,
@@ -106,11 +107,11 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-      print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
+        print("resulte is $result");
+        if (result["status"] == "success") {
+          responcValue=result["status"];
         } else {
           responcValue=result["message"];
         }
@@ -143,10 +144,8 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-      print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        print(result);
         if (result["status"] == "success") {
           responcValue=result["status"];
         } else {
@@ -163,10 +162,11 @@ class CheckOut{
   }
 
 
-  Future<String> deliveredOrder(int orderId, ) async {
+  Future<String> deliveredOrder( int orderId,String imageKey ) async {
     String responcValue = "";
     Map data = {
       "order_id":orderId,
+      "order_status_image":imageKey
 
     };
     print(data);

@@ -41,19 +41,15 @@ class _AccountDetails2State extends State<AccountDetails2> {
   void initState() {
     // TODO: implement initState
 
-    // if(userRegisterData.isNotEmpty){
-    //   businessNameController.text=userRegisterData['nameOfBusiness']??"" ;
-    //   entryController.text=userRegisterData['legalEntityType']??"";
-    //   panController.text=userRegisterData['panNumber']??"";
-    //   panCardImagePath=userRegisterData['panCardImage']??"";
-    //   adharController.text= userRegisterData['adharNumber']??"";
-    //   adharCardImagePath=userRegisterData['adharCardImage']??"";
-    //   gstinController.text=userRegisterData['gstin']??"";
-    //   gstinImagePath= userRegisterData['gstinImage']??"";
-    //   cinController.text=userRegisterData['cin']??"";
-    //   cinImagePath=userRegisterData['cinImage']??"";
-    //
-    // }
+    if(userRegisterData.isNotEmpty){
+      panController.text=userRegisterData['panNumber']??"";
+      panCardImagePath=userRegisterData['panCardImage']??"";
+      adharController.text= userRegisterData['adharNumber']??"";
+      adharCardImagePath=userRegisterData['adharCardImage']??"";
+      drivingLicenceController.text= userRegisterData['drivingLicence']??"";
+      drivingLicenceImagePath= userRegisterData['drivingLicenceImage']??"";
+
+    }
     super.initState();
   }
 
@@ -530,6 +526,9 @@ class _AccountDetails2State extends State<AccountDetails2> {
                                     .then((value) {
                                   if (value == "success") {
                                     buttonClicked = false;
+                                    setState(() {
+
+                                    });
                                    Navigator.pushNamed(context, RoutesName.setUpAccountDetail);
                                   }
                                   else {

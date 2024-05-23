@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:mykanjeedriver/utilityfunction.dart';
+import '../NotificationSetup/helper_Notification.dart';
 import '../api/authorisation.dart';
 import '../constrant.dart';
 import 'constraints.dart';
@@ -220,7 +223,27 @@ class _LogInPageState extends State<LogInPage> {
                                   if(value=="success")
                                   {
 
-                                    Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                                    Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
+                                    await UtilityFunctions().checkNotificationPermission().then((value) {
+                                        print("vnotification value is }");
+                                      });
+                                    });
+
+
+                                    await NotificationServices().getToken().then((value) async {
+                                      if(value!.isNotEmpty){
+                                        print("Device token is..... : $value");
+                                        await Authentication().sendDeviceToken(value).then((value2) {
+                                          if(value2=="success"){
+                                            print("Device token is : $value");
+                                          }
+                                          else{
+                                            print("else condition${value2.toString()}");
+                                          }
+
+                                        });
+                                      }
+                                    });
 
 
                                   }

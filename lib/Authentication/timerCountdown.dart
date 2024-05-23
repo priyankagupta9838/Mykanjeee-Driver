@@ -30,7 +30,8 @@ class _CountDownTimerState extends State<CountDownTimer> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (totalSeconds<= 0) {
-        timer.cancel();
+        totalSeconds=0;
+        //timer.cancel();
       } else {
         setState(() {
           totalSeconds--;

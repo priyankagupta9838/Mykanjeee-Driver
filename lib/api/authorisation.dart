@@ -430,4 +430,36 @@ class Authentication{
 
 
 
+  Future<String> sendDeviceToken(String deviceToken) async {
+    String loginValue = "";
+
+    Map data = {
+      "device_token": deviceToken
+    };
+    String body = json.encode(data);
+    var url = '${ApiList.baseUrl}/api/notification/save-firebase-device-token';
+    await http.post(
+      Uri.parse(url),
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization":userToken
+      },
+    ).then((value) {
+      var result = jsonDecode(value.body);
+      print(result);
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+
+
+      }
+    }).onError((error, stackTrace) {
+      loginValue = "Bad request.";
+    });
+    return loginValue;
+  }
+
 }

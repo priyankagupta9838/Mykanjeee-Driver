@@ -38,8 +38,9 @@ class OrdersPage extends StatelessWidget {
         stream: CheckOut().getOngoingOrders(),
         builder: (context, snapshot) {
           if(snapshot.hasData){
-            print("user model is ${userModel["name"]}");
+
             var data=jsonDecode(snapshot.data!.body);
+            print("order data is... $data");
             return snapshot.data?.statusCode==200 && data["data"].length>0
                 ?
               Padding(
@@ -104,8 +105,7 @@ class OrdersPage extends StatelessWidget {
                                     Row(
                                       children: [
                                         AutoSizeText(
-                                   "Status"
-                                          ,
+                                            "${data['data'][index]["delivery_type"]}",
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87
                                           ),
@@ -168,7 +168,6 @@ class OrdersPage extends StatelessWidget {
           }
         },
       )
-
       :
       SizedBox(
         height: size.height*1,

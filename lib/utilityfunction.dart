@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mykanjeedriver/api/apilist.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:http/http.dart'as http;
 
 class UtilityFunctions{
 
@@ -52,6 +58,54 @@ class UtilityFunctions{
 
 
 
+
+  Future<String> postImage(String type,String value) async {
+    print("....Image Path is : ${value}");
+    String result="";
+    String url='${ApiList.baseUrl}/api/auth/image-upload';
+    var request = http.MultipartRequest('POST', Uri.parse(url),);
+
+    request.headers["Content-Type"]="multipart/form-data; boundary=<calculated when request is sent>";
+    request.headers["Accept"]="*/*";
+
+    request.fields["type"] =type.toString();
+    if(value.toString().isNotEmpty){
+      request.files.add(await http.MultipartFile.fromPath(
+        'image',
+        value.toString(),
+      ));
+    }
+
+    try {
+      var response = await request.send().timeout(const Duration( seconds: 60));
+      var responseMessage = await response.stream.bytesToString();
+      var responseData = jsonDecode(responseMessage);
+      print(responseData);
+      if (responseData["status"]=="success") {
+        result=responseData["data"]["key"].toString();
+      }
+      else {
+        result="Something went wrong";
+      }
+    }on SocketException catch (e) {
+      print('SocketException: $e');
+      result ="Please check your internet.";
+    }  catch (error) {
+      print("Error...$error");
+      result="Something went wrong";
+    }
+
+    return result;
+  }
+
+
+  Future<void>checkNotificationPermission()async{
+    PermissionStatus status = await Permission.notification.status;
+
+    if (!status.isGranted) {
+      status = await Permission.notification.request();
+    }
+  }
 
 
 

@@ -71,7 +71,7 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
           child: Column(
             children: [
               SizedBox(
-                height: size.height*0.028,
+                height: size.height*0.05,
               ),
               Container(
                 color: const Color.fromRGBO(247, 244, 249, 1),
@@ -85,7 +85,7 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
                     children: [
                       GestureDetector(
                           onTap: (){
-                            Navigator.pop(context);
+
                           },
                           child: const Icon(CupertinoIcons.arrow_left,color: Colors.black,) ),
                       SizedBox(height: size.height*0.02,),

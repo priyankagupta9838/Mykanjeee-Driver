@@ -50,22 +50,19 @@ class UserAccount{
   }
 
 
-  Future<String>addAccountDetails( Map<String,dynamic>accountData) async {
+  Future<String>addAccountDetails( ) async {
 
     String value="";
     final box = GetStorage();
-    String userId=box.read("user_id").toString();
     userToken= box.read("UserToken");
-    print(userId);
     try{
       Map data ={
-        "user_id":userId,
-        "account_holder_name": accountData["account_holder_name"],
-        "account_number": accountData["account_number"],
-        "bank_id": accountData["bank_id"],
-        "city": accountData["city"],
-        "branch": accountData["branch"],
-        "ifsc_code": accountData["ifsc_code"]
+        "account_holder_name": userRegisterData["account_holder_name"],
+        "account_number": userRegisterData["account_number"],
+        "bank_id": userRegisterData["bank_id"],
+        "city": userRegisterData["city"],
+        "branch": userRegisterData["branch"],
+        "ifsc_code": userRegisterData["ifsc_code"]
       };
 
       String body = json.encode(data);
@@ -80,9 +77,7 @@ class UserAccount{
         },
       );
       print("......Add Account details address..${response.body}");
-      print(response.statusCode);
       var result=jsonDecode(response.body);
-
       if(result["status"]=="success"){
         value="success";
       }
@@ -140,5 +135,112 @@ class UserAccount{
       loginValue="Bad request.";
     });
     return loginValue;
+  }
+
+
+
+
+  Future<String>addProfileDetails( Map<String,dynamic>userData ) async {
+
+    String value="";
+    try{
+      Map data ={
+        "first_name":userData["firstName"].toString() ,
+        "last_name":userData["lastName"].toString(),
+        "phone": userData["mobileNumber"].toString(),
+        "alt_phone": userData["alternativeMobile"].toString(),
+        "email": userData["email"].toString()
+      };
+
+      String body = json.encode(data);
+      var url = '${ApiList.baseUrl}/api/user/add-profile-details';
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Authorization":userToken.toString(),
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+      print("......Add profile details ..${response.body}");
+      print(response.statusCode);
+      var result=jsonDecode(response.body);
+      if(result["status"]=="success"){
+        value="success";
+      }
+      else {
+        value=result["message"];
+      }
+    }
+    catch(error){
+      value=error.toString();
+    }
+
+
+    return value;
+
+  }
+
+
+  Future<String>updateProfileDetails( Map<String,dynamic>userData) async {
+
+    String value="";
+
+    try{
+      Map data ={
+        "profile_id":int.parse(userData["profile_id"]),
+        "first_name":userData["firstName"].toString() ,
+        "last_name":userData["lastName"].toString(),
+        "phone": userData["mobileNumber"].toString(),
+        "alt_phone": userData["alternativeMobile"].toString(),
+        "email": userData["email"].toString()
+      };
+
+      String body = json.encode(data);
+      var url = '${ApiList.baseUrl}/api/user/edit-profile-details';
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Authorization":userToken.toString(),
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+      print("...${response.body}");
+      var result=jsonDecode(response.body);
+      if(result["status"]=="success"){
+        value="success";
+      }
+      else {
+        value=result["message"];
+      }
+    }
+    catch(error){
+      value=error.toString();
+    }
+
+
+    return value;
+
+  }
+
+
+  Future<Map<String,dynamic>> fetchUserAccount() async {
+
+    String url= '${ApiList.baseUrl}/api/user/profile-details';
+    final response = await http.get(Uri.parse(url),headers: {
+      "authorization":userToken
+    });
+    if (response.statusCode == 200) {
+      var data=json.decode(response.body);
+      if(data["status"]=="success"){
+        return data["data"];
+      }
+    } else {
+      print("Failed : ${response.body}");
+    }
+    return {};
   }
 }

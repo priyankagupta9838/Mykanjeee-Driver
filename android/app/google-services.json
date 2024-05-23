@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "122310440737",
+    "project_id": "mykanjee-55ea0",
+    "storage_bucket": "mykanjee-55ea0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122310440737:android:35ff2aa74252421ac2b060",
+        "android_client_info": {
+          "package_name": "com.Mykanjee.Rider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCurx2pf3NXFbCIOj6ze6hZ-BmtfPaQc_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "122310440737-00m1fc7broc6ktu5lv3pj2oubv5viq8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vendor.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122310440737:android:eb5151a545171750c2b060",
+        "android_client_info": {
+          "package_name": "com.example.seller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCurx2pf3NXFbCIOj6ze6hZ-BmtfPaQc_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "122310440737-00m1fc7broc6ktu5lv3pj2oubv5viq8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vendor.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122310440737:android:7d82a36ebe865f9dc2b060",
+        "android_client_info": {
+          "package_name": "com.mykanjee.vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCurx2pf3NXFbCIOj6ze6hZ-BmtfPaQc_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122310440737-dr4gj49dnn8lpvuj0h1r4ha5mqia8jrn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "122310440737-00m1fc7broc6ktu5lv3pj2oubv5viq8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vendor.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

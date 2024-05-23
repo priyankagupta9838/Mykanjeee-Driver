@@ -17,6 +17,7 @@ class RoutesName{
   static const String  storageStream="storageStream_Screen";
   static const String  navigationBar="navigationBar_Screen";
   static const String  userProfile="userProfile_Screen";
+  static const String  updateUserProfile="updateUserProfile_Screen";
   static const String  setupProfile="setupProfile_Screen";
   static const String  documentVerification="documentVerification_Screen";
   static const String  detailSaved="detailSaved_Screen";
