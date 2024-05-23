@@ -4,33 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
-import '../api/checkout.dart';
-import '../constrant.dart';
-import '../routes/routesname.dart';
+import '../../api/checkout.dart';
+import '../../constrant.dart';
+import '../../routes/routesname.dart';
 
 
 
-class OrdersPage extends StatelessWidget {
-  const OrdersPage({super.key});
+class Accepted extends StatelessWidget {
+  const Accepted({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: ThemColors.buttonColor,
-        centerTitle: true,
-        title: AutoSizeText(
-          "All Orders",
-          style: GoogleFonts.cabin(
-              color: Colors.white
-          ),
-
-        ),
-
-      ),
-      body: userModel["is_active"]==1
+    return SizedBox(
+      height: size.height,
+      width: size.width,
+      child: userModel["is_active"]==1
           ?
 
 

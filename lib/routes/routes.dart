@@ -12,7 +12,7 @@ import '../Authentication/signUpOtpVerification.dart';
 import '../Authentication/resetPassword.dart';
 import '../Authentication/forgotPassword.dart';
 import '../navigationbar.dart';
-import '../orders/orderdetail.dart';
+import '../orders/productorder/orderdetail.dart';
 import '../profile/editprofile.dart';
 import '../registration/accountdetail.dart';
 import '../registration/detailsavedpage.dart';

@@ -3,7 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home/home.dart';
 import 'notification/notification.dart';
-import 'orders/orders.dart';
+import 'orders/ordermainPage.dart';
+import 'orders/productorder/acceptedorders.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _NavigationState extends State<Navigation> {
         },
         children: const [
           HomePage(),
-          OrdersPage(),
+          MyOrders(),
           NotificationPage(),
         ],
       ),

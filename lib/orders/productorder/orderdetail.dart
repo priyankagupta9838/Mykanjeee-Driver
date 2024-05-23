@@ -7,7 +7,7 @@ import 'package:mykanjeedriver/api/checkout.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:io';
-import '../utilityfunction.dart';
+import '../../utilityfunction.dart';
 class OrderDetail extends StatefulWidget {
   OrderDetail({super.key,required this.data});
   Map<dynamic,dynamic>data;
