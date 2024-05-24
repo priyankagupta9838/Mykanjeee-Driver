@@ -28,6 +28,11 @@ class RoutesName{
   static const String  assignedOrderDetail="assignedOrderDetail_Screen";
   static const String  rejectedOderDetail="rejectedOderDetail_Screen";
   static const String  deliveredOderDetail="deliveredOderDetail_Screen";
+  static const String  acceptedServiceOderDetail="acceptedServiceOderDetail_Screen";
+  static const String  deliveredServiceOderDetail="deliveredServiceOderDetail_Screen";
+  static const String  rejectedServiceOderDetail="rejectedServiceOderDetail_Screen";
+  static const String  pickUpOderDetail="pickUpOderDetail_Screen";
+  static const String  dropOffOderDetail="dropOffOderDetail_Screen";
 
 
 

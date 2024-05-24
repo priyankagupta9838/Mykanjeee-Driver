@@ -16,6 +16,11 @@ import '../orders/productorder/deliveredoderdetail.dart';
 import '../orders/productorder/orderdetail.dart';
 import '../orders/productorder/rejecteddetailOrder.dart';
 import '../orders/serviceorder/AssignedServiceOrderDetail.dart';
+import '../orders/serviceorder/acceptedServiceDetail.dart';
+import '../orders/serviceorder/deliveredServiceorderDetail.dart';
+import '../orders/serviceorder/dropofforderdetail.dart';
+import '../orders/serviceorder/pickuporderdetail.dart';
+import '../orders/serviceorder/rejectedserviceorderdetail.dart';
 import '../profile/aacountsetting.dart';
 import '../profile/editprofile.dart';
 import '../registration/accountdetail.dart';
@@ -76,6 +81,25 @@ class Routes {
         return MaterialPageRoute(builder: (context) => RejectedOrderDetail(data: settings.arguments as Map,));
       case RoutesName.deliveredOderDetail:
         return MaterialPageRoute(builder: (context) => DeliveredOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.acceptedServiceOderDetail:
+        return MaterialPageRoute(builder: (context) => AcceptedServiceOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.deliveredServiceOderDetail:
+        return MaterialPageRoute(builder: (context) => DeliveredServiceOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.rejectedServiceOderDetail:
+        return MaterialPageRoute(builder: (context) => RejectedServiceOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.pickUpOderDetail:
+        return MaterialPageRoute(builder: (context) => PickUpOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.dropOffOderDetail:
+        return MaterialPageRoute(builder: (context) => DropOffOrderDetail(data: settings.arguments as Map,));
+
+
+
+
+
+
+
+
+
 
 
 

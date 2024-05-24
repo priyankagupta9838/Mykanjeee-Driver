@@ -1,8 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mykanjeedriver/orders/serviceorder/pickuporder.dart';
+import 'package:mykanjeedriver/orders/serviceorder/rejectedserviceorder.dart';
 
+import 'acceptedServiceOrder.dart';
 import 'assiendServiceorder.dart';
+import 'deliveredSerivceOrder.dart';
+import 'dropOfforder.dart';
 
 class ServiceOrder extends StatefulWidget {
   const ServiceOrder({super.key});
@@ -110,7 +115,12 @@ class _ServiceOrderState extends State<ServiceOrder> {
                   allowImplicitScrolling: true,
                   children:   const [
                     AssignedServiceOrder(),
-                    SizedBox()
+                    AcceptedServiceOrder(),
+                    PickUpOrder(),
+                    DropOffOrder(),
+                    DeliveredServiceOrder(),
+                    RejectedServiceOrder(),
+
 
                   ]
               ),

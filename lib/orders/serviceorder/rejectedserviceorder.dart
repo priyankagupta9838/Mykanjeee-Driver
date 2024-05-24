@@ -9,8 +9,8 @@ import '../../routes/routesname.dart';
 
 
 
-class Accepted extends StatelessWidget {
-  const Accepted({super.key});
+class RejectedServiceOrder extends StatelessWidget {
+  const RejectedServiceOrder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class Accepted extends StatelessWidget {
             print("order data is... $data");
             return snapshot.data?.statusCode==200 && data["data"].length>0
                 ?
-              Padding(
+            Padding(
               padding:  EdgeInsets.only(right: size.width*0.02,left: size.width*0.02),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -48,7 +48,7 @@ class Accepted extends StatelessWidget {
 
                           return  InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, RoutesName.orderDetail,arguments:data["data"][index]);
+                              Navigator.pushNamed(context, RoutesName.rejectedServiceOderDetail,arguments:data["data"][index]);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -93,7 +93,7 @@ class Accepted extends StatelessWidget {
                                     Row(
                                       children: [
                                         AutoSizeText(
-                                            "${data['data'][index]["delivery_type"]}",
+                                          "${data['data'][index]["delivery_type"]}",
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87
                                           ),
@@ -113,38 +113,38 @@ class Accepted extends StatelessWidget {
               ),
             )
                 :
-               SizedBox(
-                 height: size.height,
-                 width: size.width,
-                 child: Center(
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-                       Container(
-                         height: size.height*0.2,
-                         width: size.width*0.4,
-                         decoration: const BoxDecoration(
-                           image: DecorationImage(
-                             image: AssetImage("assets/images/no_order_found.jpg"),
-                             fit: BoxFit.fill
-                           ),
+            SizedBox(
+              height: size.height,
+              width: size.width,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: size.height*0.2,
+                      width: size.width*0.4,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/no_order_found.jpg"),
+                            fit: BoxFit.fill
+                        ),
 
-                         ),
-                       ),
-                       SizedBox(
-                         height: size.height*0.02,
-                       ),
-                       AutoSizeText(
-                         "No Order found",
-                         style: GoogleFonts.cabin(
-                           fontSize: size.height*0.03,
-                           fontWeight: FontWeight.w600
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-               );
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height*0.02,
+                    ),
+                    AutoSizeText(
+                      "No Order found",
+                      style: GoogleFonts.cabin(
+                          fontSize: size.height*0.03,
+                          fontWeight: FontWeight.w600
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
 
           }
           else{
@@ -156,13 +156,13 @@ class Accepted extends StatelessWidget {
           }
         },
       )
-      :
+          :
       SizedBox(
         height: size.height*1,
         child: Center(
           child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
-            fontWeight: FontWeight.w600,
-            fontSize: size.height*0.03
+              fontWeight: FontWeight.w600,
+              fontSize: size.height*0.03
           ),),
         ),
       )
