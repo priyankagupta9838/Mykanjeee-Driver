@@ -187,30 +187,35 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: size.height * 0.012,
                       ),
-                      Card(
-                        elevation: 0,
-                        color: const Color.fromRGBO(235, 227, 240, 1),
-                        child: Padding(
-                          padding: EdgeInsets.all(size.width * 0.05),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.settings,
-                                color: Colors.black54,
-                                size: size.height * 0.03,
-                              ),
-                              SizedBox(
-                                width: size.width * 0.04,
-                              ),
-                              AutoSizeText(
-                                "Account Settings",
-                                style: GoogleFonts.openSans(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: size.height * 0.02,
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, RoutesName.accountSetting);
+                        },
+                        child: Card(
+                          elevation: 0,
+                          color: const Color.fromRGBO(235, 227, 240, 1),
+                          child: Padding(
+                            padding: EdgeInsets.all(size.width * 0.05),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.settings,
                                   color: Colors.black54,
+                                  size: size.height * 0.03,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: size.width * 0.04,
+                                ),
+                                AutoSizeText(
+                                  "Account Settings",
+                                  style: GoogleFonts.openSans(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.02,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

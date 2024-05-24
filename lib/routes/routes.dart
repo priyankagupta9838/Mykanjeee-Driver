@@ -3,7 +3,6 @@ import 'package:mykanjeedriver/Authentication/SignUP-1.dart';
 import 'package:mykanjeedriver/Authentication/login.dart';
 import 'package:mykanjeedriver/profile/profile.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
-
 import '../Authentication/OtpResetScreen.dart';
 import '../Authentication/SignUp-2.dart';
 import '../Authentication/loginwithotp.dart';
@@ -12,7 +11,12 @@ import '../Authentication/signUpOtpVerification.dart';
 import '../Authentication/resetPassword.dart';
 import '../Authentication/forgotPassword.dart';
 import '../navigationbar.dart';
+import '../orders/productorder/assignedorderdetail.dart';
+import '../orders/productorder/deliveredoderdetail.dart';
 import '../orders/productorder/orderdetail.dart';
+import '../orders/productorder/rejecteddetailOrder.dart';
+import '../orders/serviceorder/AssignedServiceOrderDetail.dart';
+import '../profile/aacountsetting.dart';
 import '../profile/editprofile.dart';
 import '../registration/accountdetail.dart';
 import '../registration/detailsavedpage.dart';
@@ -44,7 +48,6 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>   ResetOtpScreen(userName:settings.arguments as String,));
       case RoutesName.forgotPasswordOtpVerification:
         return MaterialPageRoute(builder: (context) =>  ProvideResetPassword(data:  settings.arguments as Map,));
-
       case RoutesName.storageStream:
         return MaterialPageRoute(builder: (context) =>const StorageStream());
       case RoutesName.navigationBar:
@@ -53,6 +56,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>const Profile());
       case RoutesName.updateUserProfile:
         return MaterialPageRoute(builder: (context) =>const UerProfile());
+      case RoutesName.accountSetting:
+        return MaterialPageRoute(builder: (context) =>const AccountsSetting());
       case RoutesName.setupProfile:
         return MaterialPageRoute(builder: (context) => UserRegistrationProfile(selectedService: '',));
       case RoutesName.documentVerification:
@@ -63,6 +68,18 @@ class Routes {
         return MaterialPageRoute(builder: (context) =>const AccountDetail());
       case RoutesName.orderDetail:
         return MaterialPageRoute(builder: (context) => OrderDetail(data: settings.arguments as Map,));
+      case RoutesName.assignedServiceOrderDetail:
+        return MaterialPageRoute(builder: (context) => AssignedServiceOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.assignedOrderDetail:
+        return MaterialPageRoute(builder: (context) => AssignedOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.rejectedOderDetail:
+        return MaterialPageRoute(builder: (context) => RejectedOrderDetail(data: settings.arguments as Map,));
+      case RoutesName.deliveredOderDetail:
+        return MaterialPageRoute(builder: (context) => DeliveredOrderDetail(data: settings.arguments as Map,));
+
+
+
+
 
 
       default:

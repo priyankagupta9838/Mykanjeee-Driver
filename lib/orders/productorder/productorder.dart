@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mykanjeedriver/orders/productorder/rejectedorder.dart';
 
 import 'acceptedorders.dart';
+import 'assignedorder.dart';
+import 'deliveredorder.dart';
 
 
 class ProductOrder extends StatefulWidget {
@@ -66,7 +69,7 @@ class _ProductOrderState extends State<ProductOrder> {
                         decoration: BoxDecoration(
                           color: currIndex==index
                               ?
-                          const Color.fromRGBO(236, 230, 240, 1)
+                          const Color.fromRGBO(230, 220, 240, 1)
                               :
                           const Color.fromRGBO(254, 247, 255,1),
                           borderRadius:BorderRadius.all( Radius.circular(size.width*0.02)),
@@ -76,19 +79,8 @@ class _ProductOrderState extends State<ProductOrder> {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment:
-                          currIndex==index
-                              ?
-                          MainAxisAlignment.spaceEvenly
-                              :
-                          MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            currIndex==index
-                                ?
-                            Icon(Icons.check,color: Colors.black,size: size.height*0.025,)
-                                :
-                            const SizedBox(),
-
                             AutoSizeText(statusOptions[index],
                               style: GoogleFonts.roboto(
                                   color: const Color.fromRGBO(29, 25, 43, 1),
@@ -121,10 +113,10 @@ class _ProductOrderState extends State<ProductOrder> {
                   },
                   allowImplicitScrolling: true,
                   children:   const [
-                    SizedBox(),
+                    AssignedOrder(),
                     Accepted(),
-                    SizedBox(),
-                    SizedBox(),
+                    RejectedOrder(),
+                    DeliveredOrder(),
 
                   ]
               ),

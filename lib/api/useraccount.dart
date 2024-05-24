@@ -243,4 +243,41 @@ class UserAccount{
     }
     return {};
   }
+
+
+  Future<String>loginAndSecurity(newPassword,confirmPassword ) async {
+
+    String value="";
+
+    try{
+
+
+      var url = '${ApiList.baseUrl}/api/auth/user-reset-password';
+      var response = await http.post(
+        Uri.parse(url),
+        body: {
+          "new_password":newPassword,
+          "confirm_password":confirmPassword,
+        },
+        headers: {
+          "Authorization":userToken.toString(),
+        },
+      );
+      print("...${response.body}");
+      var result=jsonDecode(response.body);
+      if(result["status"]=="success"){
+        value="success";
+      }
+      else {
+        value=result["message"];
+      }
+    }
+    catch(error){
+      value=error.toString();
+    }
+
+
+    return value;
+
+  }
 }

@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'assiendServiceorder.dart';
+
 class ServiceOrder extends StatefulWidget {
   const ServiceOrder({super.key});
 
@@ -16,10 +18,11 @@ class _ServiceOrderState extends State<ServiceOrder> {
   PageController pageController=PageController();
   List<String>statusOptions=[
     "Assigned",
-    "Rejected",
-    "Drop of",
+    "Accepted",
     "Pickup",
-    "Delivered"
+    "Drop off",
+    "Delivered",
+    "Rejected",
   ];
 
   @override
@@ -40,7 +43,7 @@ class _ServiceOrderState extends State<ServiceOrder> {
               height: size.height*0.047,
               width: size.width,
               child: ListView.builder(
-                itemCount: 4,
+                itemCount: 6,
                 padding: EdgeInsets.only(right:size.width*0.01,left:size.width*0.0035),
                 scrollDirection: Axis.horizontal,
                 itemBuilder:(context, index) {
@@ -62,7 +65,7 @@ class _ServiceOrderState extends State<ServiceOrder> {
                         decoration: BoxDecoration(
                           color: currIndex==index
                               ?
-                          const Color.fromRGBO(236, 230, 240, 1)
+                          const Color.fromRGBO(230, 220, 240, 1)
                               :
                           const Color.fromRGBO(254, 247, 255,1),
                           borderRadius:BorderRadius.all( Radius.circular(size.width*0.02)),
@@ -72,19 +75,8 @@ class _ServiceOrderState extends State<ServiceOrder> {
                           ),
                         ),
                         child: Row(
-                          mainAxisAlignment:
-                          currIndex==index
-                              ?
-                          MainAxisAlignment.spaceEvenly
-                              :
-                          MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            currIndex==index
-                                ?
-                            Icon(Icons.check,color: Colors.black,size: size.height*0.025,)
-                                :
-                            const SizedBox(),
-
                             AutoSizeText(statusOptions[index],
                               style: GoogleFonts.roboto(
                                   color: const Color.fromRGBO(29, 25, 43, 1),
@@ -116,7 +108,9 @@ class _ServiceOrderState extends State<ServiceOrder> {
                     });
                   },
                   allowImplicitScrolling: true,
-                  children:   [
+                  children:   const [
+                    AssignedServiceOrder(),
+                    SizedBox()
 
                   ]
               ),

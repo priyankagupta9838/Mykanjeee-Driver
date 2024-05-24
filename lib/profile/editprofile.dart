@@ -22,7 +22,6 @@ class _UerProfileState extends State<UerProfile> {
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController alternativeMobileNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController address1Controller = TextEditingController();
   TextEditingController address2Controller = TextEditingController();
   TextEditingController city1Controller = TextEditingController();
   TextEditingController pinCode1Controller = TextEditingController();
@@ -46,6 +45,7 @@ class _UerProfileState extends State<UerProfile> {
   bool  emailEnable=false;
   bool validMobile=true;
   bool validAltMobile=true;
+  bool buttonClick=false;
   String mobilePattern =r'^(?:\+?91)?[0-9]{10}$';
 
   @override
@@ -483,8 +483,7 @@ class _UerProfileState extends State<UerProfile> {
 
                         (firstNameController.text.isNotEmpty &&
                             mobileNumberController.text.isNotEmpty &&
-                            emailController.text.isNotEmpty &&
-                            address1Controller.text.isNotEmpty )
+                            emailController.text.isNotEmpty )
                             ?
                         const Color.fromRGBO(86, 59, 105, 1)
                             :
@@ -496,6 +495,10 @@ class _UerProfileState extends State<UerProfile> {
                           mobileNumberController.text.isNotEmpty &&
                           emailController.text.isNotEmpty
                       ) {
+                        buttonClick=true;
+                        setState(() {
+
+                        });
                         Map<String, String> userData = {
                           "firstName": firstNameController.text,
                           "lastName": lastNameController.text,
@@ -506,15 +509,42 @@ class _UerProfileState extends State<UerProfile> {
 
                         await UserAccount().addProfileDetails(userData).then((value) async {
                           if (value == "success") {
+                            buttonClick=false;
+                            setState(() {
+
+                            });
                             UtilityFunctions().successToast(
                                 "Details saved successfully");
-                          }});
+                          }else{
+                            buttonClick=false;
+                            setState(() {
+
+                            });
+                            UtilityFunctions().errorToast(
+                                value.toString());
+                          }
+
+
+                        });
                       } else {
                         UtilityFunctions().errorToast(
                             "Please provide all (*) fields.");
                       }
                     },
-                    child: AutoSizeText(
+                    child:
+                        buttonClick
+                    ?
+                            SizedBox(
+                              height: size.height*0.03,
+                              width:size.height*0.03,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white60,
+                              ),
+                            )
+                        :
+
+
+                    AutoSizeText(
                       "Save",
                       style: GoogleFonts.openSans(
                           color: Colors.white,
