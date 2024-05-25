@@ -16,6 +16,10 @@ class InitStateOfAddTimer extends AddTimerState{}
 class UpdateTimerState extends AddTimerState{}
 
 
+abstract class ActiveUserState{}
 
+class InitStateOfActiveUser extends ActiveUserState{}
+
+class ActiveUserUpdateState extends ActiveUserState{}
 
 

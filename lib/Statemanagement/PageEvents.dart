@@ -18,5 +18,10 @@ class UpdateTimerEvent extends TimerEvent{}
 class InitialEventOfTimer extends TimerEvent{}
 
 
+abstract class ActiveUserEvent{}
+
+class ActiveUserUpdateEvent extends ActiveUserEvent{}
+
+class InitialEventOfActiveUser extends ActiveUserEvent{}
 
 

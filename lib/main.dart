@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mykanjeedriver/registration/accountdetail.dart';
 import 'package:mykanjeedriver/routes/routes.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'NotificationSetup/helper_Notification.dart';
@@ -79,6 +80,9 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AddTimerBlo>(
           create: (BuildContext context) => AddTimerBlo(),
         ),
+        BlocProvider<ActiveUserBlo>(
+          create: (BuildContext context) => ActiveUserBlo(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -89,7 +93,12 @@ class _MyAppState extends State<MyApp> {
           useMaterial3: true,
         ),
 
-        initialRoute: RoutesName.splashScreen,
+        initialRoute:
+        userToken!="null"
+            ?
+        RoutesName.storageStream
+           :
+        RoutesName.splashScreen,
         onGenerateRoute: Routes.generateRoutes,
       ),
     );

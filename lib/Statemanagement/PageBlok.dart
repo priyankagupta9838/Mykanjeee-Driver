@@ -28,3 +28,14 @@ class AddTimerBlo extends Bloc<TimerEvent,AddTimerState>{
 
 
 
+class ActiveUserBlo extends Bloc<ActiveUserEvent,ActiveUserState>{
+  ActiveUserBlo(): super(InitStateOfActiveUser()){
+
+    on<ActiveUserUpdateEvent>((event, emit) => emit(ActiveUserUpdateState()));
+    on<InitialEventOfActiveUser>((event, emit) => emit(InitStateOfActiveUser()));
+  }
+}
+
+
+
+

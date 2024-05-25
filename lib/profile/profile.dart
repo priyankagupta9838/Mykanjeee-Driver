@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/Authentication/constraints.dart';
+import 'package:mykanjeedriver/Statemanagement/PageBlok.dart';
 import 'package:mykanjeedriver/api/useraccount.dart';
 import 'package:mykanjeedriver/constrant.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:page_transition/page_transition.dart';
+import '../Statemanagement/PageEvents.dart';
+import '../Statemanagement/PageState.dart';
 import '../storagestreame.dart';
 
 class Profile extends StatefulWidget {
@@ -119,31 +123,37 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ],
                               ),
-                              Switch(
-                                value: userModel["is_active"]==1?true:false,
-                                onChanged: (bool value) async {
-                                  await UserAccount().activeUser(value, "0", "0").then((value1) {
-                                    if(value1=="Delivery person activated successfully.")
+                              BlocBuilder<ActiveUserBlo,ActiveUserState>(builder: (context, state) {
+
+                                return   Switch(
+                                  value: userModel["is_active"]==1?true:false,
+                                  onChanged: (bool value) async {
+                                    await UserAccount().activeUser(value, "0", "0").then((value1) {
+                                      if(value1=="Delivery person activated successfully.")
                                       {
+
+                                        BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
                                         userModel["is_active"]=1;
                                         setState(() {
 
                                         });
                                       }
-                                    else{
-                                      userModel["is_active"]=0;
-                                      setState(() {
+                                      else{
+                                        BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
+                                        userModel["is_active"]=0;
+                                        setState(() {
 
-                                      });
-                                    }
+                                        });
+                                      }
 
-                                  });
+                                    });
 
-                                },
+                                  },
 
-                                activeTrackColor: Colors.purple.shade100,
-                                activeColor: Colors.purple.shade400,
-                              ),
+                                  activeTrackColor: Colors.purple.shade100,
+                                  activeColor: Colors.purple.shade400,
+                                );
+                              },),
                             ],
                           ),
                         ),

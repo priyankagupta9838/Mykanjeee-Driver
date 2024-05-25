@@ -56,6 +56,7 @@ class Authentication{
       }
     }
     catch(error){
+      print(error);
       value="null";
     }
 

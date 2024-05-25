@@ -489,9 +489,11 @@ class _AcountDetailState extends State<AccountDetail> {
                         child:  TextField(
                           controller: ifscController,
                           onChanged: (value) {
+                            String uppercaseValueIfsc = value.toUpperCase();
+                            ifscController.text = uppercaseValueIfsc;
                             String panRegex = r'^[A-Z]{4}0[A-Z0-9]{6}$';
                             final regExp = RegExp(panRegex);
-                            if (!regExp.hasMatch(value.toString())) {
+                            if (!regExp.hasMatch( value.toString().toString())) {
                               ifscValidation = false;
                               setState(() {});
                             } else {
