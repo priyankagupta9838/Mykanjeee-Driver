@@ -8,15 +8,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 
-import '../NotificationSetup/helper_Notification.dart';
 import '../Statemanagement/PageBlok.dart';
 import '../Statemanagement/PageState.dart';
 import '../api/checkout.dart';
 import '../constrant.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initStat
+
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

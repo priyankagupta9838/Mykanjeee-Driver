@@ -28,7 +28,7 @@ class DeliveredServiceOrder extends StatelessWidget {
           if(snapshot.hasData){
 
             var data=jsonDecode(snapshot.data!.body);
-            print("order data is... $data");
+
             return snapshot.data?.statusCode==200 && data["data"].length>0
                 ?
             Padding(

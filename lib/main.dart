@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mykanjeedriver/registration/accountdetail.dart';
 import 'package:mykanjeedriver/routes/routes.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'NotificationSetup/helper_Notification.dart';

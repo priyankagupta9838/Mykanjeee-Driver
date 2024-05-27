@@ -1,11 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/api/checkout.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
-
 import '../../utilityfunction.dart';
 
 
@@ -379,13 +377,14 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
 
                     if(!buttonClick){
                       if(searchController.text.trim().toString().isNotEmpty){
-                        buttonClick=true;
-                        setState(() {
 
-                        });
                         if(searchController.text=="Reject"){
                           if(errorController.text.isNotEmpty){
-                            CheckOut().rejectOrderByCustomer(widget.data["order_id"],imageKey,errorController.text).then((value) {
+                            buttonClick=true;
+                            setState(() {
+
+                            });
+                            CheckOut().rejectOrderByDriver(widget.data["id"],errorController.text).then((value) {
                               if(value=="success"){
                                 UtilityFunctions().successToast("Order Rejected Successfully");
                                 Navigator.pop(context);
@@ -407,7 +406,11 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                           }
                         }
                         else{
-                          CheckOut().deliveredOrder(widget.data["order_id"],imageKey).then((value) {
+                          buttonClick=true;
+                          setState(() {
+
+                          });
+                          CheckOut().acceptOrderByDriver(widget.data["id"]).then((value) {
                             if(value=="success"){
                               UtilityFunctions().successToast("Order Delivered Successfully");
                               Navigator.pop(context);
@@ -435,7 +438,6 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                     }else{
                       UtilityFunctions().errorToast("Please Wait...");
                     }
-
 
                   },
                   child:

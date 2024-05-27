@@ -13,9 +13,10 @@ class ApiList{
   static const newPassword="/api/delivery-person/new-password";
 
   static const getUser="/api/auth/get-user";
-  static const rejectOrder="/api/delivery-person/reject-assigned-order";
+  static const rejectOrderByDriver="/api/delivery-person/reject-assigned-order";
   static const rejectOrderByCustomer="/api/delivery-person/order-rejected-by-customer";
-  static const acceptOrder="/api/delivery-person/accept-assigned-order";
+  static const acceptOrderByDriver="/api/delivery-person/accept-assigned-order";
+  static const allAssignedOrder="/api/delivery-person/all-assigned-order";
   static const deliveredOrder="/api/delivery-person/delivered-order";
   static const collectOrder="/api/delivery-person/collected-order";
   static const activeUser="/api/delivery-person/active_inactive";

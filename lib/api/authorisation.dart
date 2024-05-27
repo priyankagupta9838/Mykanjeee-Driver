@@ -450,7 +450,7 @@ class Authentication{
       },
     ).then((value) {
       var result = jsonDecode(value.body);
-      print(result);
+      print("result is $result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {

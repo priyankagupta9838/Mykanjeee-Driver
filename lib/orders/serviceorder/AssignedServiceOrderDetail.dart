@@ -377,13 +377,14 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
 
                     if(!buttonClick){
                       if(searchController.text.trim().toString().isNotEmpty){
-                        buttonClick=true;
-                        setState(() {
 
-                        });
                         if(searchController.text=="Reject"){
                           if(errorController.text.isNotEmpty){
-                            CheckOut().rejectOrderByCustomer(widget.data["order_id"],imageKey,errorController.text).then((value) {
+                            buttonClick=true;
+                            setState(() {
+
+                            });
+                            CheckOut().rejectOrderByDriver(widget.data["id"],errorController.text).then((value) {
                               if(value=="success"){
                                 UtilityFunctions().successToast("Order Rejected Successfully");
                                 Navigator.pop(context);
@@ -405,7 +406,11 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                           }
                         }
                         else{
-                          CheckOut().deliveredOrder(widget.data["order_id"],imageKey).then((value) {
+                          buttonClick=true;
+                          setState(() {
+
+                          });
+                          CheckOut().acceptOrderByDriver(widget.data["id"]).then((value) {
                             if(value=="success"){
                               UtilityFunctions().successToast("Order Delivered Successfully");
                               Navigator.pop(context);
