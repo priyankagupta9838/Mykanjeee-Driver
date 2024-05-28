@@ -384,6 +384,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                             setState(() {
 
                             });
+                            print("id is ${widget.data["id"]}");
                             CheckOut().rejectOrderByDriver(widget.data["id"],errorController.text).then((value) {
                               if(value=="success"){
                                 UtilityFunctions().successToast("Order Rejected Successfully");
@@ -406,6 +407,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                           }
                         }
                         else{
+                          print("id is ${widget.data["id"]}");
                           buttonClick=true;
                           setState(() {
 
