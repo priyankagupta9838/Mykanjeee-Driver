@@ -104,7 +104,7 @@ class _ProductOrderState extends State<ProductOrder> {
               width: size.width*1,
               child: PageView(
                   controller:pageController,
-                  scrollDirection: Axis.horizontal,
+                 physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (value) {
                     currIndex=value;
                     setState(() {

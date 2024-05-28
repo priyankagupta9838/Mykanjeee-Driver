@@ -22,14 +22,14 @@ class RejectedServiceOrder extends StatelessWidget {
           ?
 
 
-      StreamBuilder(
-        stream: CheckOut().getOngoingOrders(),
+      StreamBuilder<Map<String, dynamic>>(
+        stream: CheckOut().allAssignedOrder_1("QUOTE","REJECTED"),
         builder: (context, snapshot) {
           if(snapshot.hasData){
+            print(snapshot.data);
+            var data=snapshot.data;
 
-            var data=jsonDecode(snapshot.data!.body);
-            print("order data is... $data");
-            return snapshot.data?.statusCode==200 && data["data"].length>0
+            return snapshot.data?["code"].toString()=="200" && data?["data"].length>0
                 ?
             Padding(
               padding:  EdgeInsets.only(right: size.width*0.02,left: size.width*0.02),
@@ -43,12 +43,12 @@ class RejectedServiceOrder extends StatelessWidget {
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount:data["data"].length,
+                        itemCount:data?["data"].length,
                         itemBuilder:(context, index) {
 
                           return  InkWell(
                             onTap: (){
-                              Navigator.pushNamed(context, RoutesName.rejectedServiceOderDetail,arguments:data["data"][index]);
+                              Navigator.pushNamed(context, RoutesName.rejectedServiceOderDetail,arguments:data?["data"][index]);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -74,7 +74,7 @@ class RejectedServiceOrder extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             AutoSizeText(
-                                              "Order_ID-${data['data'][index]["order_id"]}",
+                                              "Order_ID-${data?['data'][index]["order_id"]}",
                                               style: GoogleFonts.cabin(
                                                   color: Colors.black87
                                               ),
@@ -93,7 +93,7 @@ class RejectedServiceOrder extends StatelessWidget {
                                     Row(
                                       children: [
                                         AutoSizeText(
-                                          "${data['data'][index]["delivery_type"]}",
+                                          "${data?['data'][index]["delivery_type"]}",
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87
                                           ),

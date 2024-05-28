@@ -53,14 +53,12 @@ class _UerProfileState extends State<UerProfile> {
     // TODO: implement initState
     super.initState();
     if (userModel.isNotEmpty) {
+      print(userModel);
       dataFetched = false;
       firstNameController.text =
       userModel["name"].toString().split(" ")[0];
-      // lastNameController.text =userModel["fullname"].toString().contains(" ")
-      // ?
-      // userModel["fullname"].toString().split(" ")[1]
-      //     :
-      //     "";
+      lastNameController.text =userModel["last_name"]!= null ?userModel["last_name"].toString():"";
+
       emailController.text = userModel["email"].toString() != "null"
           ? userModel["email"].toString()
           : "";
@@ -70,6 +68,7 @@ class _UerProfileState extends State<UerProfile> {
     }
 
     UserAccount().fetchUserAccount().then((value) {
+      print(value);
       if(value.isNotEmpty){
         firstNameController.text=value["first_name"];
         lastNameController.text=value["last_name"];

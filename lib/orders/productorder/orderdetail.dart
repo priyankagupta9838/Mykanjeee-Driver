@@ -8,6 +8,8 @@ import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:io';
 import '../../utilityfunction.dart';
+
+
 class OrderDetail extends StatefulWidget {
   OrderDetail({super.key,required this.data});
   Map<dynamic,dynamic>data;
@@ -497,13 +499,14 @@ class _OrderDetailState extends State<OrderDetail> {
 
                     if(!buttonClick){
                       if(searchController.text.trim().toString().isNotEmpty && imageKey !=""){
-                        buttonClick=true;
-                        setState(() {
 
-                        });
                         if(searchController.text=="Reject"){
                          if(errorController.text.isNotEmpty){
-                           CheckOut().rejectOrderByCustomer(widget.data["order_id"],imageKey,errorController.text).then((value) {
+                           buttonClick=true;
+                           setState(() {
+
+                           });
+                           CheckOut().rejectOrderByCustomer(widget.data["order_data"]["id"],imageKey,errorController.text).then((value) {
                              if(value=="success"){
                                UtilityFunctions().successToast("Order Rejected Successfully");
                                Navigator.pop(context);
@@ -525,7 +528,11 @@ class _OrderDetailState extends State<OrderDetail> {
                          }
                         }
                         else{
-                          CheckOut().deliveredOrder(widget.data["order_id"],imageKey).then((value) {
+                          buttonClick=true;
+                          setState(() {
+
+                          });
+                          CheckOut().deliveredOrder(widget.data["order_data"]["id"],imageKey).then((value) {
                             if(value=="success"){
                               UtilityFunctions().successToast("Order Delivered Successfully");
                               Navigator.pop(context);

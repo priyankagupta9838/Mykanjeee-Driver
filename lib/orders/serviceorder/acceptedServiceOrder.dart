@@ -23,12 +23,10 @@ class _AcceptedServiceOrderState extends State<AcceptedServiceOrder> {
   void initState() {
     // TODO: implement initState
     CheckOut().allAssignedOrder("QUOTE","ACCEPTED").then((value) {
-      print("Responcedta $value");
-      print(value);
       if(value.isNotEmpty){
         data=value;
         loading=false;
-        print("${data["data"][14]}");
+        print(".............${data["data"].length}");
         setState(() {
 
         });
@@ -78,7 +76,7 @@ class _AcceptedServiceOrderState extends State<AcceptedServiceOrder> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.assignedServiceOrderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.acceptedServiceOderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

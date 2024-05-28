@@ -40,9 +40,10 @@ class _AccountsSettingState extends State<AccountsSetting> {
                         onPressed: (){
                           Navigator.pop(context);
                         },
-                        icon: const Icon(CupertinoIcons.arrow_left) ),
-                    SizedBox(width: size.width*0.15,),
-                    AutoSizeText("Account Setting",style: GoogleFonts.openSans(
+                        icon:  Icon(CupertinoIcons.arrow_left,size: size.width*0.07,color: Colors.black87,
+                        ) ),
+                    SizedBox(width: size.width*0.1,),
+                    AutoSizeText("Reset Your Password",style: GoogleFonts.openSans(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: size.height*0.024

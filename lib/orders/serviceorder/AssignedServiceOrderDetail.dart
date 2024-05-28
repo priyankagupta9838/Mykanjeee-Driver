@@ -22,6 +22,12 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
   @override
+  void initState() {
+    // TODO: implement initState
+    print("details is ${widget.data}");
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return Scaffold(
@@ -384,7 +390,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                             setState(() {
 
                             });
-                            CheckOut().rejectOrderByDriver(widget.data["id"],errorController.text).then((value) {
+                            CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
                               if(value=="success"){
                                 UtilityFunctions().successToast("Order Rejected Successfully");
                                 Navigator.pop(context);
@@ -410,7 +416,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                           setState(() {
 
                           });
-                          CheckOut().acceptOrderByDriver(widget.data["id"]).then((value) {
+                          CheckOut().acceptOrderByDriver(widget.data["order_data"]["id"]).then((value) {
                             if(value=="success"){
                               UtilityFunctions().successToast("Order Delivered Successfully");
                               Navigator.pop(context);

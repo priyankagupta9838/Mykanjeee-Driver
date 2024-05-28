@@ -30,7 +30,6 @@ class _AssignedOrderState extends State<AssignedOrder> {
       if(value.isNotEmpty){
         data=value;
         loading=false;
-        print("${data["data"][14]}");
         setState(() {
 
         });

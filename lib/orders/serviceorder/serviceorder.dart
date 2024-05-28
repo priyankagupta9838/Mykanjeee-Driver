@@ -105,6 +105,7 @@ class _ServiceOrderState extends State<ServiceOrder> {
               width: size.width*1,
               child: PageView(
                   controller:pageController,
+                  physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (value) {
                     currIndex=value;

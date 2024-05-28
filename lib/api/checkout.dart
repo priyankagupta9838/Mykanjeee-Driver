@@ -163,10 +163,9 @@ class CheckOut{
   }
   Future<String> rejectOrderByDriver(int orderId,String reason) async {
     String responcValue = "";
-    final box = GetStorage();
-     var userId= box.read("user_id");
+
     Map data = {
-      "delivery_person_id": userId,
+      "order_id": orderId,
       "rejection_reason": reason
     };
 
@@ -183,6 +182,7 @@ class CheckOut{
     ).then((value) {
       if (value.body != null) {
         var result = jsonDecode(value.body);
+        print("result is ....$result");
         if (result["status"] == "success") {
           responcValue=result["status"];
         } else {
@@ -238,26 +238,30 @@ class CheckOut{
 
 
 
-  Future<String> collectOrder(String orderId, ) async {
+  Future<String> collectOrder( int orderId,String imageKey ) async {
     String responcValue = "";
     Map data = {
       "order_id":orderId,
+      "order_status_image":imageKey
 
     };
 
     String body = json.encode(data);
     await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.collectOrder),
+      Uri.parse(ApiList.baseUrl+ApiList.deliveredOrder),
       body: body,
       headers: {
         "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-
+      print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
+        if (result["status"] =="success") {
+          responcValue=result["status"];
         } else {
           responcValue=result["message"];
         }
@@ -317,7 +321,7 @@ class CheckOut{
         "rows": 1
 
     };
- print("Map data is $data");
+
     String body = json.encode(data);
     await http.post(
       Uri.parse(ApiList.baseUrl+ApiList.allAssignedOrder),
@@ -344,7 +348,46 @@ class CheckOut{
     return responcValue;
   }
 
+  Stream<Map<String, dynamic>> allAssignedOrder_1(String type, String status) async* {
+    Map<String, dynamic> responcValue = {};
+    print("called...............");
+    Map data = {
+      "product_or_quote": type,
+      "order_status": status,
+      "page": 1,
+      "rows": 1
+    };
 
+    String body = json.encode(data);
+
+    try {
+      final response = await http.post(
+        Uri.parse(ApiList.baseUrl + ApiList.allAssignedOrder),
+        body: body,
+        headers: {
+          "authorization": userToken,
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      if (response.body != null) {
+        var jsonResponse = json.decode(response.body);
+        if (jsonResponse["code"].toString() == "200") {
+          responcValue = jsonResponse;
+          yield responcValue; // Emit the data
+        } else {
+          yield responcValue; // Emit empty or default data
+        }
+      } else {
+        yield responcValue; // Emit empty or default data
+      }
+    } catch (error) {
+      print("Error is .........$error");
+      yield responcValue; // Emit empty or default data in case of error
+    }
+  }
 
 
 

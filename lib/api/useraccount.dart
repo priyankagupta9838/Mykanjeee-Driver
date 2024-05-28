@@ -145,7 +145,7 @@ class UserAccount{
     String value="";
     try{
       Map data ={
-        "first_name":userData["firstName"].toString() ,
+        "name":userData["firstName"].toString() ,
         "last_name":userData["lastName"].toString(),
         "phone": userData["mobileNumber"].toString(),
         "alt_phone": userData["alternativeMobile"].toString(),
@@ -153,7 +153,7 @@ class UserAccount{
       };
 
       String body = json.encode(data);
-      var url = '${ApiList.baseUrl}/api/user/add-profile-details';
+      var url = '${ApiList.baseUrl}/api/delivery-person/driver-edit-profile-details';
       var response = await http.post(
         Uri.parse(url),
         body: body,
@@ -235,6 +235,7 @@ class UserAccount{
     });
     if (response.statusCode == 200) {
       var data=json.decode(response.body);
+      print("userResponce is $data");
       if(data["status"]=="success"){
         return data["data"];
       }
@@ -252,7 +253,7 @@ class UserAccount{
     try{
 
 
-      var url = '${ApiList.baseUrl}/api/auth/user-reset-password';
+      var url = '${ApiList.baseUrl}/api/delivery-person/driver-reset-password';
       var response = await http.post(
         Uri.parse(url),
         body: {

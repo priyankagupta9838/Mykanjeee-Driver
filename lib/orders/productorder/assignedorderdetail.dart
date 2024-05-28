@@ -384,7 +384,7 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                             setState(() {
 
                             });
-                            CheckOut().rejectOrderByDriver(widget.data["id"],errorController.text).then((value) {
+                            CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
                               if(value=="success"){
                                 UtilityFunctions().successToast("Order Rejected Successfully");
                                 Navigator.pop(context);
@@ -410,9 +410,9 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                           setState(() {
 
                           });
-                          CheckOut().acceptOrderByDriver(widget.data["id"]).then((value) {
+                          CheckOut().acceptOrderByDriver(widget.data["order_data"]["id"]).then((value) {
                             if(value=="success"){
-                              UtilityFunctions().successToast("Order Delivered Successfully");
+                              UtilityFunctions().successToast("Order Accepted Successfully");
                               Navigator.pop(context);
 
                             }else{
