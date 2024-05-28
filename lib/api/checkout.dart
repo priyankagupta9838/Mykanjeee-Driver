@@ -257,7 +257,7 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-      print(value.body);
+
       if (value.body != null) {
         var result = jsonDecode(value.body);
         if (result["status"] =="success") {

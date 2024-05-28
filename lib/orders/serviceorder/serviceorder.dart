@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/orders/serviceorder/pickuporder.dart';
 import 'package:mykanjeedriver/orders/serviceorder/rejectedserviceorder.dart';
-
 import 'acceptedServiceOrder.dart';
 import 'assiendServiceorder.dart';
 import 'deliveredSerivceOrder.dart';
 import 'dropOfforder.dart';
+
+
+
 
 class ServiceOrder extends StatefulWidget {
   const ServiceOrder({super.key});
@@ -23,9 +25,9 @@ class _ServiceOrderState extends State<ServiceOrder> {
   PageController pageController=PageController();
   List<String>statusOptions=[
     "Assigned",
-    "Accepted",
     "Pickup",
     "Drop off",
+    "Collected",
     "Delivered",
     "Rejected",
   ];
@@ -116,9 +118,9 @@ class _ServiceOrderState extends State<ServiceOrder> {
                   allowImplicitScrolling: true,
                   children:   const [
                     AssignedServiceOrder(),
-                    AcceptedServiceOrder(),
                     PickUpOrder(),
                     DropOffOrder(),
+                    AcceptedServiceOrder(),
                     DeliveredServiceOrder(),
                     RejectedServiceOrder(),
 

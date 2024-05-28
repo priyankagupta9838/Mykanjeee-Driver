@@ -17,7 +17,7 @@ class DropOffOrderDetail extends StatefulWidget {
   State<DropOffOrderDetail> createState() => _DropOffOrderDetailState();
 }
 class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
-  List<String>services=['Reject','Delivered'];
+  List<String>services=['Delivered'];
   String imageKey="";
   bool imagePhotoUploaded=false;
   bool buttonClick=false;
@@ -498,54 +498,30 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
                   onPressed: () {
 
                     if(!buttonClick){
-                      if(searchController.text.trim().toString().isNotEmpty && imageKey !=""){
-                        buttonClick=true;
+                      if(searchController.text.trim().toString().isNotEmpty && imageKey !="") {
+                        buttonClick = true;
                         setState(() {
 
                         });
-                        if(searchController.text=="Reject"){
-                          if(errorController.text.isNotEmpty){
-                            CheckOut().rejectOrderByCustomer(widget.data["order_id"],imageKey,errorController.text).then((value) {
-                              if(value=="success"){
-                                UtilityFunctions().successToast("Order Rejected Successfully");
-                                Navigator.pop(context);
 
-                              }else{
-                                UtilityFunctions().successToast(value.toString());
+                        CheckOut().deliveredOrder(widget.data["order_data"]["id"],imageKey).then((value) {
+                          if(value=="success"){
+                            UtilityFunctions().successToast("Order Delivered Successfully");
+                            Navigator.pop(context);
 
-                                buttonClick=false;
-                                setState(() {
+                          }else{
+                            UtilityFunctions().successToast(value.toString());
 
-                                });
-
-                              }
+                            buttonClick=false;
+                            setState(() {
 
                             });
+
                           }
-                          else{
-                            UtilityFunctions().successToast("Please write the reason");
-                          }
-                        }
-                        else{
-                          CheckOut().deliveredOrder(widget.data["order_id"],imageKey).then((value) {
-                            if(value=="success"){
-                              UtilityFunctions().successToast("Order Delivered Successfully");
-                              Navigator.pop(context);
 
-                            }else{
-                              UtilityFunctions().successToast(value.toString());
-
-                              buttonClick=false;
-                              setState(() {
-
-                              });
-
-                            }
-
-                          });
-                        }
-
+                        });
                       }
+
                       else{
                         UtilityFunctions().errorToast("Please Select the Order Status and upload the image");
                       }

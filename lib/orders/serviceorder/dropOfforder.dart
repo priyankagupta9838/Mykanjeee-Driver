@@ -20,7 +20,6 @@ class _DropOffOrderState extends State<DropOffOrder> {
   Map<String ,dynamic>data={};
   @override
   void initState() {
-    // TODO: implement initState
     CheckOut().allAssignedOrder("QUOTE","DROPOFF").then((value) {
       if(value.isNotEmpty){
         data=value;
@@ -72,7 +71,7 @@ class _DropOffOrderState extends State<DropOffOrder> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.pickUpOderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.dropOffOderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

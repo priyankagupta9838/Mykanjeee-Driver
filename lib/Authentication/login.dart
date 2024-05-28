@@ -222,20 +222,28 @@ class _LogInPageState extends State<LogInPage> {
                                 await Authentication().loginUser(email.text,password.text).then((value) async {
                                   if(value=="success")
                                   {
+                                    await Authentication().getUser().then((value){
 
-                                    Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
-                                    await UtilityFunctions().checkNotificationPermission().then((value) {
-                                        print("vnotification value is }");
-                                      });
+                                        if(value=="success"){
+                                          Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
+                                            await UtilityFunctions().checkNotificationPermission().then((value) {
+                                              print("vnotification value is }");
+                                            });
+                                          });
+
+                                        }
+                                        else {
+                                          buttonClicked = false;
+                                          setState(() {
+
+                                          });
+                                        }
+
                                     });
-
-
                                     await NotificationServices().getToken().then((value) async {
                                       if(value!.isNotEmpty){
-                                        print(value.toString());
                                         print("Device token is..... : $value");
                                         await Authentication().sendDeviceToken(value).then((value2) {
-                                          print("value 2 is $value2");
                                           if(value2=="success"){
                                             print("Device token is : $value");
                                           }

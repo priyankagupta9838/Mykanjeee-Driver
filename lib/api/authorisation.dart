@@ -242,6 +242,7 @@ class Authentication{
       else if(response["status"]=="success"){
         loginValue="success";
         userModel=response["data"];
+        print("usermodel is ..$userModel");
       }
 
     }).onError((error, stackTrace) {
