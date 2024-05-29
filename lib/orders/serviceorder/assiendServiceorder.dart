@@ -30,11 +30,17 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
       if(value.isNotEmpty){
         data=value;
         loading=false;
+        setState(() {
+
+        });
 
       }
       else{
 
         loading=true;
+        setState(() {
+
+        });
       }
 
     });

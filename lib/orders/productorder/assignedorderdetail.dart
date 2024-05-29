@@ -185,7 +185,6 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: size.height*0.1,
                     width: size.width*0.8,
                     child: AutoSizeText(
 

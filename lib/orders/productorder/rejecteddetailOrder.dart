@@ -174,7 +174,6 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: size.height*0.1,
                     width: size.width*0.8,
                     child: AutoSizeText(
 

@@ -56,6 +56,7 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: size.height * 0.055,
                       ),
+
                       AddProfilePicture( profilePath: userModel["profile_picture"]==null?"":userModel["profile_picture"].toString(),),
                       // CircleAvatar(
                       //   backgroundColor: Colors.deepPurple,
@@ -166,6 +167,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       InkWell(
                            onTap: (){
+                             print( userModel["profile_picture"]);
                              Navigator.pushNamed(context, RoutesName.updateUserProfile);
                            },
                         child: Card(

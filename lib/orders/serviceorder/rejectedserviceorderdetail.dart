@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../utilityfunction.dart';
+
 class RejectedServiceOrderDetail extends StatefulWidget {
   RejectedServiceOrderDetail({super.key,required this.data});
   Map<dynamic,dynamic>data;
@@ -135,6 +137,58 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
+
+                ],
+              ),
+
+              SizedBox(
+                height: size.height*0.023,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AutoSizeText("Address",style: GoogleFonts.openSans(
+                      color: Colors.black54,
+                      fontSize: size.height*0.019,
+                      fontWeight: FontWeight.w500
+                  ),),
+
+                ],
+              ),
+              SizedBox(
+                height: size.height*0.017,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: size.width*0.8,
+                    child: AutoSizeText(
+                      widget.data["delivery_type"]=="DELIVERY"?
+
+                      widget.data["delivery_address"].toString()
+
+
+                          :
+                      widget.data["pickup_address"].toString()
+                      ,style: GoogleFonts.openSans(
+                        color: Colors.black54,
+
+                        fontSize: size.height*0.019,
+                        fontWeight: FontWeight.w500
+                    ),
+
+                    ),
+                  ),
+                  InkWell(
+                      onTap: (){
+                        if(widget.data["delivery_address"]!=null && widget.data["delivery_address"]!=""){
+                          UtilityFunctions().openGoogleMaps(widget.data["delivery_address"].toString());
+                        }else if(widget.data["pickup_address"]!=null && widget.data["pickup_address"]!=""){
+                          UtilityFunctions().openGoogleMaps(widget.data["delivery_address"].toString());
+                        }
+                      },
+                      child: Icon(Icons.location_on,color: Colors.purple.shade300,size: size.width*0.1,))
 
                 ],
               ),
