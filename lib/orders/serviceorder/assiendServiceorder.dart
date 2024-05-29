@@ -26,24 +26,15 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allAssignedOrder("QUOTE","ASSIGNED").then((value) {
-      print("Responcedta $value");
-      print(value);
+    CheckOut().allCollectedServiceOrder("QUOTE","ASSIGNED").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;
 
-        setState(() {
-
-        });
       }
       else{
 
         loading=true;
-        setState(() {
-
-        });
-
       }
 
     });
@@ -57,8 +48,6 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
       width: size.width,
       child: userModel["is_active"]==1
           ?
-
-
       SizedBox(
         height: size.height*1,
         child: !loading && data["data"].length>0

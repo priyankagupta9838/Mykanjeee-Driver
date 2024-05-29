@@ -22,7 +22,7 @@ class _PickUpOrderState extends State<PickUpOrder> {
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allAssignedOrder("QUOTE","PICKUP").then((value) {
+    CheckOut().allPickupServiceOrder("QUOTE","PICKUP").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;

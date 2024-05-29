@@ -76,7 +76,7 @@ class _RejectedOrderState extends State<RejectedOrder> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.rejectedServiceOderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.rejectedOderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

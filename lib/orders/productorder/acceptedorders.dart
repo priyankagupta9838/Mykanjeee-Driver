@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +22,7 @@ class _AcceptedState extends State<Accepted> {
   void initState() {
     // TODO: implement initState
     CheckOut().allAssignedOrder("PRODUCT","ACCEPTED").then((value) {
+      print("order value i s$value");
       if(value.isNotEmpty){
         data=value;
         loading=false;
@@ -76,7 +76,7 @@ class _AcceptedState extends State<Accepted> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.orderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.acceptedOrderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

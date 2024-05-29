@@ -13,6 +13,8 @@ import 'package:page_transition/page_transition.dart';
 import '../Statemanagement/PageEvents.dart';
 import '../Statemanagement/PageState.dart';
 import '../storagestreame.dart';
+import '../utilityfunction.dart';
+import 'addProfileimage.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -54,13 +56,14 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: size.height * 0.055,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.deepPurple,
-                        radius: size.height * 0.072,
-                        child: CircleAvatar(
-                          radius: size.height * 0.07,
-                        ),
-                      ),
+                      AddProfilePicture( profilePath: userModel["profile_picture"]==null?"":userModel["profile_picture"].toString(),),
+                      // CircleAvatar(
+                      //   backgroundColor: Colors.deepPurple,
+                      //   radius: size.height * 0.072,
+                      //   child: CircleAvatar(
+                      //     radius: size.height * 0.07,
+                      //   ),
+                      // ),
                       SizedBox(
                         height: size.height * 0.02,
                       ),
@@ -253,6 +256,7 @@ class _ProfileState extends State<Profile> {
                                       onPressed: (){
                                       Navigator.of(context).pop();
                                     }, child:  const Text(
+
                                       'No',
                                       maxLines: 1,
                                       style: TextStyle(
@@ -280,19 +284,19 @@ class _ProfileState extends State<Profile> {
                                               duration: const Duration(milliseconds: 0),
                                               childCurrent: const Profile(),
                                               child: const StorageStream()),(route) => false,);
-                                          // await UserAccount().removeDeviceToken().then((value) {
-                                          //
-                                          //   if(value.toString()=="success"){
-                                          //     print("device token clear.......................................");
-                                          //
-                                          //
-                                          //   }
-                                          //   else{
-                                          //     UtilityFunctions().errorToast("Please try again");
-                                          //   }
-                                          //
-                                          //
-                                          // });
+                                          await UserAccount().removeDeviceToken().then((value) {
+
+                                            if(value.toString()=="success"){
+                                              print("device token clear.......................................");
+
+
+                                            }
+                                            else{
+                                              UtilityFunctions().errorToast("Please try again");
+                                            }
+
+
+                                          });
 
                                         }
 

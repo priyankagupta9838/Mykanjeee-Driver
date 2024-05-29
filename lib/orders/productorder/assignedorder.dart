@@ -25,8 +25,6 @@ class _AssignedOrderState extends State<AssignedOrder> {
   void initState() {
     // TODO: implement initState
     CheckOut().allAssignedOrder("PRODUCT","ASSIGNED").then((value) {
-      print("Responcedta $value");
-      print(value);
       if(value.isNotEmpty){
         data=value;
         loading=false;
@@ -78,7 +76,7 @@ class _AssignedOrderState extends State<AssignedOrder> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.assignedServiceOrderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.assignedOrderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

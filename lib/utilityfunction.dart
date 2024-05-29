@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mykanjeedriver/api/apilist.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart'as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class UtilityFunctions{
 
@@ -104,6 +105,17 @@ class UtilityFunctions{
 
     if (!status.isGranted) {
       status = await Permission.notification.request();
+    }
+  }
+
+
+
+  void openGoogleMaps(String address) async {
+    String query = Uri.encodeComponent(address);
+    String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+
+    if (!await launchUrl(Uri.parse(googleMapsUrl))) {
+      throw Exception('Could not launch');
     }
   }
 

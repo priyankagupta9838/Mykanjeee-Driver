@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
@@ -543,6 +544,9 @@ class _AcountDetailState extends State<AccountDetail> {
 
                                 });
                                 userRegisterData.clear();
+                                var box=GetStorage();
+                                box.remove("UserToken");
+
                                 UtilityFunctions().successToast("Account Created Successfully.");
                                 Navigator.pushNamedAndRemoveUntil(context, RoutesName.detailSaved, (route) => false);
                               }

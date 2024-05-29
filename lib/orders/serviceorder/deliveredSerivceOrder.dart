@@ -22,7 +22,7 @@ class _DeliveredServiceOrderState extends State<DeliveredServiceOrder> {
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allAssignedOrder("QUOTE","DELIVERED").then((value) {
+    CheckOut().allDeliveredServiceOrder("QUOTE","DELIVERED").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;
@@ -76,7 +76,7 @@ class _DeliveredServiceOrderState extends State<DeliveredServiceOrder> {
 
                       return  InkWell(
                         onTap: (){
-                          Navigator.pushNamed(context, RoutesName.dropOffOderDetail,arguments:data["data"][index]);
+                          Navigator.pushNamed(context, RoutesName.deliveredServiceOderDetail,arguments:data["data"][index]);
                         },
                         child: Padding(
                           padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),

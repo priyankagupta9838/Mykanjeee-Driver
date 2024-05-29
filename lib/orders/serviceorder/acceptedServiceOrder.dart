@@ -22,11 +22,10 @@ class _AcceptedServiceOrderState extends State<AcceptedServiceOrder> {
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allAssignedOrder("QUOTE","ACCEPTED").then((value) {
+    CheckOut().allAcceptedServiceOrder("QUOTE","COLLECTED").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;
-        print(".............${data["data"].length}");
         setState(() {
 
         });

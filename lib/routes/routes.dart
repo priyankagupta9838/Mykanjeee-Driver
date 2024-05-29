@@ -64,14 +64,14 @@ class Routes {
       case RoutesName.accountSetting:
         return MaterialPageRoute(builder: (context) =>const AccountsSetting());
       case RoutesName.setupProfile:
-        return MaterialPageRoute(builder: (context) => UserRegistrationProfile(selectedService: '',));
+        return MaterialPageRoute(builder: (context) => UserRegistrationProfile());
       case RoutesName.documentVerification:
         return MaterialPageRoute(builder: (context) =>const AccountDetails2());
       case RoutesName.detailSaved:
         return MaterialPageRoute(builder: (context) =>const DetailsSaved());
       case RoutesName.setUpAccountDetail:
         return MaterialPageRoute(builder: (context) =>const AccountDetail());
-      case RoutesName.orderDetail:
+      case RoutesName.acceptedOrderDetail:
         return MaterialPageRoute(builder: (context) => OrderDetail(data: settings.arguments as Map,));
       case RoutesName.assignedServiceOrderDetail:
         return MaterialPageRoute(builder: (context) => AssignedServiceOrderDetail(data: settings.arguments as Map,));

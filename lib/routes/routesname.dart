@@ -23,7 +23,7 @@ class RoutesName{
   static const String  documentVerification="documentVerification_Screen";
   static const String  detailSaved="detailSaved_Screen";
   static const String  setUpAccountDetail="setUpAccountDetail_Screen";
-  static const String  orderDetail="orderDetail_Screen";
+  static const String  acceptedOrderDetail="orderDetail_Screen";
   static const String  assignedServiceOrderDetail="assignedServiceOrderDetail_Screen";
   static const String  assignedOrderDetail="assignedOrderDetail_Screen";
   static const String  rejectedOderDetail="rejectedOderDetail_Screen";

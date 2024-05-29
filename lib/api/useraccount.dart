@@ -246,6 +246,38 @@ class UserAccount{
   }
 
 
+
+  Future<String> addMyProfile(String profile) async {
+
+    String result="";
+    String url=ApiList.baseUrl+ApiList.uploadProfile;
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.headers['authorization'] =userToken;
+    request.files.add(await http.MultipartFile.fromPath(
+      'profile_picture',
+      profile,
+    ));
+
+
+    try {
+      var response = await request.send().timeout(const Duration(seconds: 60));
+      var responseMessage = await response.stream.bytesToString();
+      var responseData = jsonDecode(responseMessage);
+      print(".....$responseData");
+      if (responseData["status"]=="success") {
+        result="success";
+      } else {
+        result=responseData["message"];
+      }
+    } catch (error) {
+      print("...............${error.toString()}");
+      result="Fail";
+    }
+
+    return result;
+  }
+
+
   Future<String>loginAndSecurity(newPassword,confirmPassword ) async {
 
     String value="";

@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../utilityfunction.dart';
+
 class DeliveredOrderDetail extends StatefulWidget {
   DeliveredOrderDetail({super.key,required this.data});
   Map<dynamic,dynamic>data;
@@ -90,13 +92,13 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("1xProduct_Title",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"].length}X${widget.data["order_details"][0]["product"]["product_name"].toString()}",style: GoogleFonts.openSans(
                       color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs 300",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500
@@ -153,9 +155,55 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                 ],
               ),
 
+
               SizedBox(
                 height: size.height*0.023,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AutoSizeText("Address",style: GoogleFonts.openSans(
+                      color: Colors.black54,
+                      fontSize: size.height*0.019,
+                      fontWeight: FontWeight.w500
+                  ),),
+
+                ],
+              ),
+              SizedBox(
+                height: size.height*0.017,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: size.height*0.1,
+                    width: size.width*0.8,
+                    child: AutoSizeText(
+
+                      "${widget.data["delivery_address"]}",style: GoogleFonts.openSans(
+                        color: Colors.black54,
+
+                        fontSize: size.height*0.019,
+                        fontWeight: FontWeight.w500
+                    ),
+
+                    ),
+                  ),
+                  InkWell(
+                      onTap: (){
+                        if(widget.data["delivery_address"]!=null && widget.data["delivery_address"]!=""){
+                          UtilityFunctions().openGoogleMaps(widget.data["delivery_address"].toString());
+                        }
+                      },
+                      child: Icon(Icons.location_on,color: Colors.purple.shade300,size: size.width*0.1,))
+
+                ],
+              ),
+              SizedBox(
+                height: size.height*0.017,
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -20,7 +20,7 @@ class _DropOffOrderState extends State<DropOffOrder> {
   Map<String ,dynamic>data={};
   @override
   void initState() {
-    CheckOut().allAssignedOrder("QUOTE","DROPOFF").then((value) {
+    CheckOut().allDropOffServiceOrder("QUOTE","DROPOFF").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;

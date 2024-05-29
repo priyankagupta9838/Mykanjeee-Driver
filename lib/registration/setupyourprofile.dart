@@ -8,12 +8,13 @@ import 'package:google_places_flutter/model/prediction.dart';
 import 'package:intl/intl.dart';
 
 import '../constrant.dart';
+import '../profile/addProfileimage.dart';
 import '../routes/routesname.dart';
 import '../utilityfunction.dart';
 
 class UserRegistrationProfile extends StatefulWidget {
-  UserRegistrationProfile({Key? key,required this.selectedService}) : super(key: key);
-  String selectedService="";
+  const UserRegistrationProfile({Key? key,}) : super(key: key);
+
   @override
   State<UserRegistrationProfile> createState() => _UserRegistrationProfileState();
 }
@@ -107,15 +108,17 @@ class _UserRegistrationProfileState extends State<UserRegistrationProfile> {
               ),
               GestureDetector(
                 onTap: () async {
-                  // await UtilityFunctions().imagePicker().then((value) {
-                  //   if(value.isNotEmpty){
-                  //     setState(() {
-                  //       profilePath=value.toString();
-                  //
-                  //     });
-                  //   }
-                  //
-                  // });
+                  await UtilityFunctions().imagePicker().then((value) {
+                    if(value.isNotEmpty){
+                      setState(() {
+                        profilePath=value.toString();
+
+
+                      });
+
+                    }
+
+                  });
 
                 },
                 child: SizedBox(

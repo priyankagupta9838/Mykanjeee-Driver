@@ -23,5 +23,6 @@ class ApiList{
   static const orders="/api/delivery-person/order";
   static const updateLocation="/api/delivery-person/update-current-location";
   static const assignOrderToDiver="/api/delivery-person/assign-order-to-delivery-person";
+  static const uploadProfile="/api/delivery-person/driver-upload-profile-picture";
 
 }
