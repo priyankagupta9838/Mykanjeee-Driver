@@ -25,6 +25,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool switchValue = false;
+  bool buttonClick=false;
 
   @override
   Widget build(BuildContext context) {
@@ -129,34 +130,70 @@ class _ProfileState extends State<Profile> {
                               ),
                               BlocBuilder<ActiveUserBlo,ActiveUserState>(builder: (context, state) {
 
-                                return   Switch(
+                                return
+                                  buttonClick
+                                  ?
+                                      SizedBox(
+                                        height: size.height*0.025,
+                                        width: size.height*0.025,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.blue.shade300,
+                                        ),
+                                      )
+                                  :
+                                  Switch(
                                   value: userModel["is_active"]==1?true:false,
                                   onChanged: (bool value) async {
-                                    await UserAccount().activeUser(value, "0", "0").then((value1) {
-                                      if(value1=="Delivery person activated successfully.")
-                                      {
+                                    buttonClick=true;
+                                    setState(() {
 
-                                        BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
-                                        userModel["is_active"]=1;
-                                        setState(() {
+                                    });
+                                    UtilityFunctions().getUserLocation().then((value1) async {
+                                      if(value1=="success"){
+                                        await UserAccount().activeUser(value, userLat, userLong).then((value1) {
+                                          if(value1=="Delivery person activated successfully.")
+                                          {
+                                           buttonClick=false;
+                                           setState(() {
+
+                                           });
+                                            BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
+                                            userModel["is_active"]=1;
+                                            setState(() {
+
+                                            });
+                                          }
+                                          else{
+                                            buttonClick=false;
+                                            setState(() {
+
+                                            });
+                                            BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
+                                            userModel["is_active"]=0;
+                                            setState(() {
+
+                                            });
+                                          }
 
                                         });
                                       }
                                       else{
-                                        BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
-                                        userModel["is_active"]=0;
+                                        buttonClick=false;
                                         setState(() {
 
                                         });
+                                        UtilityFunctions().errorToast("Please turn on your location");
                                       }
-
                                     });
 
                                   },
 
                                   activeTrackColor: Colors.purple.shade100,
                                   activeColor: Colors.purple.shade400,
-                                );
+                                )
+
+
+                                ;
                               },),
                             ],
                           ),

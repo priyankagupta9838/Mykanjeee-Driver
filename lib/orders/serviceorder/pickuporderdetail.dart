@@ -25,6 +25,12 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
   @override
+  void initState() {
+    // TODO: implement initState
+    print("all pickup value id is : ${widget.data["order_data"]["id"]}");
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return Scaffold(

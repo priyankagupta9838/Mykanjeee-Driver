@@ -1,7 +1,5 @@
 
 import 'dart:convert';
-
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart'as http;
 import 'package:mykanjeedriver/api/apilist.dart';
 import '../constrant.dart';
@@ -248,7 +246,7 @@ class CheckOut{
 
     String body = json.encode(data);
     await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.deliveredOrder),
+      Uri.parse(ApiList.baseUrl+ApiList.collectOrder),
       body: body,
       headers: {
         "authorization":userToken,

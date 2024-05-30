@@ -25,6 +25,7 @@ class _PickUpOrderState extends State<PickUpOrder> {
     CheckOut().allPickupServiceOrder("QUOTE","PICKUP").then((value) {
       if(value.isNotEmpty){
         data=value;
+
         loading=false;
 
         setState(() {

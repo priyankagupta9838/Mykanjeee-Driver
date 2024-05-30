@@ -242,7 +242,6 @@ class Authentication{
       else if(response["status"]=="success"){
         loginValue="success";
         userModel=response["data"];
-        print("usermodel is ..$userModel");
       }
 
     }).onError((error, stackTrace) {
@@ -327,7 +326,8 @@ class Authentication{
         box.write("UserToken", result["data"]["access_token"]);
         box.write("refreshToken", result["data"]["refresh_token"]);
         userToken= box.read("UserToken");
-        print("Usertoken is/// $userToken");
+        print("Usertoken is "
+            "$userToken");
         loginValue = "success";
       } else {
         loginValue = result["message"];
