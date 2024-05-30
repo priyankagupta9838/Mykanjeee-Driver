@@ -37,5 +37,28 @@ class ActiveUserBlo extends Bloc<ActiveUserEvent,ActiveUserState>{
 }
 
 
+class AssignedServiceBlo extends Bloc<AssignedServiceEvent,AssignedServiceState>{
+  AssignedServiceBlo(): super(InitStateOfAssignedService()){
 
+    on<AssignedServiceUpdateEvent>((event, emit) => emit(AssignedServiceUpdateState()));
+    on<InitialEventOfAssignedService>((event, emit) => emit(InitStateOfAssignedService()));
+  }
+}
+
+class PickUpServiceBlo extends Bloc<PickUpServiceEvent,PickUpServiceState>{
+  PickUpServiceBlo(): super(InitStateOfPickUpService()){
+
+    on<PickUpServiceUpdateEvent>((event, emit) => emit(PickUpServiceUpdateState()));
+    on<InitialEventOfPickUpService>((event, emit) => emit(InitStateOfPickUpService()));
+  }
+}
+
+
+class DropOffServiceBlo extends Bloc<DropOffServiceEvent,DropOffServiceState>{
+  DropOffServiceBlo(): super(InitStateOfDropOffService()){
+
+    on<DropOffServiceUpdateEvent>((event, emit) => emit(DropOffServiceUpdateState()));
+    on<InitialEventOfDropOffService>((event, emit) => emit(InitStateOfDropOffService()));
+  }
+}
 

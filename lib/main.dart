@@ -82,6 +82,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ActiveUserBlo>(
           create: (BuildContext context) => ActiveUserBlo(),
         ),
+        BlocProvider<AssignedServiceBlo>(
+          create: (BuildContext context) =>AssignedServiceBlo(),
+        ),
+        BlocProvider<PickUpServiceBlo>(
+          create: (BuildContext context) =>PickUpServiceBlo(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -56,7 +56,6 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
       SizedBox(
         height: size.height*1,
         child: !loading && data["data"].length>0
-
             ?
         Padding(
           padding:  EdgeInsets.only(right: size.width*0.02,left: size.width*0.02),

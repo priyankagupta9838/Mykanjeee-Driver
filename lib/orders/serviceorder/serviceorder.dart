@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/orders/serviceorder/pickuporder.dart';
 import 'package:mykanjeedriver/orders/serviceorder/rejectedserviceorder.dart';
+import '../../Statemanagement/PageBlok.dart';
+import '../../Statemanagement/PageState.dart';
 import 'acceptedServiceOrder.dart';
 import 'assiendServiceorder.dart';
 import 'deliveredSerivceOrder.dart';
@@ -116,9 +119,18 @@ class _ServiceOrderState extends State<ServiceOrder> {
                     });
                   },
                   allowImplicitScrolling: true,
-                  children:   const [
-                    AssignedServiceOrder(),
-                    PickUpOrder(),
+                  children:    [
+                    BlocBuilder<AssignedServiceBlo,AssignedServiceState>(
+                        builder: (context, state) {
+                          return   const AssignedServiceOrder();
+                        }),
+                    BlocBuilder<PickUpServiceBlo,PickUpServiceState>(
+                        builder: (context, state) {
+                          return  const PickUpOrder();
+                        }),
+
+
+
                     DropOffOrder(),
                     AcceptedServiceOrder(),
                     DeliveredServiceOrder(),

@@ -175,6 +175,7 @@ class Authentication{
 
 
   Future<String> loginUser(String email, String password) async {
+    print("calllsed...");
     String loginValue = "";
 
     bool isPhoneNumber = false;
@@ -190,7 +191,7 @@ class Authentication{
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.login;
-
+ print(url);
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -201,10 +202,10 @@ class Authentication{
           "Access-Control-Allow-Origin": "*"
         },
       );
-
       var result = jsonDecode(response.body);
 
       if (result["status"] == "success") {
+
         final box = GetStorage();
         box.write("UserToken", result["data"]["access_token"]);
         box.write("refreshToken", result["data"]["refresh_token"]);

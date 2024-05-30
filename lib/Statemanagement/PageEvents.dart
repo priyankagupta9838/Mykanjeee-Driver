@@ -25,3 +25,23 @@ class ActiveUserUpdateEvent extends ActiveUserEvent{}
 class InitialEventOfActiveUser extends ActiveUserEvent{}
 
 
+
+abstract class AssignedServiceEvent{}
+
+class AssignedServiceUpdateEvent extends AssignedServiceEvent{}
+
+class InitialEventOfAssignedService extends AssignedServiceEvent{}
+
+
+abstract class PickUpServiceEvent{}
+
+class PickUpServiceUpdateEvent extends PickUpServiceEvent{}
+
+class InitialEventOfPickUpService extends PickUpServiceEvent{}
+
+
+abstract class DropOffServiceEvent{}
+
+class DropOffServiceUpdateEvent extends DropOffServiceEvent{}
+
+class InitialEventOfDropOffService extends DropOffServiceEvent{}

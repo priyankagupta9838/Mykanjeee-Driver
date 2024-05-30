@@ -219,15 +219,17 @@ class _LogInPageState extends State<LogInPage> {
                                 setState(() {
 
                                 });
+                                print("loguin");
                                 await Authentication().loginUser(email.text,password.text).then((value) async {
                                   if(value=="success")
                                   {
+
                                     await Authentication().getUser().then((value){
 
                                         if(value=="success"){
                                           Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
                                             await UtilityFunctions().checkNotificationPermission().then((value) {
-                                              print("vnotification value is }");
+                                              print("vnotification value is  }");
                                             });
                                           });
 

@@ -158,6 +158,7 @@ class _ProfileState extends State<Profile> {
 
                                            });
                                             BlocProvider.of<ActiveUserBlo>(context).add(ActiveUserUpdateEvent());
+
                                             userModel["is_active"]=1;
                                             setState(() {
 

@@ -1,10 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/api/checkout.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
+import '../../Statemanagement/PageBlok.dart';
+import '../../Statemanagement/PageEvents.dart';
+import '../../Statemanagement/PageState.dart';
 import '../../utilityfunction.dart';
 
 class AssignedServiceOrderDetail extends StatefulWidget {
@@ -421,120 +425,130 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
               SizedBox(
                 height: size.height*0.06,
               ),
-              SizedBox(
-                height: size.height*0.052,
-                width: size.width*0.95,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(size.height*0.01))),
-                      backgroundColor:ThemColors.buttonColor
+              BlocBuilder<AssignedServiceBlo,AssignedServiceState>(builder: (context, state) {
+
+                return
+                  SizedBox(
+                    height: size.height*0.052,
+                    width: size.width*0.95,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(size.height*0.01))),
+                          backgroundColor:ThemColors.buttonColor
 
 
-                  ),
-                  onPressed: () {
+                      ),
+                      onPressed: () {
 
-                    if(!buttonClick){
-                      if(searchController.text.trim().toString().isNotEmpty){
+                        if(!buttonClick){
+                          if(searchController.text.trim().toString().isNotEmpty){
 
-                        if(searchController.text=="Reject"){
-                          if(errorController.text.isNotEmpty){
-                            buttonClick=true;
-                            setState(() {
-
-                            });
-                            CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
-                              if(value=="success"){
-                                UtilityFunctions().successToast("Order Rejected Successfully");
-                                Navigator.pop(context);
-
-                              }else{
-                                UtilityFunctions().successToast(value.toString());
-
-                                buttonClick=false;
+                            if(searchController.text=="Reject"){
+                              if(errorController.text.isNotEmpty){
+                                buttonClick=true;
                                 setState(() {
 
                                 });
+                                CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
+                                  if(value=="success"){
+                                    BlocProvider.of<AssignedServiceBlo>(context).add(AssignedServiceUpdateEvent());
 
+
+                                    UtilityFunctions().successToast("Order Rejected Successfully");
+                                    Navigator.pop(context);
+
+                                  }else{
+                                    UtilityFunctions().successToast(value.toString());
+
+                                    buttonClick=false;
+                                    setState(() {
+
+                                    });
+
+                                  }
+
+                                });
                               }
-
-                            });
-                          }
-                          else{
-                            UtilityFunctions().successToast("Please write the reason");
-                          }
-                        }
-                        else{
-                          buttonClick=true;
-                          setState(() {
-
-                          });
-                          CheckOut().acceptOrderByDriver(widget.data["order_data"]["id"]).then((value) {
-                            if(value=="success"){
-                              UtilityFunctions().successToast("Order Accepted Successfully");
-                              Navigator.pop(context);
-
-                            }else{
-                              UtilityFunctions().successToast(value.toString());
-
-                              buttonClick=false;
+                              else{
+                                UtilityFunctions().successToast("Please write the reason");
+                              }
+                            }
+                            else{
+                              buttonClick=true;
                               setState(() {
 
                               });
+                              CheckOut().acceptOrderByDriver(widget.data["order_data"]["id"]).then((value) {
+                                if(value=="success"){
+                                  BlocProvider.of<AssignedServiceBlo>(context).add(AssignedServiceUpdateEvent());
 
+                                  UtilityFunctions().successToast("Order Accepted Successfully");
+                                  Navigator.pop(context);
+
+                                }else{
+                                  UtilityFunctions().successToast(value.toString());
+
+                                  buttonClick=false;
+                                  setState(() {
+
+                                  });
+
+                                }
+
+                              });
                             }
 
-                          });
+                          }
+                          else{
+                            UtilityFunctions().errorToast("Please Select the Order Status");
+                          }
+
+
+
+                        }else{
+                          UtilityFunctions().errorToast("Please Wait...");
                         }
 
-                      }
-                      else{
-                        UtilityFunctions().errorToast("Please Select the Order Status");
-                      }
 
+                      },
+                      child:
 
+                      buttonClick
+                          ?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
 
-                    }else{
-                      UtilityFunctions().errorToast("Please Wait...");
-                    }
-
-
-                  },
-                  child:
-
-                  buttonClick
-                      ?
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-
-                      Center(
-                        child: SizedBox(
-                          height: size.height*0.03,
-                          width: size.height*0.03,
-                          child: const CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        ),
+                          Center(
+                            child: SizedBox(
+                              height: size.height*0.03,
+                              width: size.height*0.03,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        ],
                       )
-                    ],
-                  )
-                      :
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                          :
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
 
-                      AutoSizeText("Update Order Status",
-                        style: GoogleFonts.openSans(
-                            color: Colors.white,
-                            fontSize: size.height*0.022,
-                            fontWeight: FontWeight.w500
-                        ),
+                          AutoSizeText("Update Order Status",
+                            style: GoogleFonts.openSans(
+                                color: Colors.white,
+                                fontSize: size.height*0.022,
+                                fontWeight: FontWeight.w500
+                            ),
+                          ),
+
+                        ],
                       ),
+                    ),
+                  );
+              },),
 
-                    ],
-                  ),
-                ),
-              ),
               SizedBox(
                 height: size.height*0.03,
               ),
