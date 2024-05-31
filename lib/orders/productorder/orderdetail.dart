@@ -25,6 +25,12 @@ class _OrderDetailState extends State<OrderDetail> {
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
   @override
+  void initState() {
+    // TODO: implement initState
+    print("${widget.data["order_data"]["id"]}");
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return Scaffold(

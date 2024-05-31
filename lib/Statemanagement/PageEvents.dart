@@ -45,3 +45,29 @@ abstract class DropOffServiceEvent{}
 class DropOffServiceUpdateEvent extends DropOffServiceEvent{}
 
 class InitialEventOfDropOffService extends DropOffServiceEvent{}
+
+
+
+abstract class CollectedServiceEvent{}
+
+class CollectedServiceUpdateEvent extends CollectedServiceEvent{}
+
+class InitialEventOfCollectedService extends CollectedServiceEvent{}
+
+
+
+
+
+abstract class DeliveredServiceEvent{}
+
+class DeliveredServiceUpdateEvent extends DeliveredServiceEvent{}
+
+class InitialEventOfDeliveredService extends DeliveredServiceEvent{}
+
+
+
+abstract class RejectedServiceEvent{}
+
+class RejectedServiceUpdateEvent extends RejectedServiceEvent{}
+
+class InitialEventOfRejectedService extends RejectedServiceEvent{}

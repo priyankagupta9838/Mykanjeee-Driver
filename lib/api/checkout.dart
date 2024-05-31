@@ -88,6 +88,8 @@ class CheckOut{
   //
   //   return result;
   // }
+
+
   Future<String> rejectOrderByCustomer(int orderId, String imageKey,String reason) async {
     String responcValue = "";
     Map data = {
@@ -108,7 +110,7 @@ class CheckOut{
     ).then((value) {
       if (value.body != null) {
         var result = jsonDecode(value.body);
-
+      print(result);
         if (result["status"] == "success") {
           responcValue=result["status"];
         } else {
@@ -159,6 +161,8 @@ class CheckOut{
     });
     return responcValue;
   }
+
+
   Future<String> rejectOrderByDriver(int orderId,String reason) async {
     String responcValue = "";
 

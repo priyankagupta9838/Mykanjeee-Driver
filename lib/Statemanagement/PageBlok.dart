@@ -62,3 +62,33 @@ class DropOffServiceBlo extends Bloc<DropOffServiceEvent,DropOffServiceState>{
   }
 }
 
+
+
+class CollectedServiceBlo extends Bloc<CollectedServiceEvent,CollectedServiceState>{
+  CollectedServiceBlo(): super(InitStateOfCollectedService()){
+
+    on<CollectedServiceUpdateEvent>((event, emit) => emit(CollectedServiceUpdateState()));
+    on<InitialEventOfCollectedService>((event, emit) => emit(InitStateOfCollectedService()));
+  }
+}
+
+
+
+class DeliveredServiceBlo extends Bloc<DeliveredServiceEvent,DeliveredServiceState>{
+  DeliveredServiceBlo(): super(InitStateOfDeliveredService()){
+
+    on<DeliveredServiceUpdateEvent>((event, emit) => emit(DeliveredServiceUpdateState()));
+    on<InitialEventOfDeliveredService>((event, emit) => emit(InitStateOfDeliveredService()));
+  }
+}
+
+
+class RejectedServiceBlo extends Bloc<RejectedServiceEvent,RejectedServiceState>{
+  RejectedServiceBlo(): super(InitStateOfRejectedService()){
+
+    on<RejectedServiceUpdateEvent>((event, emit) => emit(RejectedServiceUpdateState()));
+    on<InitialEventOfRejectedService>((event, emit) => emit(InitStateOfRejectedService()));
+  }
+}
+
+

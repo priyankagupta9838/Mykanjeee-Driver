@@ -46,3 +46,25 @@ class InitStateOfDropOffService extends DropOffServiceState{}
 class DropOffServiceUpdateState extends DropOffServiceState{}
 
 
+
+abstract class CollectedServiceState{}
+
+class InitStateOfCollectedService extends CollectedServiceState{}
+
+class CollectedServiceUpdateState extends CollectedServiceState{}
+
+
+
+
+abstract class DeliveredServiceState{}
+
+class InitStateOfDeliveredService extends DeliveredServiceState{}
+
+class DeliveredServiceUpdateState extends DeliveredServiceState{}
+
+
+abstract class RejectedServiceState{}
+
+class InitStateOfRejectedService extends RejectedServiceState{}
+
+class RejectedServiceUpdateState extends RejectedServiceState{}

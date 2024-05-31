@@ -25,8 +25,8 @@ class _RejectedOrderState extends State<RejectedOrder> {
     CheckOut().allAssignedOrder("PRODUCT","REJECTED").then((value) {
       if(value.isNotEmpty){
         data=value;
+        print("data is..... ${data["data"][1]}");
         loading=false;
-
         setState(() {
 
         });
