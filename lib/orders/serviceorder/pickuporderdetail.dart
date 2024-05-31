@@ -117,7 +117,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                 children: [
                   AutoSizeText(
 
-                    "${widget.data["order_details"].length}X ${  widget.data["order_details"][0]["quote"]["service.name"].toString()=="UPCYCLE" ? widget.data["order_details"][0]["quote"]["services_by_vendor.clothing_item_type"].toString() :widget.data["order_details"][0]["quote"]["services_by_vendor.material_type"].toString()}",
+                    "${widget.data["order_details"].length}X ${  widget.data["order_details"][0]["quote"]["service"]["name"].toString()=="UPCYCLE"? widget.data["order_details"][0]["quote"]["services_by_vendor"]["clothing_item_type"].toString() :widget.data["order_details"][0]["quote"]["services_by_vendor"]["material_type"].toString()}",
 
                     style: GoogleFonts.openSans(
                       color: Colors.black54,
