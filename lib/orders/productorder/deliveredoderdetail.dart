@@ -18,7 +18,7 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
       backgroundColor: const Color.fromRGBO(235, 227, 240,1),
       appBar:AppBar(
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
-        title:  AutoSizeText("Order Details",style: GoogleFonts.roboto(
+        title:  AutoSizeText("Delivered Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
             fontSize: size.height*0.025,
             fontWeight: FontWeight.w400

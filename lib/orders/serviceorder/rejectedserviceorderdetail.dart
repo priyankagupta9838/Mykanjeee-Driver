@@ -18,7 +18,7 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
       backgroundColor: const Color.fromRGBO(235, 227, 240,1),
       appBar:AppBar(
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
-        title:  AutoSizeText("Order Details",style: GoogleFonts.roboto(
+        title:  AutoSizeText("Rejected Service Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
             fontSize: size.height*0.025,
             fontWeight: FontWeight.w400
@@ -92,7 +92,10 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("${widget.data["order_details"].length}X${widget.data["order_details"][0]["product"]["product_name"].toString()}",style: GoogleFonts.openSans(
+                  AutoSizeText(
+                    "${widget.data["order_details"].length}X ${  widget.data["order_details"][0]["quote"]["service.name"].toString()=="UPCYCLE"? widget.data["order_details"][0]["quote"]["services_by_vendor.clothing_item_type"].toString() :widget.data["order_details"][0]["quote"]["services_by_vendor.material_type"].toString()}",
+
+                    style: GoogleFonts.openSans(
                       color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
@@ -156,7 +159,7 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                 ],
               ),
               SizedBox(
-                height: size.height*0.017,
+                height: size.height*0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
