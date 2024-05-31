@@ -22,7 +22,9 @@ class _RejectedServiceOrderState extends State<RejectedServiceOrder> {
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allRejectedServiceOrder("QUOTE","REJECTECTED").then((value) {
+    CheckOut().allRejectedServiceOrder("QUOTE","REJECTED").then((value) {
+
+      print("value is ...$value");
       if(value.isNotEmpty){
         data=value;
         loading=false;
@@ -56,7 +58,19 @@ class _RejectedServiceOrderState extends State<RejectedServiceOrder> {
 
       SizedBox(
         height: size.height*1,
-        child: !loading && data["data"].length>0
+        child:   loading
+            ?
+        Center(
+          child: SizedBox(
+            height: size.height*0.03,
+            width: size.height*0.03,
+            child: const CircularProgressIndicator(
+              color: Colors.blue,
+            ),
+          ),
+        )
+            :
+        data["data"].length>0
 
             ?
         Padding(

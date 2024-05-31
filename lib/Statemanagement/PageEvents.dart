@@ -48,21 +48,21 @@ class InitialEventOfDropOffService extends DropOffServiceEvent{}
 
 
 
-abstract class CollectedServiceEvent{}
+abstract class AssignedOrderEvent{}
 
-class CollectedServiceUpdateEvent extends CollectedServiceEvent{}
+class AssignedOrderUpdateEvent extends AssignedOrderEvent{}
 
-class InitialEventOfCollectedService extends CollectedServiceEvent{}
-
-
+class InitialEventOfAssignedOrder extends AssignedOrderEvent{}
 
 
 
-abstract class DeliveredServiceEvent{}
 
-class DeliveredServiceUpdateEvent extends DeliveredServiceEvent{}
 
-class InitialEventOfDeliveredService extends DeliveredServiceEvent{}
+abstract class AcceptedOrderEvent{}
+
+class AcceptedOrderUpdateEvent extends AcceptedOrderEvent{}
+
+class InitialEventOfAcceptedOrder extends AcceptedOrderEvent{}
 
 
 

@@ -583,6 +583,7 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
+      print("responce value iss..${json.decode(value.body)}");
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);

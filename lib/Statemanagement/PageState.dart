@@ -47,20 +47,20 @@ class DropOffServiceUpdateState extends DropOffServiceState{}
 
 
 
-abstract class CollectedServiceState{}
+abstract class AssignedOrderState{}
 
-class InitStateOfCollectedService extends CollectedServiceState{}
+class InitStateOfAssignedOrder extends AssignedOrderState{}
 
-class CollectedServiceUpdateState extends CollectedServiceState{}
-
-
+class AssignedOrderUpdateState extends AssignedOrderState{}
 
 
-abstract class DeliveredServiceState{}
 
-class InitStateOfDeliveredService extends DeliveredServiceState{}
 
-class DeliveredServiceUpdateState extends DeliveredServiceState{}
+abstract class AcceptedOrderState{}
+
+class InitStateOfAcceptedOrder extends AcceptedOrderState{}
+
+class AcceptedOrderUpdateState extends AcceptedOrderState{}
 
 
 abstract class RejectedServiceState{}

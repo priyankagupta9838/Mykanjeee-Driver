@@ -56,7 +56,19 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
           ?
       SizedBox(
         height: size.height*1,
-        child: !loading && data["data"].length>0
+        child:   loading
+            ?
+        Center(
+          child: SizedBox(
+            height: size.height*0.03,
+            width: size.height*0.03,
+            child: const CircularProgressIndicator(
+              color: Colors.blue,
+            ),
+          ),
+        )
+            :
+        data["data"].length>0
 
             ?
         Padding(

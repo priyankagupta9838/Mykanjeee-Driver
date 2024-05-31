@@ -64,21 +64,23 @@ class DropOffServiceBlo extends Bloc<DropOffServiceEvent,DropOffServiceState>{
 
 
 
-class CollectedServiceBlo extends Bloc<CollectedServiceEvent,CollectedServiceState>{
-  CollectedServiceBlo(): super(InitStateOfCollectedService()){
 
-    on<CollectedServiceUpdateEvent>((event, emit) => emit(CollectedServiceUpdateState()));
-    on<InitialEventOfCollectedService>((event, emit) => emit(InitStateOfCollectedService()));
+
+class AssignedOrderBlo extends Bloc<AssignedOrderEvent,AssignedOrderState>{
+  AssignedOrderBlo(): super(InitStateOfAssignedOrder()){
+
+    on<AssignedOrderUpdateEvent>((event, emit) => emit(AssignedOrderUpdateState()));
+    on<InitialEventOfAssignedOrder>((event, emit) => emit(InitStateOfAssignedOrder()));
   }
 }
 
 
 
-class DeliveredServiceBlo extends Bloc<DeliveredServiceEvent,DeliveredServiceState>{
-  DeliveredServiceBlo(): super(InitStateOfDeliveredService()){
+class AcceptedOrderBlo extends Bloc<AcceptedOrderEvent,AcceptedOrderState>{
+  AcceptedOrderBlo(): super(InitStateOfAcceptedOrder()){
 
-    on<DeliveredServiceUpdateEvent>((event, emit) => emit(DeliveredServiceUpdateState()));
-    on<InitialEventOfDeliveredService>((event, emit) => emit(InitStateOfDeliveredService()));
+    on<AcceptedOrderUpdateEvent>((event, emit) => emit(AcceptedOrderUpdateState()));
+    on<InitialEventOfAcceptedOrder>((event, emit) => emit(InitStateOfAcceptedOrder()));
   }
 }
 

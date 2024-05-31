@@ -23,7 +23,9 @@ class _PickUpOrderState extends State<PickUpOrder> {
   void initState() {
     // TODO: implement initState
     CheckOut().allPickupServiceOrder("QUOTE","PICKUP").then((value) {
+
       if(value.isNotEmpty){
+
         data=value;
 
         loading=false;
@@ -57,7 +59,19 @@ class _PickUpOrderState extends State<PickUpOrder> {
 
       SizedBox(
         height: size.height*1,
-        child: !loading && data["data"].length>0
+        child:   loading
+            ?
+        Center(
+          child: SizedBox(
+            height: size.height*0.03,
+            width: size.height*0.03,
+            child: const CircularProgressIndicator(
+              color: Colors.blue,
+            ),
+          ),
+        )
+            :
+        data["data"].length>0
 
             ?
         Padding(
