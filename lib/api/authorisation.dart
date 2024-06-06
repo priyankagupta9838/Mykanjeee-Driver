@@ -26,7 +26,7 @@ class Authentication{
       }
       Map data = {
         "name": name,
-        "value": email,
+        "value":email,
         "password": password,
         "type": isPhoneNumber?"phone":"email"
       };
@@ -43,6 +43,7 @@ class Authentication{
         },
       );
       var result=jsonDecode(response.body);
+      print(result);
       if(result["status"]=="success"){
         value="success";
         final box = GetStorage();
@@ -185,7 +186,7 @@ class Authentication{
       isPhoneNumber = double.tryParse(email) != null;
     }
     Map data = {
-      "username": isPhoneNumber ? "91$email" : email,
+      "username": isPhoneNumber ? email : email,
       "password": password
     };
 
@@ -262,7 +263,7 @@ class Authentication{
       isPhoneNumber = double.tryParse(email) != null;
     }
     Map data = {
-      "username": isPhoneNumber ? "91$email" : email,
+      "username": email,
     };
 
     String body = json.encode(data);
@@ -354,11 +355,11 @@ class Authentication{
       isPhoneNumber = double.tryParse(email) != null;
     }
     Map data = {
-      "username": isPhoneNumber ? "91$email" : email,
+      "username":email,
     };
 
     String body = json.encode(data);
-    var url = ApiList.baseUrl+ApiList.loginWithOtp;
+    var url = ApiList.baseUrl+ApiList.forgotPassword;
 
     try {
       var response = await http.post(
@@ -391,7 +392,12 @@ class Authentication{
 
   Future<String> forgotPasswordVerification(String email,String otp,String newPassword,String confirmPassword) async {
     String loginValue = "";
-
+    bool isPhoneNumber = false;
+    if (email == null) {
+      isPhoneNumber = false;
+    } else {
+      isPhoneNumber = double.tryParse(email) != null;
+    }
     Map data = {
       "username": email,
       "otp": otp,

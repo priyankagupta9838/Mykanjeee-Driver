@@ -312,8 +312,8 @@ class _ProfileState extends State<Profile> {
                                           backgroundColor: buttonColor
                                       ) ,
                                       onPressed: () async {
-                                      bool userResponse=true;
-                                        if(userResponse){
+
+
                                           var box=GetStorage();
                                           box.remove("UserToken");
                                           box.remove("refreshToken");
@@ -338,7 +338,7 @@ class _ProfileState extends State<Profile> {
 
                                           });
 
-                                        }
+
 
                                     }, child:  const Text(
                                       'Yes',

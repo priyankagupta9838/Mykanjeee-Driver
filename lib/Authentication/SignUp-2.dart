@@ -257,7 +257,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/terms-and-conditions/"))) {
+                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/rider-terms-condition/"))) {
                                   throw Exception('Could not launch');
                                   }
                                 },
@@ -278,7 +278,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/privacy-policy/"))) {
+                                  if (!await launchUrl(Uri.parse("https://mykanjee.in/rider-privacy-policy/"))) {
                                   throw Exception('Could not launch');
                                   }
                                 },
@@ -306,21 +306,27 @@ class _SignUpPage2State extends State<SignUpPage2> {
                        if(!buttonClicked){
                          if(password.text.trim().toString().isNotEmpty && confirmPassword.text.trim().toString().isNotEmpty && termsAndConditions)
                          {
-                           buttonClicked=true;
-                           setState(() {
+                          if(password.text != confirmPassword.text){
+                            UtilityFunctions().errorToast("Both password must be same");
 
-                           });
-                           await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
-                             if(value=="success"){
-                               Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: {"name":widget.data["name"],"email":widget.data["email"],"password":password.text});
-                             }else{
-                               buttonClicked=false;
-                               setState(() {
+                          }
+                          else{
+                            buttonClicked=true;
+                            setState(() {
 
-                               });
-                               UtilityFunctions().errorToast(value.toString());
-                             }
-                           });
+                            });
+                            await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],password.text).then((value) {
+                              if(value=="success"){
+                                Navigator.pushNamed(context, RoutesName.signUpOtp,arguments: {"name":widget.data["name"],"email":widget.data["email"],"password":password.text});
+                              }else{
+                                buttonClicked=false;
+                                setState(() {
+
+                                });
+                                UtilityFunctions().errorToast(value.toString());
+                              }
+                            });
+                          }
 
 
                          }

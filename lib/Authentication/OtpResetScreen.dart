@@ -240,9 +240,7 @@ class _ResetOtpScreenState extends State<ResetOtpScreen> {
 
                           if(userOtp.text.isNotEmpty && userOtp.text.toString().length==4 ){
 
-                                Navigator.pushReplacementNamed(context, RoutesName.forgotPasswordOtpVerification,arguments:{"username":widget.userName,"otp":userOtp.text} );
-
-
+                                Navigator.pushNamed(context, RoutesName.forgotPasswordOtpVerification,arguments:{"username":widget.userName,"otp":userOtp.text} );
 
                           }
                           else{

@@ -172,6 +172,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                            });
                            await Authentication().forgotPassword(phoneNumber.text).then((value) {
                              if(value=="success"){
+                               buttonClicked=false;
+                               setState(() {
+
+                               });
                                Navigator.pushNamed(context, RoutesName.forgotPasswordOtp,arguments:phoneNumber.text );
                              }
                              else{

@@ -245,9 +245,26 @@ class _LoginWithOtpVerificationState extends State<LoginWithOtpVerification> {
                                   setState(() {
 
                                   });
-                                  await Authentication().loginWithOtpVerification(widget.userName,userOtp.text).then((value) {
+                                  await Authentication().loginWithOtpVerification(widget.userName,userOtp.text).then((value) async {
                                     if(value=="success"){
-                                      Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false);
+                                      await Authentication().getUser().then((value){
+
+                                        if(value=="success"){
+                                          Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
+                                            await UtilityFunctions().checkNotificationPermission().then((value) {
+                                              print("vnotification value is  }");
+                                            });
+                                          });
+
+                                        }
+                                        else {
+                                          buttonClicked = false;
+                                          setState(() {
+
+                                          });
+                                        }
+
+                                      });
 
                                     }else{
                                       buttonClicked=false;

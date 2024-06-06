@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Authentication/constraints.dart';
+import '../api/authorisation.dart';
 import '../api/useraccount.dart';
 import '../utilityfunction.dart';
 
@@ -254,69 +256,86 @@ class _AccountsSettingState extends State<AccountsSetting> {
                         ),
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     // bool userResponse=false;
-                    //     // AwesomeDialog(
-                    //     //   context: context,
-                    //     //   dialogType: DialogType.noHeader,
-                    //     //   animType: AnimType.scale,
-                    //     //   body:  Padding(
-                    //     //     padding: EdgeInsets.symmetric(horizontal: size.width*0.1,vertical: 0),
-                    //     //     child: const Center(
-                    //     //       child: AutoSizeText(
-                    //     //         'Do you want to sent request to delete you account?',
-                    //     //         style: TextStyle(fontStyle: FontStyle.italic),
-                    //     //       ),
-                    //     //     ),
-                    //     //   ),
-                    //     //   btnCancelOnPress: () {
-                    //     //
-                    //     //   },
-                    //     //   btnCancelText: "No",
-                    //     //   btnCancelColor: Colors.grey.shade500,
-                    //     //   btnCancelIcon: Icons.close, // You can add an icon if you like
-                    //     //   btnOkOnPress: () {
-                    //     //     userResponse=true;
-                    //     //     print("..true");
-                    //     //     // Action when "Yes" button is pressed
-                    //     //   },
-                    //     //   btnOkText: "Yes",
-                    //     //   btnOkColor: Colors.purple.shade200,
-                    //     //   btnOkIcon: Icons.check, // You can add an icon if you like
-                    //     //   buttonsTextStyle: TextStyle(
-                    //     //     fontSize: size.height * 0.02,
-                    //     //     color: Colors.white,
-                    //     //     fontWeight: FontWeight.w400,
-                    //     //   ),
-                    //     // ).show().whenComplete(() {
-                    //     //
-                    //     //   if(userResponse){
-                    //     //     Authentication().sentRequestForDeleteAccount().then((value) {
-                    //     //       if(value=="success"){
-                    //     //         UtilityFunctions().successToast("Request sent successfully");
-                    //     //       }
-                    //     //       else{
-                    //     //         UtilityFunctions().errorToast(value.toString());
-                    //     //
-                    //     //       }
-                    //     //     });
-                    //     //   }
-                    //
-                    //     // });
-                    //   },
-                    //   child: Padding(
-                    //     padding:  EdgeInsets.only(left: size.width*0.3,top: size.height*0.06),
-                    //     child: SizedBox(
-                    //       child:  AutoSizeText("Delete Account",
-                    //         style: GoogleFonts.openSans(
-                    //             fontWeight: FontWeight.w700,
-                    //             fontSize: size.height*0.02,
-                    //             color: Colors.black54
-                    //         ),),
-                    //     ),
-                    //   ),
-                    // )
+                    SizedBox(
+                      height: size.height*0.03,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title:  Text('Do you want to sent request to delete you account?',style: GoogleFonts.cabin(
+                                  fontSize: size.height*0.022,
+                                  fontWeight: FontWeight.w600
+                              ),),
+                              actions: <Widget>[
+                                SizedBox(
+                                  width: size.width*0.24,
+                                  child: ElevatedButton(
+                                    style:ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: Colors.grey.shade400
+                                    ) ,
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    }, child:  const Text(
+
+                                    'No',
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                        color: Colors.black87),
+                                  ),),
+                                ),
+                                SizedBox(
+                                  width: size.width*0.24,
+                                  child: ElevatedButton(
+
+                                    style:ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: buttonColor
+                                    ) ,
+                                    onPressed: () async {
+
+
+                                      UserAccount().sentRequestForDeleteAccount().then((value) {
+                                          if(value=="success"){
+                                            UtilityFunctions().successToast("Request sent successfully");
+                                          }
+                                          else{
+                                            UtilityFunctions().errorToast(value.toString());
+
+                                          }
+                                        });
+
+
+
+
+                                    }, child:  const Text(
+                                    'Yes',
+                                    maxLines: 1,
+                                    style: TextStyle(color: Colors.white),
+                                  ),),
+                                ),
+
+                              ],
+                            );
+                          },
+                        );
+
+                      },
+                      child: Padding(
+                        padding:  EdgeInsets.only(left: size.width*0.3,top: size.height*0.06),
+                        child: SizedBox(
+                          child:  AutoSizeText("Delete Account",
+                            style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w700,
+                                fontSize: size.height*0.02,
+                                color: Colors.black54
+                            ),),
+                        ),
+                      ),
+                    )
 
                   ],
                 ),

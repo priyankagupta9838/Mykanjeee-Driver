@@ -125,7 +125,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500

@@ -313,4 +313,34 @@ class UserAccount{
     return value;
 
   }
+
+
+
+
+  Future<String> sentRequestForDeleteAccount() async {
+    String loginValue = "";
+
+    var url = ApiList.baseUrl+ApiList.deleteAccount;
+    await http.post(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization":userToken
+      },
+    ).then((value) {
+      var result = jsonDecode(value.body);
+      print(result);
+      if (result["status"] == "success") {
+        loginValue = "success";
+      } else {
+        loginValue=result["message"].toString();
+      }
+    }).onError((error, stackTrace) {
+      loginValue = "Bad request.";
+    });
+    return loginValue;
+  }
+
 }

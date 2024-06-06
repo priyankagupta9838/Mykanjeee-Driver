@@ -314,13 +314,13 @@ class CheckOut{
 
 
 
-  Future<Map<String , dynamic>> allAssignedOrder(String type,String status) async {
+  Future<Map<String , dynamic>> allAssignedOrder(String type,String status,int page ,int row) async {
     Map<String , dynamic> responcValue = {};
     Map data = {
         "product_or_quote": type,
         "order_status": status,
-        "page": 1,
-        "rows": 1
+        "page": page,
+        "rows": row
 
     };
 
@@ -349,6 +349,43 @@ class CheckOut{
     }});
     return responcValue;
   }
+
+  Future<Map<String , dynamic>> allDeliveredOrder(String type,String status,int page ,int row) async {
+    Map<String , dynamic> responcValue = {};
+    Map data = {
+      "product_or_quote": type,
+      "order_status": status,
+      "page": page,
+      "rows": row
+
+    };
+
+    String body = json.encode(data);
+    await http.post(
+      Uri.parse(ApiList.baseUrl+ApiList.allAssignedOrder),
+      body: body,
+      headers: {
+        "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    ).then((value) {
+      if (value.body != null) {
+        try {
+          var jsonResponse = json.decode(value.body);
+          if (jsonResponse["code"].toString() == "200") {
+            responcValue = jsonResponse;
+            return responcValue;
+          }
+        } catch (error) {
+          print("eroor is .........$error");
+        }
+        return responcValue;
+      }});
+    return responcValue;
+  }
+
 
   Future<Map<String , dynamic>> allAcceptedProductOrder(String type,String status) async {
     Map<String , dynamic> responcValue = {};
