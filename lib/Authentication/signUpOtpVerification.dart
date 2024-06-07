@@ -169,8 +169,12 @@ class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
                             BlocBuilder<AddTimerBlo,AddTimerState>(builder: (context, state) {
                               return    TextButton(
                                 onPressed: () async {
+                                  userOtp.text="";
+                                  setState(() {
 
-                                  await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],widget.data["password"]).then((value) {
+                                  });
+
+                                  await Authentication().sendAgainOtp().then((value) {
                                     if(value=="success"){
                                       totalSeconds=80;
                                       BlocProvider.of<AddTimerBlo>(context).add(UpdateTimerEvent());
@@ -181,6 +185,19 @@ class _SignUpOtpVerificationState extends State<SignUpOtpVerification> {
                                       UtilityFunctions().errorToast(value.toString());
                                     }
                                   });
+
+                                  //
+                                  // await Authentication().signUpNewUser(widget.data["name"],widget.data["email"],widget.data["password"]).then((value) {
+                                  //   if(value=="success"){
+                                  //     totalSeconds=80;
+                                  //     BlocProvider.of<AddTimerBlo>(context).add(UpdateTimerEvent());
+                                  //     UtilityFunctions().successToast("Otp Send Successfully please check.");
+                                  //
+                                  //   }else{
+                                  //
+                                  //     UtilityFunctions().errorToast(value.toString());
+                                  //   }
+                                  // });
 
 
                                 },

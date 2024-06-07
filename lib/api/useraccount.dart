@@ -54,9 +54,10 @@ class UserAccount{
 
     String value="";
     final box = GetStorage();
-    userToken= box.read("UserToken");
+    userId= box.read("user_id");
     try{
       Map data ={
+        "user_id": userId,
         "account_holder_name": userRegisterData["account_holder_name"],
         "account_number": userRegisterData["account_number"],
         "bank_id": userRegisterData["bank_id"],
@@ -71,7 +72,7 @@ class UserAccount{
         Uri.parse(url),
         body: body,
         headers: {
-          "Authorization":userToken,
+          // "Authorization":userToken,
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
         },

@@ -6,6 +6,7 @@ class ApiList{
   static const registerNewDriverVerifyOtp="/api/delivery-person/register-as-delivery-person-verify-otp";
   static const updateDriverDetails="/api/delivery-person/register-as-delivery-person";
   static const updateAccountDetails="/api/delivery-person/add-account-details";
+  static const sendAgainOtp="/api/delivery-person/register-as-delivery-person-with-otp-resend";
   static const login="/api/delivery-person/login";
   static const loginWithOtp="/api/delivery-person/login-send-otp";
   static const loginWithOtpVerification="/api/delivery-person/login-otp-verify";

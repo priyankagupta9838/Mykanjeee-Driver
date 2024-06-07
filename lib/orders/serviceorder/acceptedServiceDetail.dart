@@ -78,7 +78,7 @@ class _AcceptedServiceOrderDetailState extends State<AcceptedServiceOrderDetail>
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500

@@ -19,7 +19,7 @@ class DropOffOrderDetail extends StatefulWidget {
   State<DropOffOrderDetail> createState() => _DropOffOrderDetailState();
 }
 class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
-  List<String>services=['Delivered'];
+  List<String>services=['DELIVERED'];
   String imageKey="";
   bool imagePhotoUploaded=false;
   bool buttonClick=false;
@@ -80,7 +80,7 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500
@@ -136,9 +136,9 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Waiting for Delivery",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -159,13 +159,19 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
                 ],
               ),
               SizedBox(
-                height: size.height*0.017,
+                height: size.height*0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                      ?
+                  widget.data["order_data"]["time_slot"].toString()
+                      :
+                  "Day"
+                    ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -174,7 +180,7 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
               ),
 
               SizedBox(
-                height: size.height*0.023,
+                height: size.height*0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,9 +193,7 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
 
                 ],
               ),
-              SizedBox(
-                height: size.height*0.01,
-              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -228,34 +232,34 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
               SizedBox(
                 height: size.height*0.02,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black54,
+              //         fontSize: size.height*0.019,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black87,
+              //         fontSize: size.height*0.02,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

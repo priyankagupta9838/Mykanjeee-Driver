@@ -20,20 +20,15 @@ class PickUpOrderDetail extends StatefulWidget {
   @override
   State<PickUpOrderDetail> createState() => _PickUpOrderDetailState();
 }
+
 class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
-  List<String>services=['Collect'];
+  List<String>services=['Item Received'];
   String imageKey="";
   bool imagePhotoUploaded=false;
   bool buttonClick=false;
   bool reject=false;
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    print("all pickup value id is : ${widget.data["order_data"]["id"]}");
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
@@ -43,7 +38,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("PickUp Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -72,7 +67,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                   ),),
                   AutoSizeText(widget.data["order_id"].toString(),style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -88,9 +83,9 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -127,7 +122,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -145,9 +140,9 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Accepted",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -168,13 +163,19 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                 ],
               ),
               SizedBox(
-                height: size.height*0.017,
+                height: size.height*0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                    ?
+                  widget.data["order_data"]["time_slot"].toString()
+                      :
+                      "Day"
+                    ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -182,7 +183,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                 ],
               ),
               SizedBox(
-                height: size.height*0.023,
+                height: size.height*0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,34 +237,6 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
 
               SizedBox(
                 height: size.height*0.023,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

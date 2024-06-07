@@ -26,12 +26,6 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
   @override
-  void initState() {
-    // TODO: implement initState
-    print("details is ${widget.data}");
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return Scaffold(
@@ -40,7 +34,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("Assign Service Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -69,7 +63,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                   ),),
                   AutoSizeText(widget.data["order_id"].toString(),style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -85,9 +79,9 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -123,7 +117,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -141,9 +135,9 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Assign to you",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -169,8 +163,18 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                      ?
+                  widget.data["order_data"]["time_slot"].toString()
+                      :
+                  "Day"
+
+
+
+                    ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -229,35 +233,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                 ],
               ),
               SizedBox(
-                height: size.height*0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.03,
+                height: size.height*0.023,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

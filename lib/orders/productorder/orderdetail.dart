@@ -39,7 +39,7 @@ class _OrderDetailState extends State<OrderDetail> {
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("Accepted Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -68,7 +68,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),),
                   AutoSizeText(widget.data["order_id"].toString(),style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -84,9 +84,9 @@ class _OrderDetailState extends State<OrderDetail> {
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -119,7 +119,7 @@ class _OrderDetailState extends State<OrderDetail> {
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -137,9 +137,9 @@ class _OrderDetailState extends State<OrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Accepted",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -165,7 +165,15 @@ class _OrderDetailState extends State<OrderDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
+                  AutoSizeText(
+
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+                ,style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500

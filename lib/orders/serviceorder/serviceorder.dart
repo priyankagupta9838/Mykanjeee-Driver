@@ -25,7 +25,6 @@ class _ServiceOrderState extends State<ServiceOrder> {
     "Assigned",
     "Pickup",
     "Drop off",
-    "Collected",
     "Delivered",
     "Rejected",
   ];
@@ -110,7 +109,7 @@ class _ServiceOrderState extends State<ServiceOrder> {
                       return const PickUpOrder();
                     }),
                 const DropOffOrder(),
-                const AcceptedServiceOrder(),
+                // const AcceptedServiceOrder(),
                 const DeliveredServiceOrder(),
                 const RejectedServiceOrder(),
               ],

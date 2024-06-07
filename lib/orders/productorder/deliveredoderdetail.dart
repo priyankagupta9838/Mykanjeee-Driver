@@ -20,7 +20,7 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("Delivered Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -49,7 +49,7 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                   ),),
                   AutoSizeText(widget.data["order_id"].toString(),style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -65,9 +65,9 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -100,7 +100,7 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -118,9 +118,9 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Delivered",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -146,8 +146,16 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(
+
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+                ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -170,9 +178,7 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
 
                 ],
               ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -199,37 +205,37 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
 
                 ],
               ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
+              //
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black54,
+              //         fontSize: size.height*0.019,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black87,
+              //         fontSize: size.height*0.02,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
               SizedBox(
-                height: size.height*0.017,
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.03,
+                height: size.height*0.01,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,13 +244,13 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AutoSizeText("Order Status",style: GoogleFonts.openSans(
-                          color: Colors.black87,
-                          fontSize: size.height*0.02,
+                          color: Colors.black54,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                       AutoSizeText("Delivered",style: GoogleFonts.openSans(
                           color: Colors.green,
-                          fontSize: size.height*0.02,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                     ],

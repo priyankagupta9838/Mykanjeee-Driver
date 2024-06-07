@@ -20,7 +20,7 @@ class _DropOffOrderState extends State<DropOffOrder> {
   Map<String ,dynamic>data={};
   @override
   void initState() {
-    CheckOut().allDropOffServiceOrder("QUOTE","DROPOFF").then((value) {
+    CheckOut().allDropOffServiceOrder("QUOTE","COLLECTED").then((value) {
       if(value.isNotEmpty){
         data=value;
         loading=false;
@@ -111,14 +111,19 @@ class _DropOffOrderState extends State<DropOffOrder> {
                                         AutoSizeText(
                                           "Order_ID-${data['data'][index]["order_id"]}",
                                           style: GoogleFonts.cabin(
-                                              color: Colors.black87
+                                              color: Colors.black87,
+                                              fontSize: size.height*0.018,
+                                              fontWeight: FontWeight.w400
                                           ),
 
                                         ),
                                         AutoSizeText(
-                                          "Order date and time",
+                                          "${data['data'][index]["createdAt"].toString().split("T")[0]} - ${(data['data'][index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
+
                                           style: GoogleFonts.cabin(
-                                              color: Colors.black87
+                                              color: Colors.black87,
+                                              fontSize: size.height*0.017,
+                                              fontWeight: FontWeight.w400
                                           ),
 
                                         ),                ],
@@ -130,7 +135,9 @@ class _DropOffOrderState extends State<DropOffOrder> {
                                     AutoSizeText(
                                       "${data['data'][index]["delivery_type"]}",
                                       style: GoogleFonts.cabin(
-                                          color: Colors.black87
+                                          color: Colors.black87,
+                                          fontSize: size.height*0.018,
+                                          fontWeight: FontWeight.w400
                                       ),
                                     ),
                                     SizedBox(width: size.width*0.03,),

@@ -43,11 +43,12 @@ class Authentication{
         },
       );
       var result=jsonDecode(response.body);
-      print(result);
+      print("resylte is ${result}");
       if(result["status"]=="success"){
         value="success";
         final box = GetStorage();
         box.write("user_id", result["data"]["id"]);
+        userId=box.read("user_id").toString();
 
       }
       else {
@@ -62,6 +63,46 @@ class Authentication{
     }
 
 
+    return value;
+  }
+
+
+
+  Future<String> sendAgainOtp() async {
+    print("called...");
+    String value="";
+
+    try{
+      // Map data = {
+      //   "userId": userId
+      // };
+
+      String body = json.encode({
+        "userId": userId
+      });
+      var url = ApiList.baseUrl+ApiList.sendAgainOtp;
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+      var result=jsonDecode(response.body);
+      print("resylte is $result");
+      if(result["status"]=="success"){
+        value="success";
+      }
+      else {
+        value=result["message"];
+      }
+    }
+    catch(error){
+      print(error);
+      value="null";
+    }
     return value;
   }
 
@@ -92,11 +133,16 @@ class Authentication{
       var result = jsonDecode(response.body);
       print("Result is ...////////$result");
       if (result["status"] == "success") {
+        print("sucess");
         final box = GetStorage();
-        box.write("UserToken", result["token"]);
-        box.write("refreshToken", result["refreshToken"]);
-        userToken=box.read("UserToken");
-        print("Usertoken is...$userToken");
+
+        box.write("user_id", result["data"]["id"]);
+        userId=box.read("user_id");
+        print(userId);
+        // box.write("UserToken", result["token"]);
+        // box.write("refreshToken", result["refreshToken"]);
+        // userToken=box.read("UserToken");
+        // print("Usertoken is...$userToken");
         loginValue = "success";
       } else {
         loginValue = result["message"];
@@ -118,7 +164,7 @@ class Authentication{
   Future<String> postDriverDetails() async {
     String result="";
     final box = GetStorage();
-    String userId=box.read("user_id").toString();
+     userId=box.read("user_id").toString();
     String url=ApiList.baseUrl +ApiList.updateDriverDetails;
     var request = http.MultipartRequest('POST', Uri.parse(url),);
 
@@ -192,7 +238,7 @@ class Authentication{
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.login;
- print(url);
+
     try {
       var response = await http.post(
         Uri.parse(url),

@@ -188,12 +188,17 @@ class _AssignedOrderState extends State<AssignedOrder> {
                                     AutoSizeText(
                                       "Order_ID-${items[index]["order_id"]}",
                                       style: GoogleFonts.cabin(
-                                          color: Colors.black87),
+                                          color: Colors.black87,
+                                          fontSize: size.height*0.018,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                     AutoSizeText(
-                                      "Order date and time",
+                                      "${items[index]["createdAt"].toString().split("T")[0]} - ${(items[index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
+
                                       style: GoogleFonts.cabin(
-                                          color: Colors.black87),
+                                          color: Colors.black87,
+                                          fontSize: size.height*0.017,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   ],
                                 ),
@@ -204,7 +209,9 @@ class _AssignedOrderState extends State<AssignedOrder> {
                                 AutoSizeText(
                                   "${items[index]["delivery_type"]}",
                                   style: GoogleFonts.cabin(
-                                      color: Colors.black87),
+                                      color: Colors.black87,
+                                      fontSize: size.height*0.018,
+                                      fontWeight: FontWeight.w400),
                                 ),
                                 SizedBox(width: size.width * 0.03),
                               ],

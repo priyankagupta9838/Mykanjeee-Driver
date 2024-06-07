@@ -30,7 +30,7 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("Assigned Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -128,7 +128,7 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Assigned",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500
@@ -156,8 +156,16 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(
+
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+                ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -165,7 +173,7 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                 ],
               ),
               SizedBox(
-                height: size.height*0.023,
+                height: size.height*0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,34 +218,34 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
               SizedBox(
                 height: size.height*0.023,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.03,
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black54,
+              //         fontSize: size.height*0.019,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black87,
+              //         fontSize: size.height*0.02,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.03,
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -121,7 +121,8 @@ class _DeliveredServiceOrderState extends State<DeliveredServiceOrder> {
 
                                         ),
                                         AutoSizeText(
-                                          "Order date and time",
+                                          "${data['data'][index]["createdAt"].toString().split("T")[0]} - ${(data['data'][index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
+
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87
                                           ),

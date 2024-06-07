@@ -186,9 +186,10 @@ class _AcountDetailState extends State<AccountDetail> {
                         builder: (context, snapshot) {
                           if( snapshot.hasData ){
                             var data=jsonDecode(snapshot.data!.body);
-
+                            print("data massege is ${data}");
                             List<dynamic>bankIdList=[];
                             bankName.clear();
+
                             for(var id in data["message"]){
                               bankName.add(id["bank_name"]);
                               bankIdList.add(id["id"]);

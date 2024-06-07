@@ -25,7 +25,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
         backgroundColor: const Color.fromRGBO(194, 172, 209, 1),
         title:  AutoSizeText("Rejected Order Details",style: GoogleFonts.roboto(
             color: Colors.white,
-            fontSize: size.height*0.025,
+            fontSize: size.height*0.022,
             fontWeight: FontWeight.w400
         ),),
         centerTitle: true,
@@ -54,7 +54,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                   ),),
                   AutoSizeText(widget.data["order_id"].toString(),style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -70,9 +70,9 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -105,7 +105,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -123,16 +123,16 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Rejected",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
                 ],
               ),
               SizedBox(
-                height: size.height*0.023,
+                height: size.height*0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,8 +151,16 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[ Time_slot ]",style: GoogleFonts.openSans(
-                      color: Colors.black87,
+                  AutoSizeText(
+
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+                ,style: GoogleFonts.openSans(
+                      color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
@@ -160,7 +168,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                 ],
               ),
               SizedBox(
-                height: size.height*0.023,
+                height: size.height*0.02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,9 +181,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
 
                 ],
               ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -203,36 +209,36 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                 ],
               ),
 
+              // SizedBox(
+              //   height: size.height*0.023,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black54,
+              //         fontSize: size.height*0.019,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: size.height*0.017,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
+              //         color: Colors.black87,
+              //         fontSize: size.height*0.02,
+              //         fontWeight: FontWeight.w500
+              //     ),),
+              //
+              //   ],
+              // ),
               SizedBox(
-                height: size.height*0.023,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.03,
+                height: size.height*0.02,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,13 +247,13 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AutoSizeText("Order Status",style: GoogleFonts.openSans(
-                          color: Colors.black87,
-                          fontSize: size.height*0.02,
+                          color: Colors.black54,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                       AutoSizeText("Rejected",style: GoogleFonts.openSans(
                           color: Colors.red,
-                          fontSize: size.height*0.02,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                     ],

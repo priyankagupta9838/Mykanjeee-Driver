@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../utilityfunction.dart';
 
 class RejectedServiceOrderDetail extends StatefulWidget {
@@ -65,9 +64,9 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),),
-                  AutoSizeText("[Package Id]",style: GoogleFonts.openSans(
+                  AutoSizeText("${widget.data["order_details"][0]["packageId"]}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
                 ],
@@ -103,7 +102,7 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
 
                   AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
@@ -121,21 +120,42 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("status",style: GoogleFonts.openSans(
+                  AutoSizeText("Rejected",style: GoogleFonts.openSans(
                       color: Colors.black87,
-                      fontSize: size.height*0.022,
+                      fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
                   ),)
 
                 ],
               ),
-              SizedBox(
-                height: size.height*0.023,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AutoSizeText("Time slot",style: GoogleFonts.openSans(
+                      color: Colors.black54,
+                      fontSize: size.height*0.019,
+                      fontWeight: FontWeight.w500
+                  ),),
+
+                ],
+              ),
+              SizedBox(
+                height: size.height*0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AutoSizeText(
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+
+
+
+                    ,style: GoogleFonts.openSans(
                       color: Colors.black54,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
@@ -201,7 +221,14 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText("[Time_slot ]",style: GoogleFonts.openSans(
+                  AutoSizeText(
+                    widget.data["order_data"]["time_slot"].toString().isNotEmpty
+
+                        ?
+                    widget.data["order_data"]["time_slot"].toString()
+                        :
+                    "Day"
+                ,style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500
@@ -213,34 +240,6 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
               SizedBox(
                 height: size.height*0.023,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-                      color: Colors.black54,
-                      fontSize: size.height*0.019,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.017,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-                      color: Colors.black87,
-                      fontSize: size.height*0.02,
-                      fontWeight: FontWeight.w500
-                  ),),
-
-                ],
-              ),
-              SizedBox(
-                height: size.height*0.03,
-              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -248,13 +247,13 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AutoSizeText("Order Status",style: GoogleFonts.openSans(
-                          color: Colors.black87,
-                          fontSize: size.height*0.02,
+                          color: Colors.black54,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                       AutoSizeText("Rejected",style: GoogleFonts.openSans(
                           color: Colors.red,
-                          fontSize: size.height*0.02,
+                          fontSize: size.height*0.019,
                           fontWeight: FontWeight.w500
                       ),),
                     ],
