@@ -89,24 +89,25 @@ class UserAccount{
     catch(error){
       value=error.toString();
     }
-
-
     return value;
   }
 
 
 
 
+  // Stream<http.Response> fetchBankName()  {
+  //
+  //   String url= '${ApiList.baseUrl}/api/bank/get-all-banks';
+  //
+  //   return http.get(Uri.parse(url),headers: {
+  //     "authorization":userToken
+  //   }).asStream();
+  // }
 
 
-
-  Stream<http.Response> fetchBankName()  {
-
-    String url= '${ApiList.baseUrl}/api/bank/get-all-banks';
-
-    return http.get(Uri.parse(url),headers: {
-      "authorization":userToken
-    }).asStream();
+  Stream<http.Response> fetchBankName() {
+    String url = '${ApiList.baseUrl}/api/bank/get-all-banks';
+    return http.get(Uri.parse(url)).asStream();
   }
 
 

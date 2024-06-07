@@ -49,6 +49,7 @@ class Authentication{
         final box = GetStorage();
         box.write("user_id", result["data"]["id"]);
         userId=box.read("user_id").toString();
+        print(userId) ;
 
       }
       else {
@@ -77,7 +78,7 @@ class Authentication{
       //   "userId": userId
       // };
 
-      String body = json.encode({
+String body = json.encode({
         "userId": userId
       });
       var url = ApiList.baseUrl+ApiList.sendAgainOtp;
@@ -111,6 +112,7 @@ class Authentication{
     String loginValue = "";
     final box = GetStorage();
     String userId=box.read("user_id").toString();
+    print("useris is $userId") ;
     Map data = {
       "userId":userId,
       "otp": otp,
@@ -136,13 +138,9 @@ class Authentication{
         print("sucess");
         final box = GetStorage();
 
-        box.write("user_id", result["data"]["id"]);
+        box.write("user_id", result["userDetails"]["id"].toString());
         userId=box.read("user_id");
         print(userId);
-        // box.write("UserToken", result["token"]);
-        // box.write("refreshToken", result["refreshToken"]);
-        // userToken=box.read("UserToken");
-        // print("Usertoken is...$userToken");
         loginValue = "success";
       } else {
         loginValue = result["message"];
