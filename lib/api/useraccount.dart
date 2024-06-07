@@ -231,7 +231,7 @@ class UserAccount{
 
   Future<Map<String,dynamic>> fetchUserAccount() async {
 
-    String url= '${ApiList.baseUrl}/api/user/profile-details';
+    String url= '${ApiList.baseUrl}/api/delivery-person/driver-profile-details';
     final response = await http.get(Uri.parse(url),headers: {
       "authorization":userToken
     });

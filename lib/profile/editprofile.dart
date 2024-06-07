@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../api/useraccount.dart';
 import '../constrant.dart';
 import '../utilityfunction.dart';
+import 'addProfileimage.dart';
 
 
 class UerProfile extends StatefulWidget {
@@ -28,8 +29,8 @@ class _UerProfileState extends State<UerProfile> {
   TextEditingController city2Controller = TextEditingController();
   TextEditingController pinCode2Controller = TextEditingController();
 
-  String profilePath = "";
-  String profileUrl = "";
+  // String profilePath = "";
+   String profileUrl = "";
   String profileId="";
   bool dataFetched = false;
   bool edit = false;
@@ -52,30 +53,30 @@ class _UerProfileState extends State<UerProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (userModel.isNotEmpty) {
-      print(userModel);
-      dataFetched = false;
-      firstNameController.text =
-      userModel["name"].toString().split(" ")[0];
-      lastNameController.text =userModel["last_name"]!= null ?userModel["last_name"].toString():"";
-
-      emailController.text = userModel["email"].toString() != "null"
-          ? userModel["email"].toString()
-          : "";
-      mobileNumberController.text = userModel["phone"].toString() != "null"
-          ? userModel["phone"].toString()
-          : "";
-    }
+    // if (userModel.isNotEmpty) {
+    //   dataFetched = false;
+    //   firstNameController.text =
+    //   userModel["name"].toString().split(" ")[0];
+    //   lastNameController.text =userModel["last_name"]!= null ?userModel["last_name"].toString():"";
+    //
+    //   emailController.text = userModel["email"].toString() != "null"
+    //       ? userModel["email"].toString()
+    //       : "";
+    //   mobileNumberController.text = userModel["phone"].toString() != "null"
+    //       ? userModel["phone"].toString()
+    //       : "";
+    // }
 
     UserAccount().fetchUserAccount().then((value) {
-      print(value);
+      print(" value is   $value");
       if(value.isNotEmpty){
-        firstNameController.text=value["first_name"];
+        firstNameController.text=value["name"];
         lastNameController.text=value["last_name"];
         mobileNumberController.text=value["phone"];
         alternativeMobileNumberController.text=value["alt_phone"];
         emailController.text=value["email"];
         profileId=value["id"].toString();
+        profileUrl=value["profile_picture"].toString();
         loading=true;
         isDataNull=false;
         setState(() {
@@ -140,30 +141,32 @@ class _UerProfileState extends State<UerProfile> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await UtilityFunctions().imagePicker().then((value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          profilePath = value.toString();
-                          setState(() {});
-                        });
-                      }
-                    });
-                  },
-                  child: CircleAvatar(
-                    radius: size.height * 0.06,
-                    backgroundImage:
-                    profilePath != "" ? FileImage(File(profilePath)) : null,
-                    child: profilePath == ""
-                        ? Icon(
-                      Icons.person,
-                      size: size.height * 0.06,
-                      color: Colors.grey,
-                    )
-                        : null,
-                  ),
-                ),
+                AddProfilePicture( profilePath: profileUrl),
+
+                // GestureDetector(
+                //   onTap: () async {
+                //     await UtilityFunctions().imagePicker().then((value) {
+                //       if (value.isNotEmpty) {
+                //         setState(() {
+                //           profilePath = value.toString();
+                //           setState(() {});
+                //         });
+                //       }
+                //     });
+                //   },
+                //   child: CircleAvatar(
+                //     radius: size.height * 0.06,
+                //     backgroundImage:
+                //     profilePath != "" ? FileImage(File(profilePath)) : null,
+                //     child: profilePath == ""
+                //         ? Icon(
+                //       Icons.person,
+                //       size: size.height * 0.06,
+                //       color: Colors.grey,
+                //     )
+                //         : null,
+                //   ),
+                // ),
                 SizedBox(
                   height: size.height * 0.028,
                 ),
@@ -593,30 +596,32 @@ class _UerProfileState extends State<UerProfile> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    await UtilityFunctions().imagePicker().then((value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          profilePath = value.toString();
-                          setState(() {});
-                        });
-                      }
-                    });
-                  },
-                  child: CircleAvatar(
-                    radius: size.height * 0.06,
-                    backgroundImage:
-                    profilePath != "" ? FileImage(File(profilePath)) : null,
-                    child: profilePath == ""
-                        ? Icon(
-                      Icons.person,
-                      size: size.height * 0.06,
-                      color: Colors.grey,
-                    )
-                        : null,
-                  ),
-                ),
+                AddProfilePicture( profilePath: userModel["profile_picture"]==null?"":userModel["profile_picture"].toString(),),
+
+                // GestureDetector(
+                //   onTap: () async {
+                //     await UtilityFunctions().imagePicker().then((value) {
+                //       if (value.isNotEmpty) {
+                //         setState(() {
+                //           profilePath = value.toString();
+                //           setState(() {});
+                //         });
+                //       }
+                //     });
+                //   },
+                //   child: CircleAvatar(
+                //     radius: size.height * 0.06,
+                //     backgroundImage:
+                //     profilePath != "" ? FileImage(File(profilePath)) : null,
+                //     child: profilePath == ""
+                //         ? Icon(
+                //       Icons.person,
+                //       size: size.height * 0.06,
+                //       color: Colors.grey,
+                //     )
+                //         : null,
+                //   ),
+                // ),
                 SizedBox(
                   height: size.height * 0.028,
                 ),
@@ -914,8 +919,8 @@ class _UerProfileState extends State<UerProfile> {
                             "email": emailController.text,
                             "profile_id":profileId
                           };
-                          print("Called....$profileId");
-                          await UserAccount().updateProfileDetails(userData).then((value) async {
+
+                          await UserAccount().addProfileDetails(userData).then((value) async {
                             if (value == "success") {
                               UtilityFunctions().successToast(
                                   "Details edited successfully");
