@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 int totalSeconds=80;
 
 Map<String,dynamic> userRegisterData={};
@@ -8,3 +10,5 @@ String userAddress="";
 var userLat="";
 var userLong="";
 String userId="";
+//service order
+PageController serviceOrderPageController = PageController();

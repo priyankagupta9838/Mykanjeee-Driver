@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mykanjeedriver/api/checkout.dart';
+import 'package:mykanjeedriver/constrant.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:io';
@@ -546,7 +547,8 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                             });
                             CheckOut().collectOrder(widget.data["order_data"]["id"],imageKey).then((value) {
                               if(value=="success"){
-                                BlocProvider.of<PickUpServiceBlo>(context).add(PickUpServiceUpdateEvent());
+
+                                serviceOrderPageController.jumpToPage(2);
 
                                 UtilityFunctions().successToast("Order Collected Successfully");
                                 Navigator.pop(context);

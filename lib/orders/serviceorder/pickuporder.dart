@@ -21,11 +21,10 @@ class _PickUpOrderState extends State<PickUpOrder> {
   Map<String ,dynamic>data={};
   @override
   void initState() {
+    print("pickeup order page called");
     // TODO: implement initState
     CheckOut().allPickupServiceOrder("QUOTE","PICKUP").then((value) {
-
       if(value.isNotEmpty){
-
         data=value;
 
         loading=false;

@@ -7,6 +7,7 @@ import 'package:mykanjeedriver/api/checkout.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:io';
+import '../../constrant.dart';
 import '../../utilityfunction.dart';
 
 
@@ -567,8 +568,11 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
 
                         CheckOut().deliveredOrder(widget.data["order_data"]["id"],imageKey).then((value) {
                           if(value=="success"){
+
+
                             UtilityFunctions().successToast("Order Delivered Successfully");
                             Navigator.pop(context);
+                            serviceOrderPageController.jumpToPage(3);
 
                           }else{
                             UtilityFunctions().successToast(value.toString());

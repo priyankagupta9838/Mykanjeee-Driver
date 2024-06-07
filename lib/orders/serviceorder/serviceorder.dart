@@ -1,15 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/orders/serviceorder/pickuporder.dart';
 import 'package:mykanjeedriver/orders/serviceorder/rejectedserviceorder.dart';
-import '../../Statemanagement/PageBlok.dart';
-import '../../Statemanagement/PageState.dart';
-import 'acceptedServiceOrder.dart';
+import '../../constrant.dart';
 import 'assiendServiceorder.dart';
 import 'deliveredSerivceOrder.dart';
 import 'dropOfforder.dart';
+
 
 class ServiceOrder extends StatefulWidget {
   const ServiceOrder({super.key});
@@ -20,7 +18,8 @@ class ServiceOrder extends StatefulWidget {
 
 class _ServiceOrderState extends State<ServiceOrder> {
   var currIndex = 0;
-  PageController pageController = PageController();
+  ScrollController serviceOrderTabController=ScrollController();
+
   List<String> statusOptions = [
     "Assigned",
     "Pickup",
@@ -45,6 +44,8 @@ class _ServiceOrderState extends State<ServiceOrder> {
             width: size.width,
             child: ListView.builder(
               itemCount: statusOptions.length,
+         controller: serviceOrderTabController,
+
               padding: EdgeInsets.only(
                   right: size.width * 0.01, left: size.width * 0.0035),
               scrollDirection: Axis.horizontal,
@@ -54,8 +55,10 @@ class _ServiceOrderState extends State<ServiceOrder> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
+
                         currIndex = index;
-                        pageController.jumpToPage(index);
+                        serviceOrderPageController.jumpToPage(index);
+                        // serviceOrderTabController.jumpTo(double.parse("$currIndex"));
                       });
                     },
                     child: Container(
@@ -92,26 +95,21 @@ class _ServiceOrderState extends State<ServiceOrder> {
           ),
           Expanded(
             child: PageView(
-              controller: pageController,
+              controller: serviceOrderPageController,
               physics: const NeverScrollableScrollPhysics(),
               onPageChanged: (value) {
                 setState(() {
+                  print("page changees");
                   currIndex = value;
                 });
               },
-              children: [
-                BlocBuilder<AssignedServiceBlo, AssignedServiceState>(
-                    builder: (context, state) {
-                      return const AssignedServiceOrder();
-                    }),
-                BlocBuilder<PickUpServiceBlo, PickUpServiceState>(
-                    builder: (context, state) {
-                      return const PickUpOrder();
-                    }),
-                const DropOffOrder(),
+              children: const [
+                AssignedServiceOrder(),
+                PickUpOrder(),
+                DropOffOrder(),
                 // const AcceptedServiceOrder(),
-                const DeliveredServiceOrder(),
-                const RejectedServiceOrder(),
+                DeliveredServiceOrder(),
+                RejectedServiceOrder(),
               ],
             ),
           ),

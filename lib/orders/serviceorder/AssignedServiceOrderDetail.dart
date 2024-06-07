@@ -9,6 +9,7 @@ import 'package:searchfield/searchfield.dart';
 import '../../Statemanagement/PageBlok.dart';
 import '../../Statemanagement/PageEvents.dart';
 import '../../Statemanagement/PageState.dart';
+import '../../constrant.dart';
 import '../../utilityfunction.dart';
 
 class AssignedServiceOrderDetail extends StatefulWidget {
@@ -428,11 +429,12 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                                 });
                                 CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
                                   if(value=="success"){
-                                    BlocProvider.of<AssignedServiceBlo>(context).add(AssignedServiceUpdateEvent());
+                                    // BlocProvider.of<AssignedServiceBlo>(context).add(AssignedServiceUpdateEvent());
 
 
                                     UtilityFunctions().successToast("Order Rejected Successfully");
                                     Navigator.pop(context);
+                                    serviceOrderPageController.jumpToPage(1);
 
                                   }else{
                                     UtilityFunctions().successToast(value.toString());
