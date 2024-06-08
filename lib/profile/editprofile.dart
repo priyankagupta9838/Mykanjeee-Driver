@@ -70,11 +70,11 @@ class _UerProfileState extends State<UerProfile> {
     UserAccount().fetchUserAccount().then((value) {
       print(" value is   $value");
       if(value.isNotEmpty){
-        firstNameController.text=value["name"];
-        lastNameController.text=value["last_name"];
-        mobileNumberController.text=value["phone"];
-        alternativeMobileNumberController.text=value["alt_phone"];
-        emailController.text=value["email"];
+        firstNameController.text=value["name"]??"";
+        lastNameController.text=value["last_name"] ?? "";
+        mobileNumberController.text=value["phone"]??"";
+        alternativeMobileNumberController.text=value["alt_phone"]??"";
+        emailController.text=value["email"]??"";
         profileId=value["id"].toString();
         profileUrl=value["profile_picture"].toString();
         loading=true;
