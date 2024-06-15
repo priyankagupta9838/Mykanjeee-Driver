@@ -218,34 +218,6 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
               SizedBox(
                 height: size.height*0.023,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black54,
-              //         fontSize: size.height*0.019,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: size.height*0.017,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black87,
-              //         fontSize: size.height*0.02,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: size.height*0.03,
-              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

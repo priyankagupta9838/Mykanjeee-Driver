@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +10,10 @@ import '../../Statemanagement/PageEvents.dart';
 import '../../Statemanagement/PageState.dart';
 import '../../constrant.dart';
 import '../../utilityfunction.dart';
+
+
+
+
 
 class AssignedServiceOrderDetail extends StatefulWidget {
   AssignedServiceOrderDetail({super.key,required this.data});
@@ -463,6 +466,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
 
                                   UtilityFunctions().successToast("Order Accepted Successfully");
                                   Navigator.pop(context);
+                                  serviceOrderPageController.jumpToPage(4);
 
                                 }else{
                                   UtilityFunctions().successToast(value.toString());

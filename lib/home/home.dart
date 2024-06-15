@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/routes/routesname.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
-
-import '../NotificationSetup/helper_Notification.dart';
 import '../Statemanagement/PageBlok.dart';
 import '../Statemanagement/PageState.dart';
 import '../api/checkout.dart';
 import '../constrant.dart';
+
+
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,64 +23,98 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-
+  bool loading=true;
+  Map<String ,dynamic>data={};
+  final scrollController=ScrollController();
+  bool isLoadingMoreData=false;
+  int page=1;
+  var newData = [];
+  Set<int> orderIds = {};
   @override
   void initState() {
-    // TODO: implement initStat
+    // TODO: implement initState
+    CheckOut().recentActivity().then((value) {
+     print(value);
+      if(value.isNotEmpty){
+        data=value;
+        loading=false;
+        setState(() {
 
+        });
+      }
+      else{
 
+        loading=true;
+        setState(() {
+
+        });
+
+      }
+
+    });
+    scrollController.addListener(checkDataAndLoad);
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: ThemColors.buttonColor,
-        title: AutoSizeText(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: ThemColors.buttonColor,
+          title: AutoSizeText(
 
-          "Hi ${userModel["name"].toString()}",
-          style: GoogleFonts.cabin(
-            color: Colors.white,
-            fontSize: size.height * 0.03,
-            fontWeight: FontWeight.w600,
+            "Hi ${userModel["name"].toString()}",
+            style: GoogleFonts.cabin(
+              color: Colors.white,
+              fontSize: size.height * 0.03,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          actions: [
+            // IconButton(
+            //   onPressed: () async {
+            //     await NotificationServices().getToken().then((value) {
+            //       print(value.toString());
+            //       NotificationServices().sendPushMessage( value.toString(),"Hello World","testing");
+            //
+            //     });
+            //
+            //   },
+            //   icon: const Icon(Icons.notifications_none, color: Colors.white),
+            // ),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesName.userProfile);
+                },
+                icon: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ))
+          ],
         ),
-        actions: [
-          // IconButton(
-          //   onPressed: () async {
-          //     await NotificationServices().getToken().then((value) {
-          //       print(value.toString());
-          //       NotificationServices().sendPushMessage( value.toString(),"Hello World","testing");
-          //
-          //     });
-          //
-          //   },
-          //   icon: const Icon(Icons.notifications_none, color: Colors.white),
-          // ),
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RoutesName.userProfile);
-              },
-              icon: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ))
-        ],
-      ),
-      body:BlocBuilder<ActiveUserBlo,ActiveUserState>(
-        builder: (context, state) {
-          return SizedBox(
-            child:  userModel["is_active"]==1
-                ?
+        body:BlocBuilder<ActiveUserBlo,ActiveUserState>(
+            builder: (context, state) {
+              return SizedBox(
+                child:  userModel["is_active"]==1
+                    ?
 
-            StreamBuilder(
-              stream: CheckOut().getOngoingOrders(),
-              builder: (context, snapshot) {
-                if(snapshot.hasData){
-                  var data=jsonDecode(snapshot.data!.body);
-                  return snapshot.data?.statusCode==200 && data["data"].length>0
+                SizedBox(
+                  height: size.height*1,
+                  child:   loading
+                      ?
+                  Center(
+                    child: SizedBox(
+                      height: size.height*0.03,
+                      width: size.height*0.03,
+                      child: const CircularProgressIndicator(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  )
+                      :
+                  data["data"].length>0
+
                       ?
                   Padding(
                     padding: EdgeInsets.only(
@@ -133,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 2,
+                              itemCount:  data["data"].length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -165,10 +198,10 @@ class _HomePageState extends State<HomePage> {
                                               mainAxisAlignment:
                                               MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 AutoSizeText(
-                                                  "Order_Id-VEN001",
+                                                  "Order_Id-${ data["data"][index]["order_id"]}",
                                                   style: GoogleFonts.cabin(
                                                       color: Colors.black87),
                                                 ),
@@ -184,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                                         Row(
                                           children: [
                                             AutoSizeText(
-                                              "Delivered",
+                                              "${ data["data"][index]["order_status"]}",
                                               style: GoogleFonts.cabin(
                                                   color: Colors.black87),
                                             ),
@@ -244,112 +277,111 @@ class _HomePageState extends State<HomePage> {
                             "Recent Activity",
                             style: GoogleFonts.cabin(
                                 color: Colors.black87,
-                                fontSize: size.height * 0.02,
+                                fontSize: size.height * 0.021,
                                 fontWeight: FontWeight.w600),
                           ),
                           SizedBox(
-                            height: size.height * 0.015,
+                            height: size.height * 0.012,
                           ),
                           SizedBox(
-                            height: size.height * 0.13 * 5,
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 0,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: size.height * 0.11,
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(size.height * 0.02))),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            const Icon(
-                                              CupertinoIcons.gift,
-                                              color: Colors.black87,
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              children: [
-                                                AutoSizeText(
-                                                  "Order_Id-VEN001",
-                                                  style: GoogleFonts.cabin(
-                                                      color: Colors.black87),
-                                                ),
-                                                AutoSizeText(
-                                                  "Order date and time",
-                                                  style: GoogleFonts.cabin(
-                                                      color: Colors.black87),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            AutoSizeText(
-                                              "Delivered",
-                                              style: GoogleFonts.cabin(
-                                                  color: Colors.black87),
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                            height: size.height*0.5,
+                            width: size.width,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: size.height*0.15,
+                                  ),
+                                  Container(
+                                    height: size.height*0.15,
+                                    width: size.width*0.4,
+                                    decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage("assets/images/no_order_found.jpg"),
+                                          fit: BoxFit.fill
+                                      ),
+
                                     ),
                                   ),
-                                );
-                              },
+                                  SizedBox(
+                                    height: size.height*0.02,
+                                  ),
+                                  AutoSizeText(
+                                    "No Activity found",
+                                    style: GoogleFonts.cabin(
+                                        fontSize: size.height*0.025,
+                                        fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
-                  );
+                  )
+                  ,
+                )
 
-                }
-                else{
-                  return  const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.blue,
-                    ),
-                  );
-                }
-              },
-            )
-
-                :
-            SizedBox(
-              height: size.height*1,
-              child: Center(
-                child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
-                    fontWeight: FontWeight.w600,
-                    fontSize: size.height*0.03
-                ),),
-              ),
-            ),
-          );
-        })
+                    :
+                SizedBox(
+                  height: size.height*1,
+                  child: Center(
+                    child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
+                        fontWeight: FontWeight.w600,
+                        fontSize: size.height*0.03
+                    ),),
+                  ),
+                ),
+              );
+            })
     );
+  }
+
+
+  void checkDataAndLoad() {
+
+
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+
+      if (!isLoadingMoreData) {
+
+        page++;
+
+        setState(() {
+          isLoadingMoreData = true;
+        });
+        CheckOut().allAcceptedServiceOrder("QUOTE","COLLECTED").then((value) {
+          if(value.isNotEmpty){
+
+            var newItems = value["data"];
+            for (var item in newItems) {
+              if (!orderIds.contains(item["id"])) {
+                newData.add(item);
+                orderIds.add(item["id"]);
+              }
+            }
+            data=value;
+            loading=false;
+            setState(() {
+
+            });
+          }
+          else{
+
+            loading=true;
+            setState(() {
+
+            });
+
+          }
+
+        });
+
+
+      }
+    }
   }
 }

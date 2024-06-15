@@ -277,39 +277,39 @@ class CheckOut{
     return responcValue;
   }
 
-  Future<String> assignOrder(String driverId, String orderId) async {
-    String responcValue = "";
-    Map data = {
-      "delivery_person_id": driverId,
-      "order_id": orderId,
-    };
-
-
-    String body = json.encode(data);
-    await http.post(
-      Uri.parse(ApiList.baseUrl+ApiList.assignOrderToDiver),
-      body: body,
-      headers: {
-        "authorization":userToken,
-      },
-    ).then((value) {
-      print(value.body);
-      if (value.body != null) {
-        var result = jsonDecode(value.body);
-        if (result["token"] != null) {
-
-        } else {
-          responcValue=result["message"];
-        }
-      } else {
-        responcValue="null";
-        print("Error Occurred : Response body is null.");
-      }
-    }).onError((error, stackTrace) {
-      print("Server Error..... ${error.toString()}");
-    });
-    return responcValue;
-  }
+  // Future<String> assignOrder(String driverId, String orderId) async {
+  //   String responcValue = "";
+  //   Map data = {
+  //     "delivery_person_id": driverId,
+  //     "order_id": orderId,
+  //   };
+  //
+  //
+  //   String body = json.encode(data);
+  //   await http.post(
+  //     Uri.parse(ApiList.baseUrl+ApiList.assignOrderToDiver),
+  //     body: body,
+  //     headers: {
+  //       "authorization":userToken,
+  //     },
+  //   ).then((value) {
+  //     print(value.body);
+  //     if (value.body != null) {
+  //       var result = jsonDecode(value.body);
+  //       if (result["token"] != null) {
+  //
+  //       } else {
+  //         responcValue=result["message"];
+  //       }
+  //     } else {
+  //       responcValue="null";
+  //       print("Error Occurred : Response body is null.");
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     print("Server Error..... ${error.toString()}");
+  //   });
+  //   return responcValue;
+  // }
 
 
 
@@ -679,6 +679,35 @@ class CheckOut{
     }
   }
 
+
+  Future<Map<String , dynamic>> recentActivity() async {
+    Map<String , dynamic> responcValue = {};
+
+
+
+    await http.post(
+      Uri.parse(ApiList.baseUrl+ApiList.recentActivity),
+      headers: {
+        "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    ).then((value) {
+      if (value.body != null) {
+        try {
+          var jsonResponse = json.decode(value.body);
+          if (jsonResponse["code"].toString() == "200") {
+            responcValue = jsonResponse;
+            return responcValue;
+          }
+        } catch (error) {
+          print("eroor is .........$error");
+        }
+        return responcValue;
+      }});
+    return responcValue;
+  }
 
 
 
