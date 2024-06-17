@@ -202,38 +202,8 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                         }
                       },
                       child: Icon(Icons.location_on,color: Colors.purple.shade300,size: size.width*0.1,))
-
                 ],
               ),
-              // SizedBox(
-              //   height: size.height*0.017,
-              // ),
-              //
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black54,
-              //         fontSize: size.height*0.019,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: size.height*0.017,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black87,
-              //         fontSize: size.height*0.02,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
               SizedBox(
                 height: size.height*0.01,
               ),
@@ -258,18 +228,12 @@ class _DeliveredOrderDetailState extends State<DeliveredOrderDetail> {
                   SizedBox(
                     height: size.height*0.01,
                   ),
-
-
                 ],
               ),
-
-
-
             ],
           ),
         ),
       ),
     );
-
   }
 }

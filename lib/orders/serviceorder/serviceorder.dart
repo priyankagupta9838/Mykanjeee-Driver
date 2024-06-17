@@ -55,7 +55,6 @@ class _ServiceOrderState extends State<ServiceOrder> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-
                         currIndex = index;
                         serviceOrderPageController.jumpToPage(index);
                         // serviceOrderTabController.jumpTo(double.parse("$currIndex"));
@@ -72,17 +71,15 @@ class _ServiceOrderState extends State<ServiceOrder> {
                         BorderRadius.all(Radius.circular(size.width * 0.02)),
                         border: Border.all(color: Colors.black, width: 1),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AutoSizeText(
-                            statusOptions[index],
-                            style: GoogleFonts.roboto(
-                                color: const Color.fromRGBO(29, 25, 43, 1),
-                                fontSize: size.height * 0.02,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                      child: Center(
+                        child: AutoSizeText(
+                          statusOptions[index],
+                        overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.roboto(
+                              color: const Color.fromRGBO(29, 25, 43, 1),
+                              fontSize: size.height * 0.02,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ),
                   ),
@@ -99,7 +96,6 @@ class _ServiceOrderState extends State<ServiceOrder> {
               physics: const NeverScrollableScrollPhysics(),
               onPageChanged: (value) {
                 setState(() {
-                  print("page changees");
                   currIndex = value;
                 });
               },
@@ -107,7 +103,6 @@ class _ServiceOrderState extends State<ServiceOrder> {
                 AssignedServiceOrder(),
                 PickUpOrder(),
                 DropOffOrder(),
-                // const AcceptedServiceOrder(),
                 DeliveredServiceOrder(),
                 RejectedServiceOrder(),
               ],

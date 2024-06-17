@@ -53,29 +53,6 @@ class _MyOrdersState extends State<MyOrders> {
             child:Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: size.height * 0.06,
-                // ),
-                // Container(
-                //   color: const Color.fromRGBO(247, 235, 249, 1),
-                //   height: size.height * 0.06,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       AutoSizeText(
-                //         "All orders",
-                //         style: GoogleFonts.openSans(
-                //             color: Colors.black,
-                //             fontSize: size.height * 0.024,
-                //             fontWeight: FontWeight.w600
-                //         ),
-                //       ),
-                //
-                //     ],
-                //   ),
-                // ),
-
-
                 Container(
                   width: size.width*1,
                   height: size.height*0.07,

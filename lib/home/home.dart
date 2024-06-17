@@ -24,35 +24,25 @@ class _HomePageState extends State<HomePage> {
 
 
   bool loading=true;
-  Map<String ,dynamic>data={};
+  List<dynamic>data=[];
   final scrollController=ScrollController();
   bool isLoadingMoreData=false;
   int page=1;
-  var newData = [];
-  Set<int> orderIds = {};
+
+
   @override
   void initState() {
     // TODO: implement initState
     CheckOut().recentActivity().then((value) {
-     print(value);
       if(value.isNotEmpty){
-        data=value;
+        data=data+value["data"];
         loading=false;
         setState(() {
-
         });
-      }
-      else{
-
-        loading=true;
-        setState(() {
-
-        });
-
       }
 
     });
-    scrollController.addListener(checkDataAndLoad);
+    scrollController.addListener(pagination);
     super.initState();
   }
   @override
@@ -63,7 +53,6 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: ThemColors.buttonColor,
           title: AutoSizeText(
-
             "Hi ${userModel["name"].toString()}",
             style: GoogleFonts.cabin(
               color: Colors.white,
@@ -98,7 +87,6 @@ class _HomePageState extends State<HomePage> {
               return SizedBox(
                 child:  userModel["is_active"]==1
                     ?
-
                 SizedBox(
                   height: size.height*1,
                   child:   loading
@@ -113,8 +101,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                       :
-                  data["data"].length>0
-
+                  data.isNotEmpty
                       ?
                   Padding(
                     padding: EdgeInsets.only(
@@ -166,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount:  data["data"].length,
+                              itemCount:  data.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -183,6 +170,7 @@ class _HomePageState extends State<HomePage> {
                                         Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+
                                           children: [
                                             SizedBox(
                                               width: size.width * 0.03,
@@ -194,37 +182,46 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(
                                               width: size.width * 0.03,
                                             ),
-                                            Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                AutoSizeText(
-                                                  "Order_Id-${ data["data"][index]["order_id"]}",
-                                                  style: GoogleFonts.cabin(
-                                                      color: Colors.black87),
-                                                ),
-                                                AutoSizeText(
-                                                  "Order date and time",
-                                                  style: GoogleFonts.cabin(
-                                                      color: Colors.black87),
-                                                ),
-                                              ],
+                                            SizedBox(
+                                              width: size.width * 0.4,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  AutoSizeText(
+                                                    "Order_Id-${ data[index]["order_id"]}",
+                                                    style: GoogleFonts.cabin(
+                                                        color: Colors.black87,
+                                                    fontSize: size.height*0.016
+                                                    ),
+                                                  ),
+                                                  AutoSizeText(
+                                                    "Order date and time",
+                                                    style: GoogleFonts.cabin(
+                                                        color: Colors.black87,
+                                                        fontSize: size.height*0.016
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            AutoSizeText(
-                                              "${ data["data"][index]["order_status"]}",
+                                        SizedBox(
+                                          width: size.width * 0.33,
+                                          child: Center(
+                                            child: AutoSizeText(
+                                              "${data[index]["order_status"]}",
+                                              overflow: TextOverflow.ellipsis,
                                               style: GoogleFonts.cabin(
-                                                  color: Colors.black87),
+                                                  color: Colors.black87,
+
+                                                  fontSize: size.height*0.016
+                                              ),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -321,10 +318,8 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                  )
-                  ,
+                  ),
                 )
-
                     :
                 SizedBox(
                   height: size.height*1,
@@ -341,43 +336,25 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void checkDataAndLoad() {
-
-
+  void pagination() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-
       if (!isLoadingMoreData) {
-
         page++;
-
         setState(() {
           isLoadingMoreData = true;
         });
-        CheckOut().allAcceptedServiceOrder("QUOTE","COLLECTED").then((value) {
+        CheckOut().recentActivity().then((value) {
           if(value.isNotEmpty){
-
-            var newItems = value["data"];
-            for (var item in newItems) {
-              if (!orderIds.contains(item["id"])) {
-                newData.add(item);
-                orderIds.add(item["id"]);
-              }
-            }
-            data=value;
+            data=data+value["data"];
             loading=false;
             setState(() {
-
             });
           }
           else{
-
             loading=true;
             setState(() {
-
             });
-
           }
-
         });
 
 

@@ -33,6 +33,7 @@ class NotificationPage extends StatelessWidget {
         builder: (context, snapshot) {
           if(snapshot.hasData){
             var data=jsonDecode(snapshot.data!.body);
+            print("data isss $data");
             return snapshot.data?.statusCode==200
                 ?
             Padding(
@@ -71,19 +72,19 @@ class NotificationPage extends StatelessWidget {
                                       children: [
 
                                         AutoSizeText(
-                                          "Payment Reminder",
+                                          data['data'][index]["createdAt"].toString().split("T")[0],
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87,
-                                              fontSize: size.height*0.025,
+                                              fontSize: size.height*0.018,
                                               fontWeight: FontWeight.w500
                                           ),
 
                                         ),
                                         AutoSizeText(
-                                          "Your Order has been shipped \n and is on its way ",
+                                          "${data["data"][index]["description"].toString()}}",
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87,
-                                              fontSize: size.height*0.02
+                                              fontSize: size.height*0.018
                                           ),
 
                                         ),
@@ -93,7 +94,6 @@ class NotificationPage extends StatelessWidget {
                                 ),
                                 const Align(
                                     alignment: Alignment.topRight,
-
                                     child: Icon(CupertinoIcons.multiply))
                               ],
                             ),
@@ -111,15 +111,14 @@ class NotificationPage extends StatelessWidget {
                         children: [
                           SizedBox(height: size.height * 0.1),
                           Container(
-                            height: size.height * 0.4,
-                            width: size.width * 1,
+                            height: size.height * 0.3,
+                            width:size.width * 0.7,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("assets/images/notification.jpg"),
                                   fit: BoxFit.fill),
                             ),
                           ),
-
                           AutoSizeText(
                             "No Notification Found",
                             style: GoogleFonts.cabin(

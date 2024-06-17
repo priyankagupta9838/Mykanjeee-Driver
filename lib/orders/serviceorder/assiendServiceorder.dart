@@ -23,32 +23,22 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
   final scrollController=ScrollController();
   bool isLoadingMoreData=false;
   int page=1;
-  var newData = [];
-  Set<int> orderIds = {};
+ List <dynamic> orderData=[];
+
 
 
   @override
   void initState() {
     // TODO: implement initState
-    CheckOut().allCollectedServiceOrder("QUOTE","ASSIGNED").then((value) {
+    CheckOut().allAssignedServiceOrder("QUOTE","ASSIGNED",page).then((value) {
       if(value.isNotEmpty){
-        data=value;
+        orderData=orderData+value["data"];
         loading=false;
         setState(() {
-
-        });
-
-      }
-      else{
-
-        loading=true;
-        setState(() {
-
         });
       }
-
     });
-    scrollController.addListener(checkDataAndLoad);
+    scrollController.addListener(pagination);
     super.initState();
   }
   @override
@@ -73,7 +63,7 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
           ),
         )
             :
-        data["data"].length>0
+        orderData.isNotEmpty
 
             ?
         Padding(
@@ -84,18 +74,18 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height:  ( size.height*0.13*data["data"].length)+size.height*0.15,
+                  height:  ( size.height*0.13*orderData.length)+size.height*0.15,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     controller: scrollController,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:data["data"].length,
+                    itemCount:orderData.length,
                     itemBuilder:(context, index) {
 
-                     if(index<data["data"].length){
+                     if(index<orderData.length){
                        return  InkWell(
                          onTap: (){
-                           Navigator.pushNamed(context, RoutesName.assignedServiceOrderDetail,arguments:data["data"][index]);
+                           Navigator.pushNamed(context, RoutesName.assignedServiceOrderDetail,arguments:orderData[index]);
                          },
                          child: Padding(
                            padding:  EdgeInsets.only(bottom: size.height*0.015,right: size.width*0.02,left: size.width*0.02),
@@ -121,7 +111,7 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
                                        crossAxisAlignment: CrossAxisAlignment.start,
                                        children: [
                                          AutoSizeText(
-                                           "Order_ID-${data['data'][index]["order_id"]}",
+                                           "Order_ID-${orderData[index]["order_id"]}",
                                            style: GoogleFonts.cabin(
                                                color: Colors.black87,
                                                fontSize: size.height*0.018,
@@ -130,7 +120,7 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
 
                                          ),
                                          AutoSizeText(
-                                           "${data['data'][index]["createdAt"].toString().split("T")[0]} - ${(data['data'][index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
+                                           "${orderData[index]["createdAt"].toString().split("T")[0]} - ${(orderData[index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
 
                                            style: GoogleFonts.cabin(
                                                color: Colors.black87,
@@ -146,7 +136,7 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
                                  Row(
                                    children: [
                                      AutoSizeText(
-                                       "${data['data'][index]["delivery_type"]}",
+                                       "${orderData[index]["delivery_type"]}",
                                        style: GoogleFonts.cabin(
                                            color: Colors.black87,
                                            fontSize: size.height*0.018,
@@ -229,34 +219,27 @@ class _AssignedServiceOrderState extends State<AssignedServiceOrder> {
   }
 
 
-  void checkDataAndLoad() {
-    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  void pagination() {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent ) {
       if (!isLoadingMoreData) {
-        print("callsed....");
         page++;
-
         setState(() {
           isLoadingMoreData = true;
         });
-        // CheckOut().allCollectedServiceOrder("QUOTE","ASSIGNED").then((value) {
-        //   if(value.isNotEmpty){
-        //     data=value;
-        //     loading=false;
-        //     setState(() {
-        //
-        //     });
-        //
-        //   }
-        //   else{
-        //
-        //     loading=true;
-        //     setState(() {
-        //
-        //     });
-        //   }
-        //
-        // });
+        CheckOut().allAssignedServiceOrder("QUOTE","ASSIGNED",page).then((value) {
+          if(value.isNotEmpty){
+            orderData=orderData+value["data"];
+          }
+          else{
+            setState(() {
+              isLoadingMoreData = false;
+            });
+          }
 
+        });
+      }
+      else{
+        isLoadingMoreData=false;
 
       }
     }

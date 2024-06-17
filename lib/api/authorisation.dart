@@ -220,7 +220,6 @@ String body = json.encode({
 
 
   Future<String> loginUser(String email, String password) async {
-    print("calllsed...");
     String loginValue = "";
 
     bool isPhoneNumber = false;
@@ -248,7 +247,8 @@ String body = json.encode({
         },
       );
       var result = jsonDecode(response.body);
-
+           print(result);
+           print(result);
       if (result["status"] == "success") {
 
         final box = GetStorage();

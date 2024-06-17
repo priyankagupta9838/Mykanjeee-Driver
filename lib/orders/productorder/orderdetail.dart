@@ -25,12 +25,6 @@ class _OrderDetailState extends State<OrderDetail> {
   SearchController searchController=SearchController();
   TextEditingController errorController=TextEditingController();
   @override
-  void initState() {
-    // TODO: implement initState
-    print("${widget.data["order_data"]["id"]}");
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
     return Scaffold(
@@ -166,9 +160,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   AutoSizeText(
-
                     widget.data["order_data"]["time_slot"].toString().isNotEmpty
-
                         ?
                     widget.data["order_data"]["time_slot"].toString()
                         :
@@ -206,14 +198,11 @@ class _OrderDetailState extends State<OrderDetail> {
                   SizedBox(
                     width: size.width*0.8,
                     child: AutoSizeText(
-
                       "${widget.data["delivery_address"]}",style: GoogleFonts.openSans(
                         color: Colors.black54,
-
                         fontSize: size.height*0.019,
                         fontWeight: FontWeight.w500
                     ),
-
                     ),
                   ),
                   InkWell(
@@ -226,7 +215,6 @@ class _OrderDetailState extends State<OrderDetail> {
 
                 ],
               ),
-
               SizedBox(
                 height: size.height*0.023,
               ),
@@ -293,13 +281,8 @@ class _OrderDetailState extends State<OrderDetail> {
                           fontSize: size.height * 0.018,
                           fontWeight: FontWeight.w500),
                       suggestionsDecoration: SuggestionDecoration(
-
-
                           color: Colors.purple.shade50,
-                          //shape: BoxShape.rectangle,
-
                           padding: EdgeInsets.all(size.height * 0.015),
-                          // border: Border.all(width: 2, color: Colors.black),
                           borderRadius: BorderRadius.circular(0)),
                       searchInputDecoration: InputDecoration(
 
@@ -332,10 +315,7 @@ class _OrderDetailState extends State<OrderDetail> {
 
                                   size.height * 0.01)
                           ),
-
-
                           fillColor: Colors.white,
-
                           border: InputBorder.none
                       ),
                       onSuggestionTap: (value) {

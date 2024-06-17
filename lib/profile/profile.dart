@@ -205,7 +205,6 @@ class _ProfileState extends State<Profile> {
                       ),
                       InkWell(
                            onTap: (){
-                             print( userModel["profile_picture"]);
                              Navigator.pushNamed(context, RoutesName.updateUserProfile);
                            },
                         child: Card(

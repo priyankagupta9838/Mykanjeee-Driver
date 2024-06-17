@@ -70,6 +70,7 @@ class _ProductOrderState extends State<ProductOrder> {
                         children: [
                           AutoSizeText(
                             statusOptions[index],
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.roboto(
                                 color: const Color.fromRGBO(29, 25, 43, 1),
                                 fontSize: size.height * 0.02,
