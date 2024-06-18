@@ -69,7 +69,6 @@ class CheckOut{
     ).then((value) {
       if (value.body != null) {
         var result = jsonDecode(value.body);
-      print(result);
         if (result["status"] == "success") {
           responcValue=result["status"];
         } else {
@@ -143,7 +142,6 @@ class CheckOut{
     ).then((value) {
       if (value.body != null) {
         var result = jsonDecode(value.body);
-        print("result is ....$result");
         if (result["status"] == "success") {
           responcValue=result["status"];
         } else {
@@ -179,7 +177,6 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-      print(value.body);
       if (value.body != null) {
         var result = jsonDecode(value.body);
         if (result["status"] =="success") {
@@ -378,13 +375,13 @@ class CheckOut{
     return responcValue;
   }
 
-  Future<Map<String,dynamic>> allPickupServiceOrder(String type,String status) async {
+  Future<Map<String,dynamic>> allPickupServiceOrder(String type,String status,int page, int row) async {
     Map<String , dynamic> responcValue = {};
     Map data = {
       "product_or_quote": type,
       "order_status": status,
-      "page": 1,
-      "rows": 1
+      "page": page,
+      "rows": row
 
     };
 
@@ -414,13 +411,13 @@ class CheckOut{
     return responcValue;
   }
 
-  Future<Map<String,dynamic>> allDropOffServiceOrder(String type,String status) async {
+  Future<Map<String,dynamic>> allDropOffServiceOrder(String type,String status,int page,int row) async {
     Map<String , dynamic> responcValue = {};
     Map data = {
       "product_or_quote": type,
       "order_status": status,
-      "page": 1,
-      "rows": 1
+      "page": page,
+      "rows": row
 
     };
 
@@ -449,7 +446,7 @@ class CheckOut{
       }});
     return responcValue;
   }
-  Future<Map<String,dynamic>>allAssignedServiceOrder(String type,String status, int page) async {
+  Future<Map<String,dynamic>>allAssignedServiceOrder(String type,String status, int page,int row) async {
     Map<String , dynamic> responceData={};
     Map data = {
       "product_or_quote": type,
@@ -484,13 +481,13 @@ class CheckOut{
       }});
     return responceData;
   }
-  Future<Map<String,dynamic>> allDeliveredServiceOrder(String type,String status) async {
+  Future<Map<String,dynamic>> allDeliveredServiceOrder(String type,String status, int page,int row) async {
     Map<String , dynamic> responcValue = {};
     Map data = {
       "product_or_quote": type,
       "order_status": status,
-      "page": 1,
-      "rows": 1
+      "page": page,
+      "rows": row
 
     };
 
@@ -505,7 +502,6 @@ class CheckOut{
         "Access-Control-Allow-Origin": "*"
       },
     ).then((value) {
-      print("eroor is .........${json.decode(value.body)}");
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
@@ -520,13 +516,13 @@ class CheckOut{
       }});
     return responcValue;
   }
-  Future<Map<String,dynamic>> allRejectedServiceOrder(String type,String status) async {
+  Future<Map<String,dynamic>> allRejectedServiceOrder(String type,String status,int page,int row) async {
     Map<String , dynamic> responcValue = {};
     Map data = {
       "product_or_quote": type,
       "order_status": status,
-      "page": 1,
-      "rows": 1
+      "page": page,
+      "rows": row
 
     };
 

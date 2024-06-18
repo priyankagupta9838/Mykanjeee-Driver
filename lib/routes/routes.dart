@@ -81,8 +81,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => RejectedOrderDetail(data: settings.arguments as Map,));
       case RoutesName.deliveredOderDetail:
         return MaterialPageRoute(builder: (context) => DeliveredOrderDetail(data: settings.arguments as Map,));
-      case RoutesName.acceptedServiceOderDetail:
-        return MaterialPageRoute(builder: (context) => AcceptedServiceOrderDetail(data: settings.arguments as Map,));
+      // case RoutesName.acceptedServiceOderDetail:
+      //   return MaterialPageRoute(builder: (context) => AcceptedServiceOrderDetail(data: settings.arguments as Map,));
       case RoutesName.deliveredServiceOderDetail:
         return MaterialPageRoute(builder: (context) => DeliveredServiceOrderDetail(data: settings.arguments as Map,));
       case RoutesName.rejectedServiceOderDetail:

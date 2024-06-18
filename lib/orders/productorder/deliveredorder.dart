@@ -1,65 +1,60 @@
-import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../api/checkout.dart';
-import '../../constrant.dart';
 import '../../routes/routesname.dart';
 
 class DeliveredOrder extends StatefulWidget {
   const DeliveredOrder({Key? key}) : super(key: key);
 
+
   @override
-  _DeliveredOrderState createState() => _DeliveredOrderState();
+  State<DeliveredOrder> createState() => _DeliveredOrderState();
 }
 
 class _DeliveredOrderState extends State<DeliveredOrder> {
-  final List<dynamic> _orderData = [];
-  bool _loading = true;
-  final ScrollController _scrollController = ScrollController();
-  bool _isLoadingMoreData = false;
-  int _page = 1;
-  bool _hasMore = true;
+  final List<dynamic> orderData = [];
+  bool loading = true;
+  final ScrollController scrollController = ScrollController();
+  int page = 1;
+  bool hasMore = true;
 
   @override
   void initState() {
     super.initState();
-    _fetchOrders();
+    fetchOrders();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent && !_isLoadingMoreData && _hasMore) {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent && hasMore) {
         setState(() {
-          _isLoadingMoreData = true;
-          _page++;
+          page++;
         });
-        _fetchOrders();
+        fetchOrders();
       }
     });
   }
 
-  Future<void> _fetchOrders() async {
-    final response = await CheckOut().allDeliveredOrder("PRODUCT", "DELIVERED", _page, 5);
+  Future<void> fetchOrders() async {
+    final response = await CheckOut().allDeliveredOrder("PRODUCT", "DELIVERED", page, 5);
     if (response.isNotEmpty) {
       setState(() {
-        _orderData.addAll(response["data"]);
-        _loading = false;
-        _isLoadingMoreData = false;
-        _hasMore = true;
+        orderData.addAll(response["data"]);
+        loading = false;
+
+        hasMore = true;
       });
     } else {
       setState(() {
-        _hasMore = false;
-        _loading = false;
-        _isLoadingMoreData = false;
-        _hasMore = false;
+        loading = false;
+        hasMore = false;
       });
     }
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -67,13 +62,13 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: _loading
+      body: loading
           ? const Center(
         child: CircularProgressIndicator(
           color: Colors.blue,
         ),
       )
-          : _orderData.isEmpty
+          : orderData.isEmpty
           ? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -98,20 +93,20 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
           : Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
         child: ListView.builder(
-          controller: _scrollController,
-          itemCount: _orderData.length + (_hasMore ? 1 : 0),
+          controller: scrollController,
+          itemCount: orderData.length + (hasMore ? 1 : 0),
           itemBuilder: (context, index) {
-            if (index == _orderData.length && _hasMore) {
+            if (index == orderData.length && hasMore ) {
               return const Center(
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),
               );
             } else {
-              final order = _orderData[index];
+
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesName.deliveredOderDetail, arguments: order);
+                  Navigator.pushNamed(context, RoutesName.deliveredOderDetail, arguments: orderData[index]);
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: size.height * 0.015),
@@ -135,7 +130,7 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AutoSizeText(
-                                  "Order_ID-${order["order_id"]}",
+                                  "Order_ID-${orderData[index]["order_id"]}",
                                   style: GoogleFonts.cabin(
                                     color: Colors.black87,
                                     fontSize: size.height * 0.018,
@@ -143,7 +138,7 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
                                   ),
                                 ),
                                 AutoSizeText(
-                                  "${order["createdAt"].toString().split("T")[0]} - ${(order["createdAt"].toString().split("T")[1]).split(".")[0]}",
+                                  "${orderData[index]["createdAt"].toString().split("T")[0]} - ${(orderData[index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
                                   style: GoogleFonts.cabin(
                                     color: Colors.black87,
                                     fontSize: size.height * 0.017,
@@ -157,7 +152,7 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
                         Row(
                           children: [
                             AutoSizeText(
-                              "${order["delivery_type"]}",
+                              "${orderData[index]["delivery_type"]}",
                               style: GoogleFonts.cabin(
                                 color: Colors.black87,
                                 fontSize: size.height * 0.018,
