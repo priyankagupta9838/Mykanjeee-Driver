@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../api/checkout.dart';
+import '../../constrant.dart';
 import '../../routes/routesname.dart';
 
 class DeliveredOrder extends StatefulWidget {
@@ -37,19 +38,17 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
 
   Future<void> fetchOrders() async {
     final response = await CheckOut().allDeliveredOrder("PRODUCT", "DELIVERED", page, 5);
-    if (response.isNotEmpty) {
-      setState(() {
+    setState(() {
+      loading = false;
+      if (response.isNotEmpty) {
         orderData.addAll(response["data"]);
-        loading = false;
-
-        hasMore = true;
-      });
-    } else {
-      setState(() {
-        loading = false;
+        if (response["data"].length < 5) {
+          hasMore = false;
+        }
+      } else {
         hasMore = false;
-      });
-    }
+      }
+    });
   }
 
   @override
@@ -62,7 +61,11 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: loading
+      body:
+      userModel["is_active"]==1
+      ?
+
+      loading
           ? const Center(
         child: CircularProgressIndicator(
           color: Colors.blue,
@@ -169,6 +172,17 @@ class _DeliveredOrderState extends State<DeliveredOrder> {
               );
             }
           },
+        ),
+      )
+
+      :
+      SizedBox(
+        height: size.height*1,
+        child: Center(
+          child: AutoSizeText("You are Not Active",style: GoogleFonts.cabin(
+              fontWeight: FontWeight.w600,
+              fontSize: size.height*0.03
+          ),),
         ),
       ),
     );

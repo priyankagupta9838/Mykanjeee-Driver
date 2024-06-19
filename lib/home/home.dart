@@ -324,7 +324,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: size.height*1,
                   child: Center(
-                    child: AutoSizeText("Not Active",style: GoogleFonts.cabin(
+                    child: AutoSizeText("You are Not Active",style: GoogleFonts.cabin(
                         fontWeight: FontWeight.w600,
                         fontSize: size.height*0.03
                     ),),
