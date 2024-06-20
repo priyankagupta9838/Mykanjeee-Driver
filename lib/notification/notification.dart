@@ -33,7 +33,6 @@ class NotificationPage extends StatelessWidget {
         builder: (context, snapshot) {
           if(snapshot.hasData){
             var data=jsonDecode(snapshot.data!.body);
-            print("data isss $data");
             return snapshot.data?.statusCode==200
                 ?
             Padding(
@@ -81,7 +80,7 @@ class NotificationPage extends StatelessWidget {
 
                                         ),
                                         AutoSizeText(
-                                          "${data["data"][index]["description"].toString()}}",
+                                          data["data"][index]["description"].toString(),
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87,
                                               fontSize: size.height*0.018
