@@ -119,7 +119,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500

@@ -13,7 +13,6 @@ class Authentication{
 
   Future<String> signUpNewUser(String name, String email,
       String password,) async {
-    print("called...$name");
     String value="";
     bool isPhoneNumber=false;
     try{
@@ -43,7 +42,6 @@ class Authentication{
         },
       );
       var result=jsonDecode(response.body);
-      print("resylte is ${result}");
       if(result["status"]=="success"){
         value="success";
         final box = GetStorage();
@@ -74,10 +72,6 @@ class Authentication{
     String value="";
 
     try{
-      // Map data = {
-      //   "userId": userId
-      // };
-
 String body = json.encode({
         "userId": userId
       });
@@ -92,7 +86,6 @@ String body = json.encode({
         },
       );
       var result=jsonDecode(response.body);
-      print("resylte is $result");
       if(result["status"]=="success"){
         value="success";
       }
@@ -112,7 +105,6 @@ String body = json.encode({
     String loginValue = "";
     final box = GetStorage();
     String userId=box.read("user_id").toString();
-    print("useris is $userId") ;
     Map data = {
       "userId":userId,
       "otp": otp,
@@ -133,14 +125,11 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
-      print("Result is ...////////$result");
       if (result["status"] == "success") {
-        print("sucess");
         final box = GetStorage();
 
         box.write("user_id", result["userDetails"]["id"].toString());
         userId=box.read("user_id");
-        print(userId);
         loginValue = "success";
       } else {
         loginValue = result["message"];
@@ -200,10 +189,8 @@ String body = json.encode({
       var response = await request.send().timeout(const Duration( seconds: 60));
       var responseMessage = await response.stream.bytesToString();
       var responseData = jsonDecode(responseMessage);
-      print("responce data is $responseData");
       if (responseData["status"]=="success") {
         result="success";
-        print("Successs.......");
       } else {
 
         result=responseData["message"];
@@ -235,7 +222,6 @@ String body = json.encode({
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.login;
-
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -247,8 +233,6 @@ String body = json.encode({
         },
       );
       var result = jsonDecode(response.body);
-           print(result);
-           print(result);
       if (result["status"] == "success") {
 
         final box = GetStorage();
@@ -300,12 +284,6 @@ String body = json.encode({
 
   Future<String> loginWithOtp(String email) async {
     String loginValue = "";
-    bool isPhoneNumber = false;
-    if (email == null) {
-      isPhoneNumber = false;
-    } else {
-      isPhoneNumber = double.tryParse(email) != null;
-    }
     Map data = {
       "username": email,
     };
@@ -325,7 +303,6 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
-        print("Result is ...$result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {
@@ -366,7 +343,6 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
-      print("Result is ...$result");
       if (result["status"] == "success") {
         final box = GetStorage();
         box.write("UserToken", result["data"]["access_token"]);
@@ -392,12 +368,6 @@ String body = json.encode({
 
   Future<String> forgotPassword(String email) async {
     String loginValue = "";
-    bool isPhoneNumber = false;
-    if (email == null) {
-      isPhoneNumber = false;
-    } else {
-      isPhoneNumber = double.tryParse(email) != null;
-    }
     Map data = {
       "username":email,
     };
@@ -417,7 +387,6 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
-      print("Result is ...$result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {
@@ -436,12 +405,6 @@ String body = json.encode({
 
   Future<String> forgotPasswordVerification(String email,String otp,String newPassword,String confirmPassword) async {
     String loginValue = "";
-    bool isPhoneNumber = false;
-    if (email == null) {
-      isPhoneNumber = false;
-    } else {
-      isPhoneNumber = double.tryParse(email) != null;
-    }
     Map data = {
       "username": email,
       "otp": otp,
@@ -464,7 +427,6 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
-      print("Result is ...$result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {
@@ -502,7 +464,6 @@ String body = json.encode({
       },
     ).then((value) {
       var result = jsonDecode(value.body);
-      print("result is $result");
       if (result["status"] == "success") {
         loginValue = "success";
       } else {

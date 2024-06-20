@@ -103,7 +103,7 @@ class _RejectedOrderDetailState extends State<RejectedOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.019,
                       fontWeight: FontWeight.w500

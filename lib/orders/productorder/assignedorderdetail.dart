@@ -25,7 +25,6 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("${widget.data["order_details"]}");
   }
   @override
   Widget build(BuildContext context) {
@@ -114,7 +113,7 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"])}",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"])}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500

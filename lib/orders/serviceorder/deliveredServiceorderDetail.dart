@@ -101,7 +101,7 @@ class _DeliveredServiceOrderDetailState extends State<DeliveredServiceOrderDetai
                       fontWeight: FontWeight.w500
                   ),),
 
-                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]+ widget.data["order_data"]["total_shipping"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
+                  AutoSizeText("Rs.${(widget.data["order_data"]["total_amount"]).toStringAsFixed(2).toString()}",style: GoogleFonts.openSans(
                       color: Colors.black87,
                       fontSize: size.height*0.022,
                       fontWeight: FontWeight.w500
@@ -219,34 +219,6 @@ class _DeliveredServiceOrderDetailState extends State<DeliveredServiceOrderDetai
               SizedBox(
                 height: size.height*0.023,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Special Instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black54,
-              //         fontSize: size.height*0.019,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: size.height*0.017,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     AutoSizeText("Delivery_special_instructions",style: GoogleFonts.openSans(
-              //         color: Colors.black87,
-              //         fontSize: size.height*0.02,
-              //         fontWeight: FontWeight.w500
-              //     ),),
-              //
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: size.height*0.03,
-              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
