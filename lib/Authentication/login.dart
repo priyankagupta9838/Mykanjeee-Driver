@@ -213,18 +213,17 @@ class _LogInPageState extends State<LogInPage> {
                       onTap: () async {
 
                             if(!buttonClicked){
-
                               if(email.text.trim().toString().isNotEmpty && password.text.trim().isNotEmpty){
                                 buttonClicked=true;
                                 setState(() {
 
                                 });
-                                print("loguin");
                                 await Authentication().loginUser(email.text,password.text).then((value) async {
-                                  if(value=="success")
-                                  {
+                                  if(value["status"]=="success")
 
-                                    await Authentication().getUser().then((value){
+                                  {
+                                    if(value["data"]["userId"]==null){
+                                      await Authentication().getUser().then((value){
 
                                         if(value=="success"){
                                           Navigator.pushNamedAndRemoveUntil(context, RoutesName.navigationBar, (route) => false).whenComplete(() async {
@@ -241,25 +240,32 @@ class _LogInPageState extends State<LogInPage> {
                                           });
                                         }
 
-                                    });
-                                    await NotificationServices().getToken().then((value) async {
-                                      if(value!.isNotEmpty){
-                                        print("Device token is..... : $value");
-                                        await Authentication().sendDeviceToken(value).then((value2) {
-                                          if(value2=="success"){
-                                            print("Device token is : $value");
-                                          }
-                                          else{
-                                            print("else condition${value2.toString()}");
-                                          }
+                                      });
+                                      await NotificationServices().getToken().then((value) async {
+                                        if(value!.isNotEmpty){
+                                          print("Device token is..... : $value");
+                                          await Authentication().sendDeviceToken(value).then((value2) {
+                                            if(value2=="success"){
+                                              print("Device token is : $value");
+                                            }
+                                            else{
+                                              print("else condition${value2.toString()}");
+                                            }
 
-                                        });
-                                      }
-                                    });
+                                          });
+                                        }
+                                      });
+
+                                    }
+                                    else{
+                                      Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+                                    }
+
+
 
 
                                   }
-                                  else if(value=="Server Error.")
+                                  else if(value["status"]=="Server Error.")
                                   {
                                     buttonClicked=false;
                                     setState(() {

@@ -206,8 +206,8 @@ String body = json.encode({
 
 
 
-  Future<String> loginUser(String email, String password) async {
-    String loginValue = "";
+  Future<Map<String ,dynamic>> loginUser(String email, String password) async {
+    Map<String ,dynamic> loginValue = {};
 
     bool isPhoneNumber = false;
     if (email == null) {
@@ -222,6 +222,7 @@ String body = json.encode({
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.login;
+
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -232,7 +233,51 @@ String body = json.encode({
           "Access-Control-Allow-Origin": "*"
         },
       );
+
       var result = jsonDecode(response.body);
+      print('Login response: $result');
+
+      if (result["status"] == "success" && result["message"]=="Login successfull." ) {
+        final box = GetStorage();
+        box.remove("UserToken");
+        box.write("UserToken", result["data"]["access_token"]);
+        // box.write("refreshToken", result["refreshToken"]);
+        loginValue=result;
+        userToken=box.read("UserToken");
+        print(userToken);
+      }
+      else if( result["status"] == "success" && result["data"]!=null && result["data"]["userId"]!=null ){
+        final box = GetStorage();
+        box.remove("user_id");
+        box.write("user_id", result["data"]["userId"]);
+        return result;
+
+      }
+      else {
+        loginValue = result;
+      }
+    }
+    on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue["status"] = "Please check your internet.";
+    } catch (e) {
+      print('Error issi: $e');
+      loginValue["status"] = "An error occurred.";
+    }
+
+
+   /* try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+      var result = jsonDecode(response.body);
+      print(result);
       if (result["status"] == "success") {
 
         final box = GetStorage();
@@ -251,7 +296,7 @@ String body = json.encode({
       print('Error: $e');
       loginValue = "An error occurred.";
     }
-
+*/
     return loginValue;
   }
 
@@ -282,14 +327,16 @@ String body = json.encode({
 
 
 
-  Future<String> loginWithOtp(String email) async {
-    String loginValue = "";
+  Future<Map<String ,dynamic>> loginWithOtp(String email) async {
+    Map<String ,dynamic> loginValue = {};
     Map data = {
       "username": email,
     };
 
     String body = json.encode(data);
     var url = ApiList.baseUrl+ApiList.loginWithOtp;
+
+
 
     try {
       var response = await http.post(
@@ -303,6 +350,50 @@ String body = json.encode({
       );
 
       var result = jsonDecode(response.body);
+      print('Login response: $result');
+
+      if (result["status"] == "success" && result["message"]=="Login successfull." ) {
+        final box = GetStorage();
+        box.remove("UserToken");
+        box.write("UserToken", result["data"]["access_token"]);
+        // box.write("refreshToken", result["refreshToken"]);
+        loginValue=result;
+        userToken=box.read("UserToken");
+        print(userToken);
+      }
+      else if( result["status"] == "success" && result["data"]!=null && result["data"]["userId"]!=null ){
+        final box = GetStorage();
+        box.remove("user_id");
+        box.write("user_id", result["data"]["userId"]);
+        return result;
+
+      }
+      else {
+        loginValue = result;
+      }
+    }
+    on SocketException catch (e) {
+      print('SocketException: $e');
+      loginValue["status"] = "Please check your internet.";
+    } catch (e) {
+      print('Error issi: $e');
+      loginValue["status"] = "An error occurred.";
+    }
+
+
+    /*try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+      );
+
+      var result = jsonDecode(response.body);
+      print(result);
       if (result["status"] == "success") {
         loginValue = "success";
       } else {
@@ -314,7 +405,7 @@ String body = json.encode({
     } catch (e) {
       print('Error: $e');
       loginValue = "An error occurred.";
-    }
+    }*/
 
     return loginValue;
   }

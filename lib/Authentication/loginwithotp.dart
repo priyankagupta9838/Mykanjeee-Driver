@@ -124,20 +124,32 @@ class _LogInWithOtpState extends State<LogInWithOtp> {
 
                         });
                         await Authentication().loginWithOtp(phoneNumber.text).then((value) {
-                          if(value=="success"){
-                            Navigator.pushReplacementNamed(context, RoutesName.loginWithOtpVerification,arguments:phoneNumber.text.toString() );
+                          if(value["status"]=="success")
+
+                          {
+                            if(value["message"]=="OTP created and sent to you on (${phoneNumber.text.toString()})."){
+
+                              Navigator.pushReplacementNamed(context, RoutesName.loginWithOtpVerification,arguments:phoneNumber.text.toString() );
+
+                            }
+                            else{
+                              UtilityFunctions().errorToast(value["message"].toString());
+                              Navigator.pushNamedAndRemoveUntil(context, RoutesName.setupProfile, (route) => false);
+                            }
 
                           }
+                          /* if(value=="success"){
+                            Navigator.pushReplacementNamed(context, RoutesName.loginWithOtpVerification,arguments:phoneNumber.text.toString() );
+
+                          }*/
                           else{
                             buttonClicked=false;
                             setState(() {
 
                             });
-                            UtilityFunctions().errorToast(value.toString());
+                            UtilityFunctions().errorToast(value["message"].toString());
                           }
                         });
-
-
 
                       }
                       else{
