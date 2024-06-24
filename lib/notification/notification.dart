@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mykanjeedriver/utils/theamscolors.dart';
-
+import 'package:intl/intl.dart';
 import '../api/notification.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -52,26 +52,33 @@ class NotificationPage extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: data["data"].length,
                         itemBuilder:(context, index) {
+                          DateTime createdAt = DateTime.parse(data["data"][index]["createdAt"]);
+                          DateTime now = DateTime.now();
+                          String formattedDate;
 
+                          if (createdAt.year == now.year && createdAt.month == now.month && createdAt.day == now.day) {
+                            formattedDate = "Today";
+                          } else {
+                            formattedDate = DateFormat('EEEE, MMM d, yyyy h:mm a').format(createdAt);
+                          }
                           return  Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Stack(
                               children: [
                                 Container(
-                                  height: size.height*0.15,
-                                  width: size.width,
+
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade200,
                                       borderRadius: BorderRadius.all(Radius.circular(size.height*0.02))
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(size.height*0.02),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 
                                         AutoSizeText(
-                                          data['data'][index]["createdAt"].toString().split("T")[0],
+                                          formattedDate,
                                           style: GoogleFonts.cabin(
                                               color: Colors.black87,
                                               fontSize: size.height*0.018,

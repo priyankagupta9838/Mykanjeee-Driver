@@ -143,7 +143,13 @@ class _DeliveredServiceOrderState extends State<DeliveredServiceOrder> {
                                   ),
                                 ),
                                 AutoSizeText(
-                                  "${orderData[index]["createdAt"].toString().split("T")[0]} - ${(orderData[index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
+                                  orderData[index]["order_data"]["time_slot"].toString().isNotEmpty
+
+                                      ?
+                                  orderData[index]["order_data"]["time_slot"].toString()
+                                      :
+                                  "Day",
+                                  //"${orderData[index]["createdAt"].toString().split("T")[0]} - ${(orderData[index]["createdAt"].toString().split("T")[1]).split(".")[0]}",
                                   style: GoogleFonts.cabin(
                                     color: Colors.black87,
                                     fontSize: size.height * 0.017,
