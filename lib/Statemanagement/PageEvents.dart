@@ -71,3 +71,13 @@ abstract class RejectedServiceEvent{}
 class RejectedServiceUpdateEvent extends RejectedServiceEvent{}
 
 class InitialEventOfRejectedService extends RejectedServiceEvent{}
+
+
+
+
+
+abstract class NotificationEvent{}
+
+class UpdateNotificationEvent extends NotificationEvent{}
+
+class InitialEventOfNotification extends NotificationEvent{}

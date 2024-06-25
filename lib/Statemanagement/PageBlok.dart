@@ -94,3 +94,11 @@ class RejectedServiceBlo extends Bloc<RejectedServiceEvent,RejectedServiceState>
 }
 
 
+
+
+class NotificationBlo extends Bloc<NotificationEvent,NotificationState> {
+  NotificationBlo() : super(InitStateOfNotification()) {
+    on<UpdateNotificationEvent>((event, emit) => emit(UpdateNotificationState()));
+    on<InitialEventOfNotification>((event, emit) => emit(InitStateOfNotification()));
+  }
+}

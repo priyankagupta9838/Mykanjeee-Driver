@@ -68,3 +68,11 @@ abstract class RejectedServiceState{}
 class InitStateOfRejectedService extends RejectedServiceState{}
 
 class RejectedServiceUpdateState extends RejectedServiceState{}
+
+
+
+abstract class NotificationState{}
+
+class InitStateOfNotification extends NotificationState{}
+
+class UpdateNotificationState extends NotificationState{}

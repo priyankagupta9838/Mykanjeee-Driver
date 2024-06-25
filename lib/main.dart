@@ -94,6 +94,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AcceptedOrderBlo>(
           create: (BuildContext context) =>AcceptedOrderBlo(),
         ),
+
+        BlocProvider<NotificationBlo>(
+          create: (BuildContext context) =>NotificationBlo(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

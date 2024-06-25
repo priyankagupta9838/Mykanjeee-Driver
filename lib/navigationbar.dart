@@ -34,7 +34,7 @@ class _NavigationState extends State<Navigation> {
         children: const [
           HomePage(),
           MyOrders(),
-          NotificationPage(),
+          Notifications(),
         ],
       ),
       bottomNavigationBar: Container(
