@@ -208,12 +208,10 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
 
                     width: size.width*0.8,
                     child: AutoSizeText(
-                      widget.data["delivery_type"]=="DELIVERY"?
-
-                      widget.data["delivery_address"].toString()
-
-
-                      :
+                      // widget.data["delivery_type"]=="DELIVERY"?
+                      //
+                      // widget.data["delivery_address"].toString()
+                      // :
                       widget.data["pickup_address"].toString()
                       ,style: GoogleFonts.openSans(
                         color: Colors.black54,
@@ -428,17 +426,15 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                               if(errorController.text.isNotEmpty){
                                 buttonClick=true;
                                 setState(() {
-
                                 });
                                 CheckOut().rejectOrderByDriver(widget.data["order_data"]["id"],errorController.text).then((value) {
                                   if(value=="success"){
                                     // BlocProvider.of<AssignedServiceBlo>(context).add(AssignedServiceUpdateEvent());
 
-
                                     UtilityFunctions().successToast("Order Rejected Successfully");
                                     Navigator.pop(context);
-                                    serviceOrderPageController.jumpToPage(1);
-
+                                    serviceOrderPageController.jumpToPage(1
+                                    );
                                   }else{
                                     UtilityFunctions().successToast(value.toString());
 
@@ -466,7 +462,7 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
 
                                   UtilityFunctions().successToast("Order Accepted Successfully");
                                   Navigator.pop(context);
-                                  serviceOrderPageController.jumpToPage(4);
+                                  serviceOrderPageController.jumpToPage(1);
 
                                 }else{
                                   UtilityFunctions().successToast(value.toString());

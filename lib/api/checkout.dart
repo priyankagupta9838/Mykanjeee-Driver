@@ -471,7 +471,7 @@ class CheckOut{
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
-          if (jsonResponse["code"].toString() == "200") {
+          if (jsonResponse["status"] == "success") {
             responcValue = jsonResponse;
             return responcValue;
           }

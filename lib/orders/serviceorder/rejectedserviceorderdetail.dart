@@ -187,12 +187,12 @@ class _RejectedServiceOrderDetailState extends State<RejectedServiceOrderDetail>
                   SizedBox(
                     width: size.width*0.8,
                     child: AutoSizeText(
-                      widget.data["delivery_type"]=="DELIVERY"?
-
-                      widget.data["delivery_address"].toString()
-
-
-                          :
+                      // widget.data["delivery_type"]=="DELIVERY"?
+                      //
+                      // widget.data["delivery_address"].toString()
+                      //
+                      //
+                      //     :
                       widget.data["pickup_address"].toString()
                       ,style: GoogleFonts.openSans(
                         color: Colors.black54,

@@ -186,13 +186,13 @@ class _DeliveredServiceOrderDetailState extends State<DeliveredServiceOrderDetai
                   SizedBox(
                     width: size.width*0.8,
                     child: AutoSizeText(
-                      widget.data["delivery_type"]=="DELIVERY"?
+                      // widget.data["delivery_type"]=="DELIVERY"?
 
                       widget.data["delivery_address"].toString()
 
 
-                          :
-                      widget.data["pickup_address"].toString()
+                      //     :
+                      // widget.data["pickup_address"].toString()
                       ,style: GoogleFonts.openSans(
                         color: Colors.black54,
 
