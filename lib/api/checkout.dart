@@ -255,7 +255,7 @@ class CheckOut{
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
-          if (jsonResponse["code"].toString() == "200") {
+          if (jsonResponse["status"] == "success") {
             responcValue = jsonResponse;
             return responcValue;
           }
@@ -328,7 +328,7 @@ class CheckOut{
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
-          if (jsonResponse["code"].toString() == "200") {
+          if (jsonResponse["status"] == "success") {
             responcValue = jsonResponse;
             return responcValue;
           }
@@ -365,7 +365,7 @@ class CheckOut{
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
-          if (jsonResponse["code"].toString() == "200") {
+          if (jsonResponse["status"] == "success") {
             responcValue = jsonResponse;
             return responcValue;
           }
@@ -401,7 +401,7 @@ class CheckOut{
       if (value.body != null) {
         try {
           var jsonResponse = json.decode(value.body);
-          if (jsonResponse["code"].toString() == "200") {
+          if (jsonResponse["status"] == "success") {
             responcValue = jsonResponse;
             return responcValue;
           }
@@ -522,9 +522,6 @@ class CheckOut{
 
   Future<Map<String,dynamic>> recentActivity() async {
     Map<String , dynamic> responcValue = {};
-
-
-
     await http.post(
       Uri.parse(ApiList.baseUrl+ApiList.recentActivity),
       headers: {
@@ -549,6 +546,72 @@ class CheckOut{
   }
 
 
+  Future<Map<String,dynamic>> allAcceptedOrderCount() async {
+    Map<String , dynamic> responcValue = {};
+    Map data = {
+      "product_or_quote": "PRODUCT",
+      "order_status": "ACCEPTED",
+
+    };
+
+    String body = json.encode(data);
+    await http.post(
+      Uri.parse(ApiList.baseUrl+ApiList.allAssignedOrder),
+      body: body,
+      headers: {
+        "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    ).then((value) {
+      if (value.body != null) {
+        try {
+          var jsonResponse = json.decode(value.body);
+          if (jsonResponse["status"] == "success") {
+            responcValue = jsonResponse;
+            return responcValue;
+          }
+        } catch (error) {
+          print("eroor is .........$error");
+        }
+        return responcValue;
+      }});
+    return responcValue;
+  }
+  Future<Map<String,dynamic>> allDropOffOrderCount() async {
+    Map<String , dynamic> responcValue = {};
+    Map data = {
+      "product_or_quote": "QUOTE",
+      "order_status": "COLLECTED",
+
+    };
+
+    String body = json.encode(data);
+    await http.post(
+      Uri.parse(ApiList.baseUrl+ApiList.allAssignedOrder),
+      body: body,
+      headers: {
+        "authorization":userToken,
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    ).then((value) {
+      if (value.body != null) {
+        try {
+          var jsonResponse = json.decode(value.body);
+          if (jsonResponse["status"] == "success") {
+            responcValue = jsonResponse;
+            return responcValue;
+          }
+        } catch (error) {
+          print("eroor is .........$error");
+        }
+        return responcValue;
+      }});
+    return responcValue;
+  }
 
 
 

@@ -207,12 +207,12 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
 
                     width: size.width*0.8,
                     child: AutoSizeText(
-                      widget.data["delivery_type"]=="DELIVERY"?
-
-                      widget.data["delivery_address"].toString()
-
-
-                          :
+                      // widget.data["delivery_type"]=="DELIVERY"?
+                      //
+                      // widget.data["delivery_address"].toString()
+                      //
+                      //
+                      //     :
                       widget.data["pickup_address"].toString()
                       ,style: GoogleFonts.openSans(
                         color: Colors.black54,
@@ -494,10 +494,7 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                                           }
 
                                         });
-
-
-                                        print(
-                                            "Embesimemt path : ${value.path.toString()}");
+                                        print("Embesimemt path : ${value.path.toString()}");
                                       } else {
                                         UtilityFunctions().errorToast(
                                             "Image has large size.");
@@ -534,7 +531,6 @@ class _PickUpOrderDetailState extends State<PickUpOrderDetail> {
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(size.height*0.01))),
                           backgroundColor:ThemColors.buttonColor
-
 
                       ),
                       onPressed: () {

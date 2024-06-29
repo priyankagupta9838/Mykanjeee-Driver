@@ -215,7 +215,6 @@ class _AssignedServiceOrderDetailState extends State<AssignedServiceOrderDetail>
                       widget.data["pickup_address"].toString()
                       ,style: GoogleFonts.openSans(
                         color: Colors.black54,
-
                         fontSize: size.height*0.019,
                         fontWeight: FontWeight.w500
                     ),

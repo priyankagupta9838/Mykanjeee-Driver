@@ -279,7 +279,7 @@ class _LogInPageState extends State<LogInPage> {
                                     setState(() {
 
                                     });
-                                    UtilityFunctions().errorToast( value.toString());
+                                    UtilityFunctions().errorToast(value["message"].toString());
                                   }
 
                                 });

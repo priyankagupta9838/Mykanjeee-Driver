@@ -200,10 +200,8 @@ class _AssignedOrderDetailState extends State<AssignedOrderDetail> {
                   SizedBox(
                     width: size.width*0.8,
                     child: AutoSizeText(
-
                       "${widget.data["delivery_address"]}",style: GoogleFonts.openSans(
                         color: Colors.black54,
-
                         fontSize: size.height*0.019,
                         fontWeight: FontWeight.w500
                     ),

@@ -525,7 +525,6 @@ class _DropOffOrderDetailState extends State<DropOffOrderDetail> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(size.height*0.01))),
                       backgroundColor:ThemColors.buttonColor
 
-
                   ),
                   onPressed: () {
 

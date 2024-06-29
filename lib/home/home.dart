@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   final scrollController=ScrollController();
   bool isLoadingMoreData=false;
   int page=1;
+  late num count=0;
 
 
   @override
@@ -36,6 +37,25 @@ class _HomePageState extends State<HomePage> {
     CheckOut().recentActivity().then((value) {
       if(value.isNotEmpty){
         data=data+value["data"];
+        CheckOut().allAcceptedOrderCount().then((value2) {
+
+          if(value2.isNotEmpty && value2["status"]=="success"){
+            count=count+value2["data"].length;
+            setState(() {
+
+            });
+          }
+
+        });
+        CheckOut().allDropOffOrderCount().then((value3) {
+          if(value3.isNotEmpty && value3["status"]=="success"){
+            count=count+value3["data"].length;
+            setState(() {
+            });
+          }
+
+        });
+
         loading=false;
         setState(() {
         });
@@ -123,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     AutoSizeText(
-                                      "4",
+                                      "$count",
                                       style: GoogleFonts.cabin(color: Colors.white),
                                     ),
                                     AutoSizeText(
